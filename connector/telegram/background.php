@@ -4,10 +4,11 @@ require __DIR__ . "/../../vendor/autoload.php";
 require __DIR__ . "/../../config/telegram/main.php";
 
 $app = new \Bot\Telegram\Bot(
-		urldecode(
-			json_decode(
+		json_decode(
+			urldecode(
 				$argv[1]
-			)
+			),
+			true
 		)
 	);
 $app->buildEvent();

@@ -2,6 +2,8 @@
 
 namespace Bot\Telegram;
 
+use Bot\Telegram\Events\EventRecognition;
+
 final class Bot
 {
 
@@ -20,8 +22,12 @@ final class Bot
 		$this->input = $input;
 	}
 
+	/**
+	 * Build current event.
+	 */
 	public function buildEvent()
 	{
+		$this->input = new EventRecognition($this->input);
 	}
 
 	/**
