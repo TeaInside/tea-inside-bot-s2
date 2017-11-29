@@ -4,6 +4,9 @@
  */
 
 
+define("BASEPATH", realpath(__DIR__ . "/../.."));
+define("LOG_DIR", BASEPATH."/logs/telegram");
+
 /**
  * MySQL Database
  */
