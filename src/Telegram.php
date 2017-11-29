@@ -1,5 +1,7 @@
 <?php
 
+use Stacks\Telegram\BackgroundProcess;
+
 /**
  * @author Ammar Faizi <ammarfaizi2@gmail.com> https://www.facebook.com/ammarfaizi2
  * @license MIT
@@ -7,6 +9,12 @@
  */
 class Telegram
 {
+
+    public static function bg()
+    {
+        return new BackgroundProcess;
+    }
+
     /**
      * @param string $method
      * @param array  $parameters
@@ -15,14 +23,14 @@ class Telegram
     public static function __callStatic($method, $parameters)
     {
         if (isset($parameters[1]) && $parameters[1] === "GET") {
-            $ch = curl_init("https://api.telegram.org/bot".TOKEN."/".$method."?".http_build_query($method));
+            $ch = curl_init("https://api.telegram.org/bot" . TOKEN . "/" . $method . "?" . http_build_query($method));
             $opt = [
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_SSL_VERIFYPEER => false,
                 CURLOPT_SSL_VERIFYHOST => false
             ];
         } else {
-            $ch = curl_init("https://api.telegram.org/bot".TOKEN."/".$method);
+            $ch = curl_init("https://api.telegram.org/bot" . TOKEN . "/" . $method);
             $opt = [
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_SSL_VERIFYPEER => false,
@@ -42,7 +50,7 @@ class Telegram
         curl_setopt_array($ch, $opt);
         $out = curl_exec($ch);
         $info = curl_getinfo($ch);
-        $err = curl_error($ch) and $out = "Error (".curl_errno($ch)."): ".$err;
+        $err = curl_error($ch) and $out = "Error (".curl_errno($ch)."): " . $err;
         return [
             "content" => $out,
             "info"    => $info
