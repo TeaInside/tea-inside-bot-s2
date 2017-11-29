@@ -48,7 +48,7 @@ print "/usr/bin/php " . __DIR__ . "/background.php \"" . urlencode($input) . "\"
 // $input = file_get_contents("php://input");
 
 shell_exec(
-	"/usr/bin/php " . __DIR__ . "/background.php \"" . urlencode($input) . "\">> " . TELEGRAM_LOG_DIR . "/background.out 2>&1 &"
+    "/usr/bin/php " . __DIR__ . "/background.php \"" . urlencode($input) . "\">> " . TELEGRAM_LOG_DIR . "/background.out 2>&1 &"
 );
 
 // debug input

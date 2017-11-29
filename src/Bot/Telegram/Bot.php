@@ -12,36 +12,36 @@ use Bot\Telegram\Events\EventRecognition;
 final class Bot
 {
 
-	/**
-	 * @var array
-	 */
-	public $input = [];
+    /**
+     * @var array
+     */
+    public $input = [];
 
-	/**
-	 * Constructor.
-	 *
-	 * @param array $input
-	 */
-	public function __construct($input)
-	{
-		$this->input = $input;
-	}
+    /**
+     * Constructor.
+     *
+     * @param array $input
+     */
+    public function __construct($input)
+    {
+        $this->input = $input;
+    }
 
-	/**
-	 * Build current event.
-	 */
-	public function buildEvent()
-	{
-		$this->input = new EventRecognition($this->input);
-	}
+    /**
+     * Build current event.
+     */
+    public function buildEvent()
+    {
+        $this->input = new EventRecognition($this->input);
+    }
 
-	/**
-	 *
-	 * @return bool
-	 */
-	public function run()
-	{
-		$response = new Response($this->input);
-		$response->action();
-	}
+    /**
+     *
+     * @return bool
+     */
+    public function run()
+    {
+        $response = new Response($this->input);
+        $response->action();
+    }
 }
