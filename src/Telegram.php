@@ -5,9 +5,8 @@
  * @license MIT
  * @package Telegram
  */
-
 class Telegram
-{	
+{
 	/**
 	 * @param string $method
 	 * @param array  $parameters
