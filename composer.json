@@ -12,6 +12,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.0.0",
+        "ext-pdo": "*",
         "ext-curl": "*",
         "phpunit/phpunit": "^6.4"
     },
