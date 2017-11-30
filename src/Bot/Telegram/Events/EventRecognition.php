@@ -42,6 +42,7 @@ class EventRecognition implements ArrayAccess
             $this['chat_id']    = $input['message']['chat']['id'];
             $this['chattype']   = $input['message']['chat']['type'];
             $this['chattitle']  = i($input['message']['chat']['title'], $this['name']);
+            $this['chatuname']  = i($input['message']['chat']['username']);
             $this['date']       = $input['message']['date'];
             $this['reply_to']   = i($input['message']['reply_to_message']);
             if (isset($input['message']['text'])) {

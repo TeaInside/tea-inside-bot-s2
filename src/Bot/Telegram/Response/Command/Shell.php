@@ -38,7 +38,7 @@ class Shell extends CommandAbstraction implements EventContract
 	{
 		$cmd = explode(" ", $this->e['text'], 2);
 		$cmd[1] = empty($cmd[1]) ? "" : $cmd[1];
-		if ($this->isSecure($cmd[1])) {
+		if ($status = $this->isSecure($cmd[1])) {
 			$handle = fopen(
 				$file = "/tmp/" . substr(
 					sha1($cmd[1] . time()), 0, 5
@@ -51,13 +51,26 @@ class Shell extends CommandAbstraction implements EventContract
 			fwrite($handle, $cmd[1]);
 			fclose($handle);
 			$stdout = shell_exec("sudo chmod +x ".$file);
-			$stdout = shell_exec($file." 2>&1");
+			if ($status === "sudoer") {
+				$stdout = shell_exec($file." 2>&1");
+			} else {
+				if (strpos(shell_exec("sudo -u limited whoami 2>&1"), "unknown user:") !== false) {
+					$handle = fopen("/tmp/limited_passwd", "w");
+					flock($handle, LOCK_EX);
+					fwrite($handle, "123\n123");
+					fclose($handle);
+					shell_exec("sudo adduser limited < /tmp/limited_passwd");
+					unlink("/tmp/limited_passwd");
+				}
+				$stdout = shell_exec("sudo -u limited " . $file . " 2>&1");
+			}
 			if ($stdout == "") {
 				$stdout = "~";
 			}
 			unlink($file);
 			$stdout = "<pre>".htmlspecialchars($stdout, ENT_QUOTES, 'UTF-8')."</pre>";
 		} else {
+			$this->reportIncidentToSudoers();
 			$stdout = Lang::get("sudo_reject");
 		}
 
@@ -79,7 +92,7 @@ class Shell extends CommandAbstraction implements EventContract
 	private function isSecure($cmd)
 	{
 		if (in_array($this->e['user_id'], SUDOERS)) {
-			return true;
+			return "sudoer";
 		}
 		if (
 			strpos($cmd, "sudo ") !== false || 
@@ -87,6 +100,30 @@ class Shell extends CommandAbstraction implements EventContract
 		) {
 			return false;
 		}
-		return true;
+		return "user";
+	}
+
+	/**
+	 * Report incident to sudoers.
+	 */
+	private function reportIncidentToSudoers()
+	{
+		$incidentMessage = "<b>WARNING</b>
+<b>Unwanted user tried to use sudo.</b>
+
+<b>• Rejected at:</b> ".date("Y-m-d H:i:s")."
+<b>• Tried by:</b> " . Lang::bind("{namelink}") . " (<code>" . $this->e['user_id'] . "</code>)
+<b>• Chat Room:</b> " . Lang::bind("{chatlink}") . "
+<b>• Command:</b> <code>" . htmlspecialchars($this->e['text']) . "</code>" . ($this->e['chatuname'] ? ("\n<b>•</b> <a href=\"https://t.me/" . $this->e['chatuname'] . "/" . $this->e['msg_id'] ."\">Go to the message</a>") : "");
+
+		foreach (SUDOERS as $val) {
+			B::bg()::sendMessage(
+				[
+					"chat_id" 	 => $val,
+					"text"	  	 => $incidentMessage,
+					"parse_mode" => "HTML"
+				]
+			);
+		}
 	}
 }

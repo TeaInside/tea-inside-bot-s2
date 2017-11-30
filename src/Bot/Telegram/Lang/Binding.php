@@ -56,7 +56,9 @@ class Binding
 				"{name}",
 				"{namelink}",
 				"{first_namelink}",
-				"{group_name}"
+				"{group_name}",
+				"{chat_title}",
+				"{chat_link}"
 			],
 			[
 				e($this->e['first_name']),
@@ -65,6 +67,12 @@ class Binding
 				"<a href=\"tg://user?id=".$this->e['user_id']."\">".e($this->e['name'])."</a>",
 				"<a href=\"tg://user?id=".$this->e['user_id']."\">".e($this->e['first_name'])."</a>",
 				e($this->e['chattitle']),
+				e($this->e['chattitle']),
+				(
+					$this->e['chatuname'] ? (
+						"<a href=\"https://t.me/" . $this->e['chatuname'] . "\">" . e($this->e['chattitle']) . "</a>"
+					) : "<code>" . e($this->e['chattitle']) . "</code>"
+				)
 			]
 		];
 	}
