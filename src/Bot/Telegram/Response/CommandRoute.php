@@ -12,19 +12,21 @@ trait CommandRoute
 {
     private function buildRoute()
     {
+
+        if (isset($this->e['text'])) {
+            $s = explode(" ", $this->e['text'], 2);
+        } else {
+            $s[0] = "";
+        }
+
         $this->set(
-            function () {
-                return true;
+            function () use ($st) {
+                return 
+                    $st[0] === "/start"||
+                    $st[0] === "!start"||
+                    $st[0] === "~start";
             },
-            function () {
-                B::sendMessage(
-                    [
-                        "chat_id" => $this->e['chat_id'],
-                        "text"  => "Ok"
-                    ]
-                );
-                return true;
-            }
+            "Start@start"
         );
     }
 }

@@ -3,6 +3,8 @@
 namespace Bot\Telegram;
 
 use Telegram as B;
+use Bot\Telegram\Lang;
+use Bot\Telegram\Events\User;
 use Bot\Telegram\Response\Command;
 use Bot\Telegram\Contracts\EventContract;
 use Bot\Telegram\Events\EventRecognition as Event;
@@ -27,6 +29,9 @@ class Response implements EventContract, ResponseContract
     public function __construct(Event $event)
     {
         $this->e = $event;
+        Lang::build(
+            new User($this->e)
+        );
     }
 
     /**
