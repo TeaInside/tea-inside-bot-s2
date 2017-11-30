@@ -15,6 +15,8 @@ trait CommandRoute
 
         if (isset($this->e['text'])) {
             $s = explode(" ", $this->e['text'], 2);
+            $s[0] = explode("@", $s[0]);
+            $s[0] = $s[0][0];
         } else {
             $s[0] = "";
         }
@@ -37,6 +39,17 @@ trait CommandRoute
                     $s[0] === "~help";
             },
             "Help@help"
+        );
+
+        $this->set(
+            function () use ($s) {
+                return
+                    $s[0] === "/sh"||
+                    $s[0] === "!sh"||
+                    $s[0] === "~sh"||
+                    $s[0] === "shexec";
+            },
+            "Shell@bash"
         );
     }
 }

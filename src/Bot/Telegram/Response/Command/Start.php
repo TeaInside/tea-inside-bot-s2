@@ -36,7 +36,7 @@ class Start extends CommandAbstraction implements EventContract
 	 */
 	public function start()
 	{
-		B::sendMessage(
+		return B::bg()::sendMessage(
 			[
 				"chat_id" 				=> $this->e['chat_id'],
 				"text"    				=> Lang::get("start"),

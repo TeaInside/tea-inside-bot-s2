@@ -51,20 +51,20 @@ class Binding
 	{
 		$this->replacer = [
 			[
-	"{first_name}",
-	"{last_name}",
-	"{name}",
-	"{namelink}",
-	"{first_namelink}",
-	"{group_name}"
+				"{first_name}",
+				"{last_name}",
+				"{name}",
+				"{namelink}",
+				"{first_namelink}",
+				"{group_name}"
 			],
 			[
-	e($this->e['first_name']),
-	e($this->e['last_name']),
-	e($this->e['name']),
-	"<a href=\"tg://user?id=".$this->e['user_id']."\">".e($this->e['name'])."</a>",
-	"<a href=\"tg://user?id=".$this->e['user_id']."\">".e($this->e['first_name'])."</a>",
-	e($this->e['chattitle']),
+				e($this->e['first_name']),
+				e($this->e['last_name']),
+				e($this->e['name']),
+				"<a href=\"tg://user?id=".$this->e['user_id']."\">".e($this->e['name'])."</a>",
+				"<a href=\"tg://user?id=".$this->e['user_id']."\">".e($this->e['first_name'])."</a>",
+				e($this->e['chattitle']),
 			]
 		];
 	}

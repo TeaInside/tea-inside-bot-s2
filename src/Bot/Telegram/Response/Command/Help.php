@@ -36,13 +36,13 @@ class Help extends CommandAbstraction implements EventContract
 	 */
 	public function help()
 	{
-		print B::sendMessage(
+		return B::bg()::sendMessage(
 			[
 				"chat_id" 				=> $this->e['chat_id'],
 				"text"    				=> Lang::get("help"),
 				"reply_to_message_id"	=> $this->e['msg_id'],
 				"parse_mode"			=> "HTML"
 			]
-		)['content'];
+		);
 	}
 }

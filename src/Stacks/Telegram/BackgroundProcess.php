@@ -14,7 +14,7 @@ class BackgroundProcess
     /**
      * @param string $method
      * @param array  $parameters
-     * @return array
+     * @return bool
      */
     public function __call($method, $parameters)
     {
@@ -25,9 +25,15 @@ class BackgroundProcess
     }
 
     /**
-     * Prevent set property.
+     * @param string $method
+     * @param array  $parameters
+     * @return bool
      */
-    private function __set()
+    public static function __callStatic($method, $parameters)
     {
+        shell_exec(
+            PHP_BINARY . " " . BASEPATH . "/connector/telegram/bridge_background.php " . urlencode($method) . " \"" . urlencode(json_encode($parameters)) . "\" >> /dev/null 2>&1 &"
+        );
+        return true;
     }
 }
