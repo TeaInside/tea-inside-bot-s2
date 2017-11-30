@@ -3,7 +3,7 @@
 require __DIR__ . "/../../vendor/autoload.php";
 require __DIR__ . "/../../config/telegram/main.php";
 
-$input = '{
+/*$input = '{
     "update_id": 952238819,
     "message": {
         "message_id": 2592,
@@ -39,12 +39,12 @@ $input = '{
             "date": 1511960832,
             "text": "ping"
         },
-        "text": "qweasasdasdf"
+        "text": "/start"
     }
-}';
+}';*/
 
-// $input = file_get_contents("php://input");
-// print "/usr/bin/php " . __DIR__ . "/background.php \"" . urlencode($input) . "\" >> " . TELEGRAM_LOG_DIR . "/background.out 2>&1 &";
+$input = file_get_contents("php://input");
+
 shell_exec(
     "/usr/bin/php " . __DIR__ . "/background.php \"" . urlencode($input) . "\" >> " . TELEGRAM_LOG_DIR . "/background.out 2>&1 &"
 );

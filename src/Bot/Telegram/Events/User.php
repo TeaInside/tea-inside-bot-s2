@@ -17,6 +17,14 @@ class User implements ArrayAccess
     private $container = [];
 
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this['lang'] = "id";
+    }
+
+    /**
      * @param string $offset
      * @param any    $value
      */

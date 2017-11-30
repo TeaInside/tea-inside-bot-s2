@@ -29,9 +29,7 @@ class Response implements EventContract, ResponseContract
     public function __construct(Event $event)
     {
         $this->e = $event;
-        Lang::build(
-            new User($this->e)
-        );
+        Lang::build(new User($this->e),$this->e);
     }
 
     /**

@@ -20,13 +20,23 @@ trait CommandRoute
         }
 
         $this->set(
-            function () use ($st) {
+            function () use ($s) {
                 return 
-                    $st[0] === "/start"||
-                    $st[0] === "!start"||
-                    $st[0] === "~start";
+                    $s[0] === "/start"||
+                    $s[0] === "!start"||
+                    $s[0] === "~start";
             },
             "Start@start"
+        );
+
+        $this->set(
+            function () use ($s) {
+                return 
+                    $s[0] === "/help"||
+                    $s[0] === "!help"||
+                    $s[0] === "~help";
+            },
+            "Help@help"
         );
     }
 }

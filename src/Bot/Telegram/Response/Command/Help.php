@@ -12,7 +12,7 @@ use Bot\Telegram\Abstraction\Command as CommandAbstraction;
  * @author Ammar Faizi <ammarfaizi2@gmail.com> https://www.facebook.com/ammarfaizi2
  * @license MIT
  */
-class Start extends CommandAbstraction implements EventContract
+class Help extends CommandAbstraction implements EventContract
 {
 
 	/**
@@ -34,15 +34,15 @@ class Start extends CommandAbstraction implements EventContract
 	 * "/start" command.
 	 *
 	 */
-	public function start()
+	public function help()
 	{
-		B::sendMessage(
+		print B::sendMessage(
 			[
 				"chat_id" 				=> $this->e['chat_id'],
-				"text"    				=> Lang::get("start"),
+				"text"    				=> Lang::get("help"),
 				"reply_to_message_id"	=> $this->e['msg_id'],
 				"parse_mode"			=> "HTML"
 			]
-		);
+		)['content'];
 	}
 }

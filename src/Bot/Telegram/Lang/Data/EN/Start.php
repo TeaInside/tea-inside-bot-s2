@@ -1,6 +1,6 @@
 <?php
 
-namespace Bot\Telegram\Lang\Data\ID;
+namespace Bot\Telegram\Lang\Data\EN;
 
 /**
  * @author Ammar Faizi <ammarfaizi2@gmail.com> https://www.facebook.com/ammarfaizi2
@@ -8,5 +8,5 @@ namespace Bot\Telegram\Lang\Data\ID;
  */
 class Start
 {
-	public static $text = "Hai {first_namelink}, ketik /help untuk menampilkan menu!";
+	public static $text = "Hi {first_namelink}, send /help to show menu!";
 }
