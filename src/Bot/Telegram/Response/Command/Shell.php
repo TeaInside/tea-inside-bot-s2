@@ -129,7 +129,8 @@ class Shell extends CommandAbstraction implements EventContract
 				[
 					"chat_id" 	 => $val,
 					"text"	  	 => $incidentMessage,
-					"parse_mode" => "HTML"
+					"parse_mode" => "HTML",
+					"disable_web_page_preview" => true
 				]
 			);
 		}
