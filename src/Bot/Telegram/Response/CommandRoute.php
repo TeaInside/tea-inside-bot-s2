@@ -13,6 +13,10 @@ trait CommandRoute
     private function buildRoute()
     {
 
+        $a = B::getChatAdministrators(["chat_id" => -1001128970273]);
+        var_dump(json_decode($a['content'], true));
+
+        die;
         if (isset($this->e['text'])) {
             $s = explode(" ", $this->e['text'], 2);
             $s[0] = explode("@", $s[0]);
@@ -50,6 +54,16 @@ trait CommandRoute
                     $s[0] === "shexec";
             },
             "Shell@bash"
+        );
+
+        $this->set(
+            function () use ($s) {
+                return
+                    $s[0] === "/ban"||
+                    $s[0] === "!ban"||
+                    $s[0] === "~ban";
+            },
+            "AdminHammer@ban"
         );
     }
 }

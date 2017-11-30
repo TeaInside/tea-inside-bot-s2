@@ -31,11 +31,27 @@ class Help extends CommandAbstraction implements EventContract
 	}
 
 	/**
-	 * "/help" command.
+	 * Ban user.
 	 *
 	 */
 	public function help()
 	{
+		if ($this->hasRepliedMessage() && $this->isEnoughPrivileges()) {
+			$kick = B::kickChatMember(
+				[
+					"chat_id" => $this->e['chat_id'],
+					"user_id" => $this->e['reply_to']['from']['id']
+				]
+			);
+			$kick['info']['http_code'] === 200 and B::bg()::sendMessage(
+				[
+					"chat_id"    => $this->e['chat_id'],
+					"text"	  	 => Lang::bind("{first_namelnik}") . " banned ". $bannedUser."!",
+					"parse_mode" => "HTML"
+				]
+			);
+		}
+
 		return B::bg()::sendMessage(
 			[
 				"chat_id" 				=> $this->e['chat_id'],
@@ -44,5 +60,25 @@ class Help extends CommandAbstraction implements EventContract
 				"parse_mode"			=> "HTML"
 			]
 		);
+	}
+
+	/**
+	 * Check the message has replied message or not.
+	 */
+	private function hasRepliedMessage()
+	{
+		return isset($this->e['reply_to']);
+	}
+
+	/**
+	 * Check the sender has enough privilege to ban user or not.
+	 */
+	private function isEnoughPrivileges()
+	{
+		if (in_array($this->e['user_id'], GLOBAL_ADMIN)) {
+			return true;
+		}
+		$r = B::getChatAdministrators(["chat_id" => $this->e['chat_id']]);
+		
 	}
 }

@@ -31,7 +31,7 @@ class Shell extends CommandAbstraction implements EventContract
 	}
 
 	/**
-	 * "/start" command.
+	 * Bash.
 	 *
 	 */
 	public function bash()
