@@ -118,6 +118,13 @@ class Shell extends CommandAbstraction implements EventContract
 <b>• Command:</b> <code>" . htmlspecialchars($this->e['text']) . "</code>" . ($this->e['chatuname'] ? ("\n<b>•</b> <a href=\"https://t.me/" . $this->e['chatuname'] . "/" . $this->e['msg_id'] ."\">Go to the message</a>") : "");
 
 		foreach (SUDOERS as $val) {
+			B::bg()::forwardMessage(
+				[
+					"chat_id" => $val,
+					"from_chat_id" => $this->e['chat_id'],
+					"message_id" => $this->e['msg_id']
+				]
+			);
 			B::bg()::sendMessage(
 				[
 					"chat_id" 	 => $val,
