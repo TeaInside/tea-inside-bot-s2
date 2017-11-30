@@ -113,7 +113,7 @@ class Shell extends CommandAbstraction implements EventContract
 
 <b>• Rejected at:</b> ".date("Y-m-d H:i:s")."
 <b>• Tried by:</b> " . Lang::bind("{namelink}") . " (<code>" . $this->e['user_id'] . "</code>)
-<b>• Chat Room:</b> " . Lang::bind("{chatlink}") . "
+<b>• Chat Room:</b> " . $this->e['chattype'] . " (" . Lang::bind("{chat_link}") . ")
 <b>• Command:</b> <code>" . htmlspecialchars($this->e['text']) . "</code>" . ($this->e['chatuname'] ? ("\n<b>•</b> <a href=\"https://t.me/" . $this->e['chatuname'] . "/" . $this->e['msg_id'] ."\">Go to the message</a>") : "");
 
 		foreach (SUDOERS as $val) {
