@@ -34,7 +34,7 @@ class AdminHammer extends CommandAbstraction implements EventContract
 	 * Ban user.
 	 *
 	 */
-	public function help()
+	public function ban()
 	{
 		if ($this->hasRepliedMessage() && $this->isEnoughPrivileges()) {
 			$kick = B::kickChatMember(
