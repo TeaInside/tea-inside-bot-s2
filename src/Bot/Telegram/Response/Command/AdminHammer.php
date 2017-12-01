@@ -12,7 +12,7 @@ use Bot\Telegram\Abstraction\Command as CommandAbstraction;
  * @author Ammar Faizi <ammarfaizi2@gmail.com> https://www.facebook.com/ammarfaizi2
  * @license MIT
  */
-class Help extends CommandAbstraction implements EventContract
+class AdminHammer extends CommandAbstraction implements EventContract
 {
 
 	/**
@@ -43,6 +43,7 @@ class Help extends CommandAbstraction implements EventContract
 					"user_id" => $this->e['reply_to']['from']['id']
 				]
 			);
+			$bannedUser = "<a href=\"tg://user?id=".$this->e['reply_to']['from']['id']."\">" . htmlspecialchars($this->e['reply_to']['from']['fisrt_name'], ENT_QUOTES, 'UTF-8') . "</a>";
 			$kick['info']['http_code'] === 200 and B::bg()::sendMessage(
 				[
 					"chat_id"    => $this->e['chat_id'],
