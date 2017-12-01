@@ -43,11 +43,11 @@ class AdminHammer extends CommandAbstraction implements EventContract
 					"user_id" => $this->e['reply_to']['from']['id']
 				]
 			);
-			$bannedUser = "<a href=\"tg://user?id=".$this->e['reply_to']['from']['id']."\">" . htmlspecialchars($this->e['reply_to']['from']['fisrt_name'], ENT_QUOTES, 'UTF-8') . "</a>";
+			$bannedUser = "<a href=\"tg://user?id=".$this->e['reply_to']['from']['id']."\">" . htmlspecialchars($this->e['reply_to']['from']['first_name'], ENT_QUOTES, 'UTF-8') . "</a>";
 			$kick['info']['http_code'] === 200 and B::bg()::sendMessage(
 				[
 					"chat_id"    => $this->e['chat_id'],
-					"text"	  	 => Lang::bind("{first_namelnik}") . " banned ". $bannedUser."!",
+					"text"	  	 => Lang::bind("{first_namelink}") . " banned ". $bannedUser."!",
 					"parse_mode" => "HTML"
 				]
 			);
