@@ -76,7 +76,7 @@ class AdminHammer extends CommandAbstraction implements EventContract
 	 */
 	private function isEnoughPrivileges()
 	{
-		if (in_array($this->e['user_id'], GLOBAL_ADMIN)) {
+		if (in_array($this->e['user_id'], GLOBAL_ADMINS)) {
 			return true;
 		}
 		$r = B::getChatAdministrators(["chat_id" => $this->e['chat_id']]);
