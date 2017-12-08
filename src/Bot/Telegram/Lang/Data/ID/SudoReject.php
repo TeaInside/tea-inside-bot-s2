@@ -8,5 +8,5 @@ namespace Bot\Telegram\Lang\Data\ID;
  */
 class SudoReject
 {
-	public static $text = "{namelink} is not in the sudoers file. This incident will be reported.";
+    public static $text = "{namelink} is not in the sudoers file. This incident will be reported.";
 }

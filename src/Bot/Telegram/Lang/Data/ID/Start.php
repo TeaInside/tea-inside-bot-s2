@@ -8,5 +8,5 @@ namespace Bot\Telegram\Lang\Data\ID;
  */
 class Start
 {
-	public static $text = "Hai {first_namelink}, ketik /help untuk menampilkan menu!";
+    public static $text = "Hai {first_namelink}, ketik /help untuk menampilkan menu!";
 }

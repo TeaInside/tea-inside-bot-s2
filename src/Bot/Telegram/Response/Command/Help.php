@@ -15,34 +15,34 @@ use Bot\Telegram\Abstraction\Command as CommandAbstraction;
 class Help extends CommandAbstraction implements EventContract
 {
 
-	/**
-	 * @var \Bot\Telegram\Events\EventRecognition
-	 */
-	private $e;
+    /**
+     * @var \Bot\Telegram\Events\EventRecognition
+     */
+    private $e;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param Bot\Telegram\Events\EventRecognition $event
-	 */
-	public function __construct(Event $event)
-	{
-		$this->e = $event;
-	}
+    /**
+     * Constructor.
+     *
+     * @param Bot\Telegram\Events\EventRecognition $event
+     */
+    public function __construct(Event $event)
+    {
+        $this->e = $event;
+    }
 
-	/**
-	 * "/help" command.
-	 *
-	 */
-	public function help()
-	{
-		return B::bg()::sendMessage(
-			[
-				"chat_id" 				=> $this->e['chat_id'],
-				"text"    				=> Lang::get("help"),
-				"reply_to_message_id"	=> $this->e['msg_id'],
-				"parse_mode"			=> "HTML"
-			]
-		);
-	}
+    /**
+     * "/help" command.
+     *
+     */
+    public function help()
+    {
+        return B::bg()::sendMessage(
+            [
+                "chat_id"               => $this->e['chat_id'],
+                "text"                  => Lang::get("help"),
+                "reply_to_message_id"   => $this->e['msg_id'],
+                "parse_mode"            => "HTML"
+            ]
+        );
+    }
 }

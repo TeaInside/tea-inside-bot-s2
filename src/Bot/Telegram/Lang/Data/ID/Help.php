@@ -8,8 +8,8 @@ namespace Bot\Telegram\Lang\Data\ID;
  */
 class Help
 {
-	public static $text = 
-"<b>Berikut ini adalah daftar menu bot:</b>
+    public static $text =
+    "<b>Berikut ini adalah daftar menu bot:</b>
 
 <b>SuperUser:</b>
 /sh <i>[bash script]</i>  <code>Menjalankan perintah pada shell.</code>

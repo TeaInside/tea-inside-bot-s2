@@ -11,9 +11,9 @@ use Bot\Telegram\Abstraction\Language as LanguageAbstraction;
  */
 class ID extends LanguageAbstraction
 {
-	public static $map = [
-		"start" => ID\Start::class,
-		"help"  => ID\Help::class,
-		"sudo_reject" => ID\SudoReject::class
-	];
+    public static $map = [
+        "start" => ID\Start::class,
+        "help"  => ID\Help::class,
+        "sudo_reject" => ID\SudoReject::class
+    ];
 }

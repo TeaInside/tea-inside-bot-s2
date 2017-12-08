@@ -8,5 +8,5 @@ namespace Bot\Telegram\Lang\Data\EN;
  */
 class Start
 {
-	public static $text = "Hi {first_namelink}, send /help to show menu!";
+    public static $text = "Hi {first_namelink}, send /help to show menu!";
 }

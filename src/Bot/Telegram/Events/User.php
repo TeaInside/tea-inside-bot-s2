@@ -10,7 +10,7 @@ use ArrayAccess;
  */
 class User implements ArrayAccess
 {
-	/**
+    /**
      *
      * @var array
      */

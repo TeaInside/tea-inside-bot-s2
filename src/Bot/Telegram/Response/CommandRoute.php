@@ -27,7 +27,7 @@ trait CommandRoute
 
         $this->set(
             function () use ($s) {
-                return 
+                return
                     $s[0] === "/start"||
                     $s[0] === "!start"||
                     $s[0] === "~start";
@@ -37,7 +37,7 @@ trait CommandRoute
 
         $this->set(
             function () use ($s) {
-                return 
+                return
                     $s[0] === "/help"||
                     $s[0] === "!help"||
                     $s[0] === "~help";
