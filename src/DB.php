@@ -38,7 +38,7 @@ final class DB
      */
     public static function __callStatic($method, $parameters)
     {
-        return self::getInstance()->{$method}(...$parameters);
+        return self::getInstance()->pdo->{$method}(...$parameters);
     }
 }
 
