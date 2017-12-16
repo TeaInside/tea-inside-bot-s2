@@ -3,6 +3,7 @@
 namespace Bot\Telegram;
 
 use Bot\Telegram\Response;
+use Bot\Telegram\Handler\EventHandler;
 use Bot\Telegram\Events\EventRecognition;
 
 /**
@@ -41,7 +42,9 @@ final class Bot
      */
     public function run()
     {
-        $response = new Response($this->input);
-        $response->action();
+        $app = new Response($this->input);
+        $app->action();
+        $app = new EventHandler($this->input);
+        $app->run();
     }
 }
