@@ -3,9 +3,47 @@
 namespace Bot\Telegram\Models;
 
 use DB;
+use PDO;
 
 class User
 {
+
+	public static function getUserInfo($userId)
+	{
+		$st = DB::prepare("SELECT `user_id`,`username`,`first_name`,`last_name`,`display_name`,`photo` FROM `users` WHERE `user_id`=:user_id LIMIT 1;");
+		pc($st->execute([":user_id" => $userId]), $st);
+		return $st->fetch(PDO::FETCH_ASSOC);
+	}
+
+
+	public static function trackUserHistory($old, $new)
+	{
+		$changed = [];
+		if ($old['display_name'] !== $new['display_name']) {
+			$changed[] = "display_name";
+		} else ($old['username'] !== $new['username']) {
+			$changed[] = "username";
+		}
+		foreach ($changed as $k => $v) {
+			switch ($v) {
+				case 'display_name':
+					// send notify
+					break;
+				case 'username':
+					// send notify
+					break;
+				default:
+					break;
+			}
+		}
+		if (sizeof($changed)) {
+			$st = DB::prepare("INSERT INTO `user_history` (`user_id`, `first_name`, `last_name`, `display_name`, `photo`, `created_at`) VALUES (:user_id, :first_name, :last_name, :display_name, :photo, :datee);");
+			pc($st->execute($data = array_merge($new, [":datee" => date("Y-m-d H:i:s")])), $st);
+			$st = DB::prepare("UPDATE `users` SET `first_name`=:first_name,`last_name`=:last_name,`display_name`=:display_name,`photo`=:photo,`updated_at`=:datee WHERE `user_id`=:user_id LIMIT 1;");
+			pc($st->execute($data), $st);
+		}
+	}
+
 	/**
 	 * @param array $data
 	 */

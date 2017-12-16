@@ -27,7 +27,14 @@ DROP TABLE IF EXISTS `group_admins`;
 CREATE TABLE `group_admins` (
   `user_id` varchar(255) NOT NULL,
   `group_id` varchar(255) NOT NULL,
-  `status` enum('creator','admin') NOT NULL,
+  `status` enum('creator','administrator') NOT NULL,
+  `can_be_edited` tinyint(1) NOT NULL DEFAULT '1',
+  `can_change_info` tinyint(1) NOT NULL DEFAULT '1',
+  `can_delete_messages` tinyint(1) NOT NULL DEFAULT '1',
+  `can_invite_users` tinyint(1) NOT NULL DEFAULT '1',
+  `can_restrict_members` tinyint(1) NOT NULL DEFAULT '1',
+  `can_pin_messages` tinyint(1) NOT NULL DEFAULT '1',
+  `can_promote_members` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` datetime NOT NULL,
   KEY `user_id` (`user_id`),
   KEY `group_id` (`group_id`),
@@ -55,6 +62,7 @@ DROP TABLE IF EXISTS `group_messages`;
 CREATE TABLE `group_messages` (
   `message_identifier` bigint(20) NOT NULL AUTO_INCREMENT,
   `group_id` varchar(255) NOT NULL,
+  `message_id` bigint(20) NOT NULL,
   `sender` varchar(255) NOT NULL,
   `type` enum('text','photo','voice','video') NOT NULL,
   `reply_to_message_id` bigint(20) DEFAULT NULL,
@@ -70,10 +78,20 @@ CREATE TABLE `group_messages` (
 DROP TABLE IF EXISTS `group_messages_data`;
 CREATE TABLE `group_messages_data` (
   `message_identifier` bigint(20) NOT NULL,
-  `text` text NOT NULL,
+  `text` text,
   `file_id` varchar(255) DEFAULT NULL,
   KEY `message_identifier` (`message_identifier`),
   CONSTRAINT `group_messages_data_ibfk_1` FOREIGN KEY (`message_identifier`) REFERENCES `group_messages` (`message_identifier`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+DROP TABLE IF EXISTS `group_settings`;
+CREATE TABLE `group_settings` (
+  `group_id` varchar(255) NOT NULL,
+  `cycle` bigint(20) NOT NULL DEFAULT '0',
+  `updated_at` datetime DEFAULT NULL,
+  KEY `group_id` (`group_id`),
+  CONSTRAINT `group_settings_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -110,6 +128,7 @@ CREATE TABLE `users` (
   `display_name` varchar(255) NOT NULL,
   `photo` varchar(255) DEFAULT NULL,
   `authority` enum('user','bot_admin','superuser') NOT NULL DEFAULT 'user',
+  `is_bot` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`),
@@ -135,4 +154,4 @@ CREATE TABLE `user_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
--- 2017-12-16 06:37:42
+-- 2017-12-16 09:19:40

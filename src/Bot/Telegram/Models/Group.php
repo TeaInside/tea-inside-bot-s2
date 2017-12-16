@@ -8,6 +8,31 @@ use PDO;
 class Group
 {
 
+	public static function saveTextMessage($groupId, $userId, $msgId, $text = "", $reply_to_message_id = null)
+	{
+		$st = DB::prepare("INSERT INTO `group_messages` (`group_id`, `message_id`, `sender`, `type`, `reply_to_message_id`, `created_at`) VALUES (:group_id,:message_id,:sender,:type,:reply_to_message_id,:created_at);");
+		pc($st->execute(
+			[
+				":group_id" => $groupId,
+				":message_id"=> $msgId,
+				":sender"	=> $userId,
+				":type"		=> 'text',
+				":reply_to_message_id" => $reply_to_message_id,
+				":created_at" => date("Y-m-d H:i:s")
+			]
+		), $st);
+		$lastId = DB::pdoInstance()->lastInsertId();
+		$st = DB::prepare("INSERT INTO `group_messages_data` (`message_identifier`, `text`, `file_id`) VALUES (:message_identifier, :txt, :file_id);");
+		pc($st->execute(
+			[
+				"message_identifier" => $lastId,
+				":txt" => $text,
+				":file_id" => null
+			]
+		), $st);
+		return true;
+	}
+
 	/**
 	 * Check group is exists in database or not.
 	 *

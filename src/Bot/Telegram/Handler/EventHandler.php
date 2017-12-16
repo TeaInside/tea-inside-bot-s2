@@ -42,7 +42,5 @@ class EventHandler
 	{
 		$app = new Group($this->e);
 		$app->run();
-		$app = new User($this->e, "group");
-		$app->run();
 	}
 }
