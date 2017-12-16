@@ -40,6 +40,16 @@ final class DB
     {
         return self::getInstance()->pdo->{$method}(...$parameters);
     }
+
+    /**
+     * Get PDO Instance.
+     *
+     * @return \PDO
+     */
+    public static function pdoInstance()
+    {
+        return self::getInstance()->pdo;
+    }
 }
 
 /**
