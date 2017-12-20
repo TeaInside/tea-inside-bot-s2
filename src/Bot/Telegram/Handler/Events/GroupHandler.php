@@ -3,6 +3,7 @@
 namespace Bot\Telegram\Handler\Events;
 
 use Bot\Telegram\Models\User;
+use Bot\Telegram\Models\Group;
 use Bot\Telegram\Contracts\EventContract;
 use Bot\Telegram\Handler\Events\UserHandler;
 use Bot\Telegram\Events\EventRecognition as Event;
@@ -28,6 +29,7 @@ class GroupHandler implements EventContract
     public function run()
     {
     	$this->recognizer();
+    	$this->handle();
     	$class = '\Bot\Telegram\Handler\Events\GroupMessage';
     	switch ($this->e['msg_type']) {
     		case 'text':
@@ -46,5 +48,22 @@ class GroupHandler implements EventContract
     {
     	$handler = new UserHandler($this->e);
     	$handler->handle();
+    }
+
+    private function handle()
+    {
+    	if (Group::getInfo($this->e['chat_id'])) {
+    	} else {
+    		Group::insert(
+    			[
+    				"group_id"	=> $this->e['chat_id'],
+    				"username"	=> $this->e['chatuname'],
+    				"name"		=> $this->e['chattitle'],
+    				"private_link"	=> null,
+    				"photo"		=> null,
+    				"creator"	=> null
+    			]
+    		);
+    	}
     }
 }
