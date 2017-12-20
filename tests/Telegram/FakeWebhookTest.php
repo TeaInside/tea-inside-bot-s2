@@ -12,7 +12,7 @@ class FakeWebhookTest extends TestCase
 
 	public function setUp()
 	{
-		$this->json = 
+/*		$this->json = 
 		'{
 		    "update_id": 952238819,
 		    "message": {
@@ -51,7 +51,29 @@ class FakeWebhookTest extends TestCase
 		        },
 		        "text": "/start"
 		    }
-		}';
+		}';*/
+		$this->json  = '{
+    "update_id": 344537906,
+    "message": {
+        "message_id": 38316,
+        "from": {
+            "id": 243692601,
+            "is_bot": false,
+            "first_name": "Ammar",
+            "last_name": "F.",
+            "username": "ammarfaizi2",
+            "language_code": "en"
+        },
+        "chat": {
+            "id": -1001134152012,
+            "title": "Berlatih Bot dan Testing Bot",
+            "username": "berlatihbot",
+            "type": "supergroup"
+        },
+        "date": 1513769007,
+        "text": "test"
+    }
+}';
 	}
 
 	public function testGroup()
