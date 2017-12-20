@@ -48,6 +48,8 @@ class Shell extends CommandAbstraction implements EventContract
                     $handle = fopen("/tmp/limited_passwd", "w");
                     flock($handle, LOCK_EX);
                     fwrite($handle, "123\n123");
+                    fflush($handle);
+                    flock($handle, LOCK_UN);
                     fclose($handle);
                     shell_exec("sudo adduser limited < /tmp/limited_passwd");
                     unlink("/tmp/limited_passwd");
