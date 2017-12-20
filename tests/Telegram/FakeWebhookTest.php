@@ -12,7 +12,11 @@ class FakeWebhookTest extends TestCase
 
 	public function setUp()
 	{
-/*		$this->json = 
+	}
+
+	public function testGroup()
+	{
+		/*		$json = 
 		'{
 		    "update_id": 952238819,
 		    "message": {
@@ -52,7 +56,7 @@ class FakeWebhookTest extends TestCase
 		        "text": "/start"
 		    }
 		}';*/
-		$this->json  = '{
+		$json  = '{
     "update_id": 344537906,
     "message": {
         "message_id": 38316,
@@ -74,11 +78,37 @@ class FakeWebhookTest extends TestCase
         "text": "test"
     }
 }';
+		$app = new Bot(json_decode($json, true));
+		$app->buildEvent();
+		$this->assertTrue($app->run());
 	}
 
-	public function testGroup()
+	public function testPrivate()
 	{
-		$app = new Bot(json_decode($this->json, true));
+		$json = '{
+    "update_id": 344538205,
+    "message": {
+        "message_id": 32942,
+        "from": {
+            "id": 243692601,
+            "is_bot": false,
+            "first_name": "Ammar",
+            "last_name": "F.",
+            "username": "ammarfaizi2",
+            "language_code": "en"
+        },
+        "chat": {
+            "id": 243692601,
+            "first_name": "Ammar",
+            "last_name": "F.",
+            "username": "ammarfaizi2",
+            "type": "private"
+        },
+        "date": 1513771299,
+        "text": "!sh cat a.tmp"
+    }
+}';
+		$app = new Bot(json_decode($json, true));
 		$app->buildEvent();
 		$this->assertTrue($app->run());
 	}

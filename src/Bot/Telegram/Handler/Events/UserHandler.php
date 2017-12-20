@@ -24,6 +24,23 @@ class UserHandler implements EventContract
     	$this->e = $event;
     }
 
+    public function run()
+    {
+        $this->handle();
+        $class = '\Bot\Telegram\Handler\Events\PrivateMessage';
+        switch ($this->e['msg_type']) {
+            case 'text':
+                    $class .= '\Text';
+                break;
+            
+            default:
+                break;
+        }
+
+        $q = new $class($this->e);
+        $q->run();
+    }
+
 	public function handle()
 	{
 		if ($currentInfo = User::getInfo($this->e['user_id'])) {

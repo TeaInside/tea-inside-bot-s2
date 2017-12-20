@@ -5,6 +5,7 @@ namespace Bot\Telegram\Handler;
 use Bot\Telegram\Contracts\EventContract;
 use Bot\Telegram\Handler\EventHandler\User;
 use Bot\Telegram\Handler\EventHandler\Group;
+use Bot\Telegram\Handler\Events\UserHandler;
 use Bot\Telegram\Handler\Events\GroupHandler;
 use Bot\Telegram\Events\EventRecognition as Event;
 
@@ -40,5 +41,11 @@ class EventHandler implements EventContract
 	{
 		$a = new GroupHandler($this->e);
 		$a->run();
+	}
+
+	private function privateMessage()
+	{
+		$a = new UserHandler($this->e);
+		$a->run();	
 	}
 }
