@@ -23,24 +23,4 @@ class EventHandler
 		$this->e = $event;
 		$this->chattype = $chattype;
 	}
-
-	public function run()
-	{
-		if ($this->e['chattype'] === "private") {
-			$this->privateMessageHandle();
-		} else {
-			$this->groupMessageHandle();
-		}
-	}
-
-	private function privateMessageHandle()
-	{
-
-	}
-
-	private function groupMessageHandle()
-	{
-		$app = new Group($this->e);
-		$app->run();
-	}
 }
