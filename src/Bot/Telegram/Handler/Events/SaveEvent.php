@@ -12,14 +12,14 @@ abstract class SaveEvent implements EventContract
 	/**
 	 * @var \Bot\Telegram\Events\EventRecognition
 	 */
-	private $e;
+	protected $e;
 
 	/**
      * Constructor.
      *
      * @param \Bot\Telegram\Events\EventRecognition $event
      */
-    public function __construct(Event $event)
+    final public function __construct(Event $event)
     {
     	$this->e = $event;
     }
