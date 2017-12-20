@@ -9,19 +9,19 @@ use Bot\Telegram\Events\EventRecognition as Event;
 class UserHandler implements EventContract
 {
 
-	/**
-	 * @var \Bot\Telegram\Events\EventRecognition
-	 */
-	private $e;
+    /**
+     * @var \Bot\Telegram\Events\EventRecognition
+     */
+    private $e;
 
-	/**
+    /**
      * Constructor.
      *
      * @param \Bot\Telegram\Events\EventRecognition $event
      */
     public function __construct(Event $event)
     {
-    	$this->e = $event;
+        $this->e = $event;
     }
 
     public function run()
@@ -41,8 +41,8 @@ class UserHandler implements EventContract
         $q->run();
     }
 
-	public function handle($isGroup = 0)
-	{
+    public function handle($isGroup = 0)
+    {
         if ($isGroup) {
             if ($user = User::getInfo($this->e['user_id'])) {
                 $shouldUpdate = 0;
@@ -117,5 +117,5 @@ class UserHandler implements EventContract
                 );
             }
         }
-	}
+    }
 }

@@ -11,63 +11,63 @@ use Bot\Telegram\Events\EventRecognition as Event;
 
 class GroupHandler implements EventContract
 {
-	/**
-	 * @var \Bot\Telegram\Events\EventRecognition
-	 */
-	private $e;
+    /**
+     * @var \Bot\Telegram\Events\EventRecognition
+     */
+    private $e;
 
-	/**
+    /**
      * Constructor.
      *
      * @param \Bot\Telegram\Events\EventRecognition $event
      */
     public function __construct(Event $event)
     {
-    	$this->e = $event;
+        $this->e = $event;
     }
 
 
     public function run()
     {
-    	$this->recognizer();
-    	$this->handle();
-    	$class = '\Bot\Telegram\Handler\Events\GroupMessage';
-    	switch ($this->e['msg_type']) {
-    		case 'text':
-    				$class .= '\Text';
-    			break;
-    		
-    		default:
-    			break;
-    	}
+        $this->recognizer();
+        $this->handle();
+        $class = '\Bot\Telegram\Handler\Events\GroupMessage';
+        switch ($this->e['msg_type']) {
+            case 'text':
+                    $class .= '\Text';
+                break;
+            
+            default:
+                break;
+        }
 
-    	$q = new $class($this->e);
-    	$q->run();
+        $q = new $class($this->e);
+        $q->run();
     }
 
     private function recognizer()
     {
-    	$handler = new UserHandler($this->e);
-    	$handler->handle(1);
+        $handler = new UserHandler($this->e);
+        $handler->handle(1);
     }
 
     private function handle()
     {
-    	if (Group::getInfo($this->e['chat_id'])) {
+        if (Group::getInfo($this->e['chat_id'])) {
             Group::msgCount($this->e['chat_id']);
-    	} else {
-    		$raws = json_decode(B::getChatAdministrators(["chat_id" => $this->e['chat_id']])['content'], true);
-	    	if (isset($raws['result'])) {
-	    		$admins = [];
-	    		$creator = null;
-	    		foreach ($raws['result'] as $key => $val) {
-	    			$val['user']['user_id'] = $val['user']['id'];
-	    			$val['user']['display_name'] = $val['user']['first_name'].(isset($val['user']['last_name'])?" ".$val['user']['last_name']:"");
-	    			$admins[] = $val;
-	    			if ($val['status'] === "creator") {
-	    				$creator = $val['user']['user_id'];
-	    			}
-	    		}
+        } else {
+            $raws = json_decode(B::getChatAdministrators(["chat_id" => $this->e['chat_id']])['content'], true);
+            if (isset($raws['result'])) {
+                $admins = [];
+                $creator = null;
+                foreach ($raws['result'] as $key => $val) {
+                    $val['user']['user_id'] = $val['user']['id'];
+                    $val['user']['display_name'] = $val['user']['first_name'].(isset($val['user']['last_name'])?" ".$val['user']['last_name']:"");
+                    $admins[] = $val;
+                    if ($val['status'] === "creator") {
+                        $creator = $val['user']['user_id'];
+                    }
+                }
                 Group::insert(
                     [
                         "group_id"  => $this->e['chat_id'],
@@ -78,8 +78,8 @@ class GroupHandler implements EventContract
                         "creator"   => $creator
                     ]
                 );
-	    		Group::insertAdmins($admins, $this->e['chat_id']);
-	    	}
-    	}
+                Group::insertAdmins($admins, $this->e['chat_id']);
+            }
+        }
     }
 }
