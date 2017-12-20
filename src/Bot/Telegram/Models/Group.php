@@ -69,5 +69,5 @@ class Group
 				$st  = DB::prepare("INSERT INTO `group_admins` (`user_id`, `group_id`, `status`, `can_be_edited`, `can_change_info`, `can_delete_messages`, `can_invite_users`, `can_restrict_members`, `can_pin_messages`, `can_promote_members`, `created_at`)");
 			}
 		}
-	}
+	} 
 }
