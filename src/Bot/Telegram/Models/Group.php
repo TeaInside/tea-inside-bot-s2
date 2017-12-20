@@ -9,7 +9,7 @@ class Group
 {
 	public static function msgCount($group_id)
 	{
-		$st = DB::prepare("UPDATE `msg_count`=`msg_count`+1, `updated_at`=:updated_at WHERE `group_id`=:group_id LIMIT 1;");
+		$st = DB::prepare("UPDATE `groups` SET `msg_count`=`msg_count`+1, `updated_at`=:updated_at WHERE `group_id`=:group_id LIMIT 1;");
 		pc($st->execute(
 			[
 				":updated_at" => date("Y-m-d H:i:s"),
