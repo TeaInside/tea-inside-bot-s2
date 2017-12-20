@@ -125,4 +125,50 @@ TRUNCATE TABLE `user_history`;");
 		$app->buildEvent();
 		$this->assertTrue($app->run());
 	}
+
+
+	public function testNewParticipants()
+	{
+		$json = '{
+    "update_id": 344538330,
+    "message": {
+        "message_id": 3130,
+        "from": {
+            "id": 468667550,
+            "is_bot": false,
+            "first_name": "Mise",
+            "language_code": "en"
+        },
+        "chat": {
+            "id": -1001128970273,
+            "title": "Testing Env",
+            "type": "supergroup"
+        },
+        "date": 1513773870,
+        "new_chat_participant": {
+            "id": 468667550,
+            "is_bot": false,
+            "first_name": "Mise",
+            "language_code": "en"
+        },
+        "new_chat_member": {
+            "id": 468667550,
+            "is_bot": false,
+            "first_name": "Mise",
+            "language_code": "en"
+        },
+        "new_chat_members": [
+            {
+                "id": 468667550,
+                "is_bot": false,
+                "first_name": "Mise",
+                "language_code": "en"
+            }
+        ]
+    }
+}';		
+		$app = new Bot(json_decode($json, true));
+		$app->buildEvent();
+		$this->assertTrue($app->run());
+	}
 }

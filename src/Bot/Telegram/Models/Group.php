@@ -7,6 +7,13 @@ use PDO;
 
 class Group
 {
+    public static function getSetting($group_id)
+    {
+        $st = DB::prepare("SELECT `group_id`, `cycle`, `welcome_message`, `max_warn`, `updated_at` FROM `group_settings` WHERE `group_id`=:group_id LIMIT 1;");
+        $st->execute([":group_id" => $group_id]);
+        return $st->fetch(PDO::FETCH_ASSOC);
+    }
+
     public static function msgCount($group_id)
     {
         $st = DB::prepare("UPDATE `groups` SET `msg_count`=`msg_count`+1, `updated_at`=:updated_at WHERE `group_id`=:group_id LIMIT 1;");
@@ -55,7 +62,7 @@ class Group
 
     public static function insertAdmins($admins, $group_id)
     {
-        $st = DB::prepare($quer = "INSERT INTO `users` (`user_id`, `username`, `first_name`, `last_name`, `display_name`, `photo`, `authority`, `is_bot`, `created_at`, `updated_at`) VALUES (:user_id, :username, :first_name, :last_name, :display_name, :photo, :authority, :is_bot, :created_at, :updated_at);");
+        $st = DB::prepare("INSERT INTO `users` (`user_id`, `username`, `first_name`, `last_name`, `display_name`, `photo`, `authority`, `is_bot`, `created_at`, `updated_at`) VALUES (:user_id, :username, :first_name, :last_name, :display_name, :photo, :authority, :is_bot, :created_at, :updated_at);");
         $stq = DB::prepare("INSERT INTO `user_history` (`user_id`, `username`, `first_name`, `last_name`, `display_name`, `photo`, `created_at`) VALUES  (:user_id, :username, :first_name, :last_name, :display_name, :photo, :created_at);");
         $std = DB::prepare("INSERT INTO `group_admins` (`user_id`, `group_id`, `status`, `can_be_edited`, `can_change_info`, `can_delete_messages`, `can_invite_users`, `can_restrict_members`, `can_pin_messages`, `can_promote_members`, `created_at`) VALUES (:user_id, :group_id, :status, :can_be_edited, :can_change_info, :can_delete_messages, :can_invite_users, :can_restrict_members, :can_pin_messages, :can_promote_members, :created_at);");
         foreach ($admins as $key => $data) {

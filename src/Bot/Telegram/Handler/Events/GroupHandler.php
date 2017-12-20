@@ -31,6 +31,7 @@ class GroupHandler implements EventContract
     {
         $this->recognizer();
         $this->handle();
+        $no_action = 0;
         $class = '\Bot\Telegram\Handler\Events\GroupMessage';
         switch ($this->e['msg_type']) {
             case 'text':
@@ -38,11 +39,14 @@ class GroupHandler implements EventContract
                 break;
             
             default:
+                    $no_action = 1;
                 break;
         }
 
-        $q = new $class($this->e);
-        $q->run();
+        if (! $no_action) {
+            $q = new $class($this->e);
+            $q->run();
+        }
     }
 
     private function recognizer()

@@ -6,6 +6,7 @@ use Telegram as B;
 use Bot\Telegram\Lang;
 use Bot\Telegram\Events\User;
 use Bot\Telegram\Response\Command;
+use Bot\Telegram\Response\NewChatMembers;
 use Bot\Telegram\Contracts\EventContract;
 use Bot\Telegram\Events\EventRecognition as Event;
 use Bot\Telegram\Contracts\Response as ResponseContract;
@@ -39,19 +40,14 @@ class Response implements EventContract, ResponseContract
      */
     public function action()
     {
-        $recognizedMessageType = [
-            "text" => "Text"
-        ];
-        if (isset($recognizedMessageType[$this->e['msg_type']])) {
-            if ($this->e['chattype'] === "private") {
-                $event = "\\Bot\\Telegram\\Events\\PrivateMessage\\" . $recognizedMessageType[$this->e['msg_type']];
-            } else {
-                $event = "\\Bot\\Telegram\\Events\\GroupMessage\\" . $recognizedMessageType[$this->e['msg_type']];
+        if (isset($this->e['text'])) {
+            $resp = new Command($this->e);
+            if (! $resp->action()) {
             }
         }
-        $resp = new Command($this->e);
-        if (! $resp->action()) {
-            
+        if ($this->e['msg_type'] === "new_chat_members") {
+            $resp = new NewChatMembers($this->e);
+            $resp->action();
         }
 
         if (! in_array(ResponseContract::class, class_implements($resp))) {

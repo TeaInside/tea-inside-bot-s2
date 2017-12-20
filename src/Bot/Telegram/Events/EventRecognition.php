@@ -48,6 +48,9 @@ class EventRecognition implements ArrayAccess
             if (isset($input['message']['text'])) {
                 $this['msg_type'] = "text";
                 $this['text']     = $input['message']['text'];
+            } elseif (isset($input['message']['new_chat_members'])) {
+                $this['msg_type'] = "new_chat_members";
+                $this['new_chat_members'] = $input['message']['new_chat_members'];
             }
         }
     }
