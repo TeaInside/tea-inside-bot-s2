@@ -51,7 +51,7 @@ class Group
 
     public static function getSetting($group_id)
     {
-        $st = DB::prepare("SELECT `group_id`, `cycle`, `welcome_message`, `max_warn`, `updated_at` FROM `group_settings` WHERE `group_id`=:group_id LIMIT 1;");
+        $st = DB::prepare("SELECT `group_id`, `cycle`, `welcome_message`, `max_warn`, `updated_at`,`other_bot` FROM `group_settings` WHERE `group_id`=:group_id LIMIT 1;");
         $st->execute([":group_id" => $group_id]);
         return $st->fetch(PDO::FETCH_ASSOC);
     }

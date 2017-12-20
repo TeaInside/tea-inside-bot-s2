@@ -49,13 +49,15 @@ class Response implements EventContract, ResponseContract
             $resp = new NewChatMembers($this->e);
             $resp->action();
         }
-
-        if (! in_array(ResponseContract::class, class_implements($resp))) {
-            throw new \Exception(
-                "Instance must be an object that implements ".ResponseContract::class,
-                1
-            );
+        if (isset($resp)) {
+            if (! in_array(ResponseContract::class, class_implements($resp))) {
+                throw new \Exception(
+                    "Instance must be an object that implements ".ResponseContract::class,
+                    1
+                );
+            }
+            return get_class($resp);
         }
-        return get_class($resp);
+        return null;
     }
 }
