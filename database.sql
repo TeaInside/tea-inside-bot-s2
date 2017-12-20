@@ -18,9 +18,7 @@ CREATE TABLE `groups` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`group_id`),
   KEY `username` (`username`),
-  KEY `name` (`name`),
-  KEY `creator` (`creator`),
-  CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`creator`) REFERENCES `users` (`user_id`)
+  KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -131,6 +129,7 @@ CREATE TABLE `users` (
   `photo` varchar(255) DEFAULT NULL,
   `authority` enum('user','bot_admin','superuser') NOT NULL DEFAULT 'user',
   `is_bot` tinyint(1) NOT NULL DEFAULT '0',
+  `has_private_message` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`),
@@ -158,4 +157,4 @@ CREATE TABLE `user_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
--- 2017-12-20 10:53:48
+-- 2017-12-20 12:32:11
