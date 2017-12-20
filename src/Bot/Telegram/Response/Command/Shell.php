@@ -81,7 +81,7 @@ class Shell extends CommandAbstraction implements EventContract
      */
     private function isSecure($cmd)
     {
-        if (User::isSudoers($this->e['user_id'])) {
+        if (User::isSudoer($this->e['user_id'])) {
             return "sudoer";
         }
         if (strpos($cmd, "sudo ") !== false ||
