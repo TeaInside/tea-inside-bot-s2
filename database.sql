@@ -12,6 +12,7 @@ CREATE TABLE `groups` (
   `name` varchar(255) NOT NULL,
   `photo` varchar(255) DEFAULT NULL,
   `private_link` varchar(255) DEFAULT NULL,
+  `msg_count` bigint(20) DEFAULT NULL,
   `creator` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -89,6 +90,7 @@ DROP TABLE IF EXISTS `group_settings`;
 CREATE TABLE `group_settings` (
   `group_id` varchar(255) NOT NULL,
   `cycle` bigint(20) NOT NULL DEFAULT '0',
+  `welcome_message` text,
   `updated_at` datetime DEFAULT NULL,
   KEY `group_id` (`group_id`),
   CONSTRAINT `group_settings_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -141,17 +143,19 @@ CREATE TABLE `users` (
 DROP TABLE IF EXISTS `user_history`;
 CREATE TABLE `user_history` (
   `user_id` varchar(255) NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) DEFAULT NULL,
-  `display_name` int(255) NOT NULL,
+  `display_name` varchar(255) NOT NULL,
   `photo` varchar(255) DEFAULT NULL,
-  `created_at` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
   KEY `first_name` (`first_name`),
   KEY `last_name` (`last_name`),
   KEY `display_name` (`display_name`),
   KEY `user_id` (`user_id`),
+  KEY `username` (`username`),
   CONSTRAINT `user_history_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
--- 2017-12-16 09:19:40
+-- 2017-12-20 10:53:48
