@@ -2,6 +2,7 @@
 
 namespace Bot\Telegram\Handler\Events;
 
+use Telegram as B;
 use Bot\Telegram\Models\User;
 use Bot\Telegram\Models\Group;
 use Bot\Telegram\Contracts\EventContract;
@@ -54,16 +55,30 @@ class GroupHandler implements EventContract
     {
     	if (Group::getInfo($this->e['chat_id'])) {
     	} else {
-    		Group::insert(
-    			[
-    				"group_id"	=> $this->e['chat_id'],
-    				"username"	=> $this->e['chatuname'],
-    				"name"		=> $this->e['chattitle'],
-    				"private_link"	=> null,
-    				"photo"		=> null,
-    				"creator"	=> null
-    			]
-    		);
+    		$raws = json_decode(B::getChatAdministrators(["chat_id" => $this->e['chat_id']])['content'], true);
+	    	if (isset($raws['result'])) {
+	    		$admins = [];
+	    		$creator = null;
+	    		foreach ($raws['result'] as $key => $val) {
+	    			$val['user']['user_id'] = $val['user']['id'];
+	    			$val['user']['display_name'] = $val['user']['first_name'].(isset($val['user']['last_name'])?" ".$val['user']['last_name']:"");
+	    			$admins[] = $val;
+	    			if ($val['status'] === "creator") {
+	    				$creator = $val['user']['user_id'];
+	    			}
+	    		}
+	    		Group::insert(
+	    			[
+	    				"group_id"	=> $this->e['chat_id'],
+	    				"username"	=> $this->e['chatuname'],
+	    				"name"		=> $this->e['chattitle'],
+	    				"private_link"	=> null,
+	    				"photo"		=> null,
+	    				"creator"	=> $creator
+	    			]
+	    		);
+	    		Group::insertAdmins($admins, $this->e['chat_id']);
+	    	}
     	}
     }
 }

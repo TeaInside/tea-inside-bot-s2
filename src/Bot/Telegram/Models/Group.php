@@ -39,15 +39,15 @@ class Group
 		return true;
 	}
 
-	public static function insertAdmin($admins, $group_id)
+	public static function insertAdmins($admins, $group_id)
 	{
 		foreach ($admins as $key => $data) {
 			$fx = function ($key, $default = null) use ($data) {
-				return isset($data[$key]) ? $data[$key] : $default;
+				return isset($data['user'][$key]) ? $data['user'][$key] : $default;
 			};
 			$st = DB::prepare("INSERT INTO `users` (`user_id`, `username`, `first_name`, `last_name`, `display_name`, `photo`, `authority`, `is_bot`, `created_at`, `updated_at`) VALUES (:user_id, :username, :first_name, :last_name, :display_name, :photo, :authority, :is_bot, :created_at, :updated_at);");
 			if ($st->execute(
-				$data = [
+				$dataq = [
 					":user_id"  => $fx('user_id'),
 					":username" => $fx('username'),
 					":first_name"=> $fx('first_name'),
@@ -61,8 +61,12 @@ class Group
 				]
 			)) {
 				$st = DB::prepare("INSERT INTO `user_history` (`user_id`, `username`, `first_name`, `last_name`, `display_name`, `photo`, `created_at`) VALUES  (:user_id, :username, :first_name, :last_name, :display_name, :photo, :created_at);");
-				unset($data[':authority'], $data[':is_bot'], $data[':updated_at']);
-				pc($st->execute($data), $st);
+				unset($dataq[':authority'], $dataq[':is_bot'], $dataq[':updated_at']);
+				pc($st->execute($dataq), $st);
+			}
+			var_dump($data);
+			foreach ($data as $key => $val) {
+				$st  = DB::prepare("INSERT INTO `group_admins` (`user_id`, `group_id`, `status`, `can_be_edited`, `can_change_info`, `can_delete_messages`, `can_invite_users`, `can_restrict_members`, `can_pin_messages`, `can_promote_members`, `created_at`)");
 			}
 		}
 	}
