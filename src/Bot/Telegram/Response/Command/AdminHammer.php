@@ -16,21 +16,6 @@ class AdminHammer extends CommandAbstraction implements EventContract
 {
 
     /**
-     * @var \Bot\Telegram\Events\EventRecognition
-     */
-    private $e;
-
-    /**
-     * Constructor.
-     *
-     * @param Bot\Telegram\Events\EventRecognition $event
-     */
-    public function __construct(Event $event)
-    {
-        $this->e = $event;
-    }
-
-    /**
      * Ban user.
      *
      */

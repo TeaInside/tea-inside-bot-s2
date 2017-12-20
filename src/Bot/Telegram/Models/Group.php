@@ -7,6 +7,19 @@ use PDO;
 
 class Group
 {
+    public static function setWelcome($welcome, $group_id)
+    {
+        $st = DB::prepare("UPDATE `group_settings` SET `welcome_message`=:welcome_message,`updated_at`=:updated_at WHERE `group_id`=:group_id LIMIT 1;");
+        pc($st->execute(
+            [
+                ":welcome_message" => $welcome,
+                ":updated_at" => date("Y-m-d H:i:s"),
+                ":group_id"   => $group_id
+            ]
+        ), $st);
+        return true;
+    }
+
     public static function getSetting($group_id)
     {
         $st = DB::prepare("SELECT `group_id`, `cycle`, `welcome_message`, `max_warn`, `updated_at` FROM `group_settings` WHERE `group_id`=:group_id LIMIT 1;");

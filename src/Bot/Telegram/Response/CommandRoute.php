@@ -65,5 +65,15 @@ trait CommandRoute
             },
             "AdminHammer@ban"
         );
+
+        $this->set(
+            function () use ($s) {
+                return
+                    $s[0] === "/welcome"||
+                    $s[0] === "!welcome"||
+                    $s[0] === "~welcome";
+            },
+            "Welcome@setWelcome"
+        );
     }
 }

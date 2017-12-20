@@ -14,6 +14,9 @@ class ID extends LanguageAbstraction
     public static $map = [
         "start" => ID\Start::class,
         "help"  => ID\Help::class,
-        "sudo_reject" => ID\SudoReject::class
+        "sudo_reject" => ID\SudoReject::class,
+        "no_welcome_at_private" => ID\NoWelcomeAtPrivate::class,
+        "failed_set_welcome_message" => ID\FailedSetWelcomeMessage::class,
+        "success_set_welcome_message" => ID\SuccessSetWelcomeMessage::class,
     ];
 }
