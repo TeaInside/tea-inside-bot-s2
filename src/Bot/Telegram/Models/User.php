@@ -14,6 +14,33 @@ class User
 		return $st->fetch(PDO::FETCH_ASSOC);
 	}
 
+	public static function update($data, $historyTrack = 0)
+	{
+		$fx = function ($key, $default = null) use ($data) {
+			return isset($data[$key]) ? $data[$key] : $default;
+		};
+		$st = DB::prepare("UPDATE `users` SET `username`=:username, `first_name`=:first_name, `last_name`=:last_name, `display_name`=:display_name, `has_private_message`=:has_private_message, `authority`=:authority, `photo`=:photo,`updated_at`=:updated_at WHERE `user_id`=:user_id LIMIT 1;");
+		pc($st->execute(
+			$dataq = [
+				":username" => $fx('username'),
+				":first_name" => $fx('first_name'),
+				":last_name"  => $fx('last_name'),
+				":display_name"=> $fx('display_name'),
+				":has_private_message" => $fx('has_private_message', 0),
+				':authority' => $fx('authority', 'user'),
+				":photo"	 => $fx('photo'),
+				":updated_at" => $fx('updated_at', date("Y-m-d H:i:s")),
+				":user_id"	=> $fx("user_id")
+			]
+		), $st);
+		if ($historyTrack) {
+			$st = DB::prepare("INSERT INTO `user_history` (`user_id`, `username`, `first_name`, `last_name`, `display_name`, `photo`, `created_at`) VALUES  (:user_id, :username, :first_name, :last_name, :display_name, :photo, :created_at);");
+			$dataq[":created_at"] = date("Y-m-d H:i:s");
+			unset($dataq[':authority'], $dataq[':is_bot'], $dataq[':updated_at'], $dataq[':has_private_message']);
+			pc($st->execute($dataq), $st);
+		}
+	}
+
 	public static function insert($data)
 	{
 		$fx = function ($key, $default = null) use ($data) {
@@ -36,7 +63,7 @@ class User
 			]
 		), $st);
 		$st = DB::prepare("INSERT INTO `user_history` (`user_id`, `username`, `first_name`, `last_name`, `display_name`, `photo`, `created_at`) VALUES  (:user_id, :username, :first_name, :last_name, :display_name, :photo, :created_at);");
-		unset($data[':authority'], $data[':is_bot'], $data[':updated_at']);
+		unset($data[':authority'], $data[':is_bot'], $data[':updated_at'], $data[':has_private_message']);
 		pc($st->execute($data), $st);
 		return true;
 	}

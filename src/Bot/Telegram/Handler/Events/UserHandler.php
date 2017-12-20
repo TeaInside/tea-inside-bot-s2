@@ -44,7 +44,26 @@ class UserHandler implements EventContract
 	public function handle($isGroup = 0)
 	{
         if ($isGroup) {
-            if ($currentInfo = User::getInfo($this->e['user_id'])) {
+            if ($user = User::getInfo($this->e['user_id'])) {
+                $shouldUpdate = 0;
+                $historyTrack = 0;
+                $user['has_private_message'] === 1 or $shouldUpdate = 1;
+                $user['first_name'] === $this->e['first_name'] or $historyTrack = $shouldUpdate = 1;
+                $user['last_name'] === $this->e['last_name'] or $historyTrack = $shouldUpdate = 1;
+                $user['username']  === $this->e['username'] or $historyTrack = $shouldUpdate = 1;
+                if ($shouldUpdate) {
+                    User::update(
+                        [
+                            "user_id"  => $this->e['user_id'],
+                            "username" => $this->e['username'],
+                            "first_name" => $this->e['first_name'],
+                            "last_name" => $this->e['last_name'],
+                            "has_private_message" => 1,
+                            "display_name" => $this->e['name']
+                        ],
+                        $historyTrack
+                    );
+                }
             } else {
                 User::insert(
                     [
@@ -61,7 +80,26 @@ class UserHandler implements EventContract
                 );
             }
         } else {
-            if ($currentInfo = User::getInfo($this->e['user_id'])) {
+            if ($user = User::getInfo($this->e['user_id'])) {
+                $shouldUpdate = 0;
+                $historyTrack = 0;
+                $user['has_private_message'] === 1 or $shouldUpdate = 1;
+                $user['first_name'] === $this->e['first_name'] or $historyTrack = $shouldUpdate = 1;
+                $user['last_name'] === $this->e['last_name'] or $historyTrack = $shouldUpdate = 1;
+                $user['username']  === $this->e['username'] or $historyTrack = $shouldUpdate = 1;
+                if ($shouldUpdate) {
+                    User::update(
+                        [
+                            "user_id"  => $this->e['user_id'],
+                            "username" => $this->e['username'],
+                            "first_name" => $this->e['first_name'],
+                            "last_name" => $this->e['last_name'],
+                            "has_private_message" => 1,
+                            "display_name" => $this->e['name']
+                        ],
+                        $historyTrack
+                    );
+                }
             } else {
                 User::insert(
                     [
