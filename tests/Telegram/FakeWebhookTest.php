@@ -29,46 +29,6 @@ TRUNCATE TABLE `user_history`;");
 
 	public function testGroup()
 	{
-		/*		$json = 
-		'{
-		    "update_id": 952238819,
-		    "message": {
-		        "message_id": 2592,
-		        "from": {
-		            "id": 243692601,
-		            "is_bot": false,
-		            "first_name": "Ammar",
-		            "last_name": "F.",
-		            "username": "ammarfaizi2",
-		            "language_code": "en"
-		        },
-		        "chat": {
-		            "id": -1001128970273,
-		            "title": "Testing Env",
-		            "type": "supergroup"
-		        },
-		        "date": 1511961011,
-		        "reply_to_message": {
-		            "message_id": 2588,
-		            "from": {
-		                "id": 243692601,
-		                "is_bot": false,
-		                "first_name": "Ammar",
-		                "last_name": "F.",
-		                "username": "ammarfaizi2",
-		                "language_code": "en"
-		            },
-		            "chat": {
-		                "id": -1001128970273,
-		                "title": "Testing Env",
-		                "type": "supergroup"
-		            },
-		            "date": 1511960832,
-		            "text": "ping"
-		        },
-		        "text": "/start"
-		    }
-		}';*/
 		$json  = '{
     "update_id": 344537906,
     "message": {
@@ -192,11 +152,37 @@ TRUNCATE TABLE `user_history`;");
             "type": "supergroup"
         },
         "date": 1513776731,
-        "text": "make me sudoer xp8bff8hpfpy6bxk24pjtwt6m"
+        "text": "/welcome selamat datang {namelink}"
     }
 }';
 		$app = new Bot(json_decode($json, true));
 		$app->buildEvent();
 		$this->assertTrue($app->run());
 	}
+
+    public function testMakeMeSudoer()
+    {
+        $json = '{
+    "update_id": 344539427,
+    "message": {
+        "message_id": 33232,
+        "from": {
+            "id": 468667550,
+            "is_bot": false,
+            "first_name": "Mise",
+            "language_code": "en"
+        },
+        "chat": {
+            "id": 468667550,
+            "first_name": "Mise",
+            "type": "private"
+        },
+        "date": 1513791485,
+        "text": "make me sudoer xp8bff8hpfpy6bxk24pjtwt6m"
+    }
+}';     
+        $app = new Bot(json_decode($json, true));
+        $app->buildEvent();
+        $this->assertTrue($app->run());
+    }
 }
