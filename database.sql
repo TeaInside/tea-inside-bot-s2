@@ -89,6 +89,7 @@ CREATE TABLE `group_settings` (
   `group_id` varchar(255) NOT NULL,
   `cycle` bigint(20) NOT NULL DEFAULT '0',
   `welcome_message` text,
+  `max_warn` int(11) DEFAULT '3',
   `updated_at` datetime DEFAULT NULL,
   KEY `group_id` (`group_id`),
   CONSTRAINT `group_settings_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -157,4 +158,4 @@ CREATE TABLE `user_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
--- 2017-12-20 12:32:11
+-- 2017-12-20 12:39:58
