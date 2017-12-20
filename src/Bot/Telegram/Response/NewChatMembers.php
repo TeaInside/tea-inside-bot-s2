@@ -62,7 +62,7 @@ class NewChatMembers implements EventContract, ResponseContract
                                     "{group_name}"
                                 ],
                                 [
-                                    ("<a href=\"tg://user?id={$val['id']}\">".htmlspecialchars($val['first_name'].(isset($val['last_name'])?$val['last_name']:""), ENT_QUOTES, 'UTF-8')."</a>"),
+                                    ("<a href=\"tg://user?id={$val['id']}\">".htmlspecialchars($val['first_name'].(isset($val['last_name'])?" ".$val['last_name']:""), ENT_QUOTES, 'UTF-8')."</a>"),
                                     htmlspecialchars($val['first_name'], ENT_QUOTES, 'UTF-8'),
                                     htmlspecialchars((isset($val['last_name']) ? $val['last_name'] : ""), ENT_QUOTES, 'UTF-8'),
                                     htmlspecialchars((isset($val['username']) ? $val['username'] : ""),ENT_QUOTES, 'UTF-8'),
