@@ -61,6 +61,7 @@ function pc($exe, $st)
 {
     if (! $exe) {
         var_dump($st->errorInfo());
+        debug_print_backtrace();
         exit(1);
     }
 }

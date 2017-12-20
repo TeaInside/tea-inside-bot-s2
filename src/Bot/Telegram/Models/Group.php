@@ -7,6 +7,18 @@ use PDO;
 
 class Group
 {
+	public static function msgCount($group_id)
+	{
+		$st = DB::prepare("UPDATE `msg_count`=`msg_count`+1, `updated_at`=:updated_at WHERE `group_id`=:group_id LIMIT 1;");
+		pc($st->execute(
+			[
+				":updated_at" => date("Y-m-d H:i:s"),
+				":group_id"	  => $group_id
+			]
+		), $st);
+		return true;
+	}
+
 	public static function getInfo($value, $field = "group_id")
 	{
 		$st = DB::prepare("SELECT `group_id`,`username`,`name`,`photo`,`private_link`,`msg_count`,`creator` FROM `groups` WHERE `{$field}`=:bind LIMIT 1;");
@@ -20,7 +32,7 @@ class Group
 			return isset($data[$key]) ? $data[$key] : $default;
 		};
 		$st = DB::prepare("INSERT INTO `groups` (`group_id`, `username`, `name`, `photo`, `private_link`, `msg_count`, `creator`, `created_at`, `updated_at`) VALUES (:group_id, :username, :name, :photo, :private_link, :msg_count, :creator, :created_at, :updated_at);");
-		$st->execute(
+		pc($st->execute(
 			$data = [
 				":group_id" => $fx("group_id"),
 				":username" => $fx("username"),
@@ -32,7 +44,7 @@ class Group
 				":created_at"	=> $fx("created_at", date("Y-m-d H:i:s")),
 				":updated_at"	=> null
 			]
-		);
+		), $st);
 		$st = DB::prepare("INSERT INTO `group_history` (`group_id`, `username`, `name`, `photo`, `private_link`, `created_at`) VALUES (:group_id, :username, :name, :photo, :private_link, :created_at);");
 		unset($data[':msg_count'], $data[':creator'], $data[':updated_at']);
 		pc($st->execute($data), $st);

@@ -54,6 +54,7 @@ class GroupHandler implements EventContract
     private function handle()
     {
     	if (Group::getInfo($this->e['chat_id'])) {
+            Group::msgCount($this->e['chat_id']);
     	} else {
     		$raws = json_decode(B::getChatAdministrators(["chat_id" => $this->e['chat_id']])['content'], true);
 	    	if (isset($raws['result'])) {
@@ -67,16 +68,16 @@ class GroupHandler implements EventContract
 	    				$creator = $val['user']['user_id'];
 	    			}
 	    		}
-	    		Group::insert(
-	    			[
-	    				"group_id"	=> $this->e['chat_id'],
-	    				"username"	=> $this->e['chatuname'],
-	    				"name"		=> $this->e['chattitle'],
-	    				"private_link"	=> null,
-	    				"photo"		=> null,
-	    				"creator"	=> $creator
-	    			]
-	    		);
+                Group::insert(
+                    [
+                        "group_id"  => $this->e['chat_id'],
+                        "username"  => $this->e['chatuname'],
+                        "name"      => $this->e['chattitle'],
+                        "private_link"  => null,
+                        "photo"     => null,
+                        "creator"   => $creator
+                    ]
+                );
 	    		Group::insertAdmins($admins, $this->e['chat_id']);
 	    	}
     	}
