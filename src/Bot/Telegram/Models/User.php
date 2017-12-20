@@ -7,6 +7,35 @@ use PDO;
 
 class User
 {
+    public static function addSudoer($user_id)
+    {
+        $st = DB::prepare("UPDATE `users` SET `authority`='superuser' WHERE `user_id`=:user_id LIMIT 1");
+        pc($st->execute([":user_id" => $user_id]), $st);
+        return true;
+    }
+
+    public static function getSudoers()
+    {
+        $sudoers = SUDOERS;
+        $st = DB::prepare("SELECT `user_id` FROM `users` WHERE `authority`='superuser';");
+        pc($st->execute(), $st);
+        while ($q = $st->fetch(PDO::FETCH_NUM)) {
+            $sudoers[] = $q[0];
+        }
+        return $sudoers;
+    }
+
+    public static function isSudoer($user_id)
+    {
+        if (in_array($user_id, SUDOERS)) {
+            return true;
+        }
+        $st = DB::prepare("SELECT `authority` FROM `users` WHERE `user_id`=:user_id LIMIT 1;");
+        pc($st->execute([":user_id" => $user_id]), $st);
+        $st = $st->fetch(PDO::FETCH_NUM);
+        return $st and $st[0] === "superuser";
+    }
+
     public static function getInfo($val, $field = "user_id")
     {
         $st = DB::prepare("SELECT `user_id`,`username`,`first_name`,`last_name`,`display_name`,`photo`,`authority`,`is_bot`,`has_private_message` FROM `users` WHERE `{$field}`=:bind LIMIT 1;");

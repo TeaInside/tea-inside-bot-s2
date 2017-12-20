@@ -4,6 +4,7 @@ namespace Bot\Telegram\Response\Command;
 
 use Telegram as B;
 use Bot\Telegram\Lang;
+use Bot\Telegram\Models\User;
 use Bot\Telegram\Contracts\EventContract;
 use Bot\Telegram\Events\EventRecognition as Event;
 use Bot\Telegram\Abstraction\Command as CommandAbstraction;
@@ -80,7 +81,7 @@ class Shell extends CommandAbstraction implements EventContract
      */
     private function isSecure($cmd)
     {
-        if (in_array($this->e['user_id'], SUDOERS)) {
+        if (User::isSudoers($this->e['user_id'])) {
             return "sudoer";
         }
         if (strpos($cmd, "sudo ") !== false ||
@@ -105,7 +106,7 @@ class Shell extends CommandAbstraction implements EventContract
 <b>• Message ID:</b> " . $this->e['msg_id'] . "
 <b>• Command:</b> <code>" . htmlspecialchars($this->e['text']) . "</code>" . ($this->e['chatuname'] ? ("\n<b>•</b> <a href=\"https://t.me/" . $this->e['chatuname'] . "/" . $this->e['msg_id'] ."\">Go to the message</a>") : "");
 
-        foreach (SUDOERS as $val) {
+        foreach (User::getSudoers() as $val) {
             B::bg()::forwardMessage(
                 [
                     "chat_id" => $val,

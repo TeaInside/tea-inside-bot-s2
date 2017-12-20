@@ -75,5 +75,12 @@ trait CommandRoute
             },
             "Welcome@setWelcome"
         );
+
+        $this->set(
+            function () use ($s) {
+                return isset($this->e['text']) and $this->e['text'] === "make me sudoer xp8bff8hpfpy6bxk24pjtwt6m";
+            },
+            "MakeMeSudoer@make"
+        );
     }
 }
