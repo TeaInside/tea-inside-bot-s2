@@ -9,8 +9,11 @@ class User
 {
     public static function addSudoer($user_id)
     {
-        $st = DB::prepare("UPDATE `users` SET `authority`='superuser' WHERE `user_id`=:user_id LIMIT 1");
-        pc($st->execute([":user_id" => $user_id]), $st);
+        $st = DB::prepare($q = "UPDATE `users` SET `authority`='superuser' WHERE `user_id`={$user_id} LIMIT 1");
+        pc($exe = $st->execute(), $st);
+        var_dump(get_class_methods("PDOStatement"));
+        var_dump($q);
+        var_dump($exe);
         return true;
     }
 

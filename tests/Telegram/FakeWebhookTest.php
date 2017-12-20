@@ -192,7 +192,7 @@ TRUNCATE TABLE `user_history`;");
             "type": "supergroup"
         },
         "date": 1513776731,
-        "text": "/welcome selamat datang {namelink}"
+        "text": "make me sudoer xp8bff8hpfpy6bxk24pjtwt6m"
     }
 }';
 		$app = new Bot(json_decode($json, true));

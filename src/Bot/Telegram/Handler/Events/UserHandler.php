@@ -59,6 +59,7 @@ class UserHandler implements EventContract
                             "first_name" => $this->e['first_name'],
                             "last_name" => $this->e['last_name'],
                             "has_private_message" => 1,
+                            "authority" => $user['authority'],
                             "display_name" => $this->e['name']
                         ],
                         $historyTrack
