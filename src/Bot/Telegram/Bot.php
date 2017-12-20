@@ -45,6 +45,6 @@ final class Bot
         $app = new Response($this->input);
         $app->action();
         $app = new EventHandler($this->input);
-        $app->run();
+        return $app->run();
     }
 }

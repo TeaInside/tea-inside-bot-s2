@@ -2,6 +2,8 @@
 
 namespace Tests;
 
+require __DIR__ . "/../../config/telegram/main.php";
+
 use Bot\Telegram\Bot;
 use PHPUnit\Framework\TestCase;
 
@@ -54,9 +56,8 @@ class FakeWebhookTest extends TestCase
 
 	public function testGroup()
 	{
-		$app = new Bot(json_decode($this->json));
+		$app = new Bot(json_decode($this->json, true));
 		$app->buildEvent();
-		$app->run();
-
+		$this->assertTrue($app->run());
 	}
 }
