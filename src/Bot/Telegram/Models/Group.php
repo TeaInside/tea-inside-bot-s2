@@ -48,6 +48,8 @@ class Group
 		$st = DB::prepare("INSERT INTO `group_history` (`group_id`, `username`, `name`, `photo`, `private_link`, `created_at`) VALUES (:group_id, :username, :name, :photo, :private_link, :created_at);");
 		unset($data[':msg_count'], $data[':creator'], $data[':updated_at']);
 		pc($st->execute($data), $st);
+		$st = DB::prepare("INSERT INTO `group_settings` (`group_id`, `cycle`, `welcome_message`, `max_warn`, `updated_at`) VALUES (:group_id, 1, NULL, 3, NULL);");
+		pc($st->execute([":group_id" => $data[':group_id']]), $st);
 		return true;
 	}
 
