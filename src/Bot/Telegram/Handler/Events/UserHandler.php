@@ -41,24 +41,43 @@ class UserHandler implements EventContract
         $q->run();
     }
 
-	public function handle()
+	public function handle($isGroup = 0)
 	{
-		if ($currentInfo = User::getInfo($this->e['user_id'])) {
-
-    	} else {
-    		User::insert(
-    			[
-    				"user_id" 	=> $this->e['user_id'],
-    				"username"	=> $this->e['username'],
-    				"first_name"=> $this->e['first_name'],
-    				"last_name"	=> $this->e['last_name'],
-    				"display_name"=> $this->e['name'],
-    				"photo"	=> null,
-    				"authority"	=> 'user',
-    				"is_bot"	=> (int) $this->e['is_bot'],
-    				"created_at"=> date('Y-m-d H:i:s')
-    			]
-    		);
-    	}
+        if ($isGroup) {
+            if ($currentInfo = User::getInfo($this->e['user_id'])) {
+            } else {
+                User::insert(
+                    [
+                        "user_id"   => $this->e['user_id'],
+                        "username"  => $this->e['username'],
+                        "first_name"=> $this->e['first_name'],
+                        "last_name" => $this->e['last_name'],
+                        "display_name"=> $this->e['name'],
+                        "photo" => null,
+                        "authority" => 'user',
+                        "is_bot"    => (int) $this->e['is_bot'],
+                        "created_at"=> date('Y-m-d H:i:s')
+                    ]
+                );
+            }
+        } else {
+            if ($currentInfo = User::getInfo($this->e['user_id'])) {
+            } else {
+                User::insert(
+                    [
+                        "user_id"   => $this->e['user_id'],
+                        "username"  => $this->e['username'],
+                        "first_name"=> $this->e['first_name'],
+                        "last_name" => $this->e['last_name'],
+                        "display_name"=> $this->e['name'],
+                        "photo" => null,
+                        "authority" => 'user',
+                        "is_bot"    => (int) $this->e['is_bot'],
+                        "has_private_message" => 1,
+                        "created_at"=> date('Y-m-d H:i:s')
+                    ]
+                );
+            }
+        }
 	}
 }

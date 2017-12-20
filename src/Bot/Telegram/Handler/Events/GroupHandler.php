@@ -48,7 +48,7 @@ class GroupHandler implements EventContract
     private function recognizer()
     {
     	$handler = new UserHandler($this->e);
-    	$handler->handle();
+    	$handler->handle(1);
     }
 
     private function handle()
