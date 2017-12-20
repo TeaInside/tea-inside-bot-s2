@@ -7,6 +7,35 @@ use PDO;
 
 class Group
 {
+
+    public static function isAdmin($user_id, $group_id)
+    {
+        if (in_array($user_id, GLOBAL_ADMINS)) {
+            return true;
+        }
+        $st = DB::prepare("SELECT `user_id` FROM `group_admins` WHERE `group_id`=:group_id AND `user_id`=:user_id LIMIT 1;");
+        pc($st->execute(
+            [
+                ":group_id" => $group_id,
+                ":user_id"  => $user_id
+            ]
+        ), $st);
+        return (bool) $st->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function getAdminInfo($userid, $group_id)
+    {
+        $st = DB::prepare("SELECT `user_id`, `group_id`, `status`, `can_be_edited`, `can_change_info`, `can_delete_messages`, `can_invite_users`, `can_restrict_members`, `can_pin_messages`, `can_promote_members` FROM `group_admins` WHERE `group_id`=:group_id AND `user_id`=:user_id LIMIT 1;");
+        pc($st->execute(
+            [
+                ":group_id" => $group_id,
+                ":user_id"  => $user_id
+            ]
+        ), $st);
+        return $st->fetch(PDO::FETCH_ASSOC);
+    }
+
+
     public static function setWelcome($welcome, $group_id)
     {
         $st = DB::prepare("UPDATE `group_settings` SET `welcome_message`=:welcome_message,`updated_at`=:updated_at WHERE `group_id`=:group_id LIMIT 1;");

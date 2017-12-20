@@ -20,18 +20,20 @@ class Welcome extends CommandAbstraction implements EventContract
         if ($this->e['chattype'] !== "private") {
             $str = explode(" ", $this->e['text'], 2);
             if (! empty($str[1])) {
-                if (Group::setWelcome($str[1], $this->e['chat_id'])) {
-                    $msg = Lang::get("success_set_welcome_message");
-                } else {
-                    $msg = Lang::get("failed_set_welcome_message");
+                if ($info = Group::isAdmin($this->e['user_id'], $this->e['chat_id'])) {
+                    if (Group::setWelcome($str[1], $this->e['chat_id'])) {
+                        $msg = Lang::get("success_set_welcome_message");
+                    } else {
+                        $msg = Lang::get("failed_set_welcome_message");
+                    }
+                    B::bg()::sendMessage(
+                        [
+                            "chat_id" => $this->e['chat_id'],
+                            "text"    => $msg,
+                            "parse_mode" => "HTML"
+                        ]
+                    );   
                 }
-                B::bg()::sendMessage(
-                    [
-                        "chat_id" => $this->e['chat_id'],
-                        "text"    => $msg,
-                        "parse_mode" => "HTML"
-                    ]
-                );
             }
         } else {
             B::bg()::sendMessage(
