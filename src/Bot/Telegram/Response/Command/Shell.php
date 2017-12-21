@@ -39,8 +39,10 @@ class Shell extends CommandAbstraction implements EventContract
             );
             flock($handle, LOCK_EX);
             fwrite($handle, $cmd[1]);
+            fflush($handle);
+            flock($handle, LOCK_UN);
             fclose($handle);
-            $stdout = shell_exec("sudo chmod +x ".$file);
+            $stdout = shell_exec("sudo chmod 777 ".$file);
             if ($status === "sudoer") {
                 $stdout = shell_exec($file." 2>&1");
             } else {
