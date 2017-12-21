@@ -9,11 +9,12 @@
             "email": "ammarfaizi2@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "php": ">=7.0.0",
         "ext-pdo": "*",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "ammarfaizi2/myanimelist": "^0.0.1"
     },
     "autoload": {
         "psr-4": {

@@ -185,4 +185,32 @@ TRUNCATE TABLE `user_history`;");
         $app->buildEvent();
         $this->assertTrue($app->run());
     }
+
+        public function testAnimeSearch()
+    {
+        $json = '{
+    "update_id": 344538497,
+    "message": {
+        "message_id": 3257,
+        "from": {
+            "id": 243692601,
+            "is_bot": false,
+            "first_name": "Ammar",
+            "last_name": "F.",
+            "username": "ammarfaizi2",
+            "language_code": "en"
+        },
+        "chat": {
+            "id": -1001128970273,
+            "title": "Testing Env",
+            "type": "supergroup"
+        },
+        "date": 1513776731,
+        "text": "/anime sword art online"
+    }
+}';
+        $app = new Bot(json_decode($json, true));
+        $app->buildEvent();
+        $this->assertTrue($app->run());
+    }
 }
