@@ -89,7 +89,7 @@ class MyAnimeList extends CommandAbstraction implements EventContract
                 } else {
                     $msg .= "<b>".$pg['entry']['id']." ".htmlspecialchars(html_entity_decode($pg['entry']['title'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8')."</b>\n";
                 }
-                $msg .= "\nKetik /idan [spasi] <i>[id manga]</i>";
+                $msg .= "\nKetik /idma [spasi] <i>[id manga]</i>";
             } else {
                 $msg = "Manga <b>".$pure."</b> tidak ditemukan!";
             }
