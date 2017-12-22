@@ -251,17 +251,7 @@ class MyAnimeList extends CommandAbstraction implements EventContract
             unset($val);
             return $str;
         } else {
-            $str =  str_replace("\n\n", "\n", str_replace(
-                    [
-                        "<br />",
-                        "[i]",
-                        "[/i]"
-                    ],
-                    [
-                        "\n",
-                        "<i>",
-                        "</i>"
-                    ],htmlspecialchars(html_entity_decode($str, ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8')));
+            $str =  str_replace(["\n\n","[i]","[/i]"], ["\n","<i>","</i>"],htmlspecialchars(html_entity_decode(str_replace(["<br />"], ["\n"], $str), ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8'));
             return $str;
         }
     }
