@@ -110,7 +110,7 @@ class MyAnimeList extends CommandAbstraction implements EventContract
             $str = trim($this->e['anime_list_id']);
         } else {
             $str = explode(" ", $this->e['text'], 2);
-            $str = isset($str[1]) ? strtolower($pure = trim($str[1])) : null;
+            $str = isset($str[1]) ? strtolower($pure = trim($str[1])) : "";
         }
         if ($str === "") {
             return B::bg()::sendMessage(
@@ -124,6 +124,7 @@ class MyAnimeList extends CommandAbstraction implements EventContract
         } else {
             $pg = new MyAnimeListPlugin('animeInfo', $str);
             $pg = $pg->get();
+            var_dump($pg);
             if (is_array($pg)) {
                 $msg = json_encode($pg, 128);
             } else {
@@ -146,7 +147,7 @@ class MyAnimeList extends CommandAbstraction implements EventContract
             $str = trim($this->e['anime_list_id']);
         } else {
             $str = explode(" ", $this->e['text'], 2);
-            $str = isset($str[1]) ? strtolower($pure = trim($str[1])) : null;
+            $str = isset($str[1]) ? strtolower($pure = trim($str[1])) : "";
         }
         if ($str === "") {
             return B::bg()::sendMessage(
@@ -160,6 +161,7 @@ class MyAnimeList extends CommandAbstraction implements EventContract
         } else {
             $pg = new MyAnimeListPlugin('mangaInfo', $str);
             $pg = $pg->get();
+            var_dump($pg);
             if (is_array($pg)) {
                 $msg = json_encode($pg, 128);
             } else {
