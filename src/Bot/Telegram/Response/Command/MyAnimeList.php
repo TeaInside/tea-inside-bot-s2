@@ -161,9 +161,67 @@ class MyAnimeList extends CommandAbstraction implements EventContract
         } else {
             $pg = new MyAnimeListPlugin('mangaInfo', $str);
             $pg = $pg->get();
-            var_dump($pg);
             if (is_array($pg)) {
-                $msg = json_encode($pg, 128);
+                $msg = "";
+                $fx  = function ($str) {
+                    if (is_array($str)) {
+                        array_walk($str, function (&$q) {
+                            return htmlspecialchars(
+                                    str_replace(
+                                        [
+                                            "<br />"
+                                            "[i]",
+                                            "[/i]"
+                                        ]
+                                        ,
+                                        [
+                                            "\n",
+                                            "<i>",
+                                            "</i>"
+                                        ], 
+                                        $str),
+                                        ENT_QUOTES,
+                                        'UTF-8'
+                                );
+                        });
+                        return $str;
+                    }
+                    return htmlspecialchars(
+                        str_replace(
+                            [
+                                "<br />"
+                                "[i]",
+                                "[/i]"
+                            ]
+                            ,
+                            [
+                                "\n",
+                                "<i>",
+                                "</i>"
+                            ], 
+                            $str),
+                            ENT_QUOTES,
+                            'UTF-8'
+                    );
+                };
+                $image = null;
+                foreach ($pg as $key => $val) {
+                    if ($key === "image") {
+                        $image = $fx($val);
+                    } else {
+                        $val = $fx($val);
+                        $msg = "<b>".$fx(ucwords(str_replace("_", " ", $key))).":</b> ".(is_array($val) ? implode(", ", $val) : $val)."\n";
+                    }
+                }
+                if ($image !== null) {
+                    B::sendPhoto(
+                        [
+                            "chat_id" => $this->e['chat_id'],
+                            "photo"   => $photo,
+                            "reply_to_message_id" => $this->e['msg_id']
+                        ]
+                    );
+                }
             } else {
                 $msg = "Mohon maaf, manga dengan ID ".$str." tidak ditemukan.";
             }
