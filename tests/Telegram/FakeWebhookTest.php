@@ -206,7 +206,7 @@ TRUNCATE TABLE `user_history`;");
             "type": "supergroup"
         },
         "date": 1513776731,
-        "text": "/anime sword art online"
+        "text": "/idma 13"
     }
 }';
         $app = new Bot(json_decode($json, true));

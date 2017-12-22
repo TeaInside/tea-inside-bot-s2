@@ -144,7 +144,7 @@ class MyAnimeList extends CommandAbstraction implements EventContract
     }
 
     public function mangaInfo()
-    {
+    {        
         if (isset($this->e['anime_list_id'])) {
             $str = trim($this->e['anime_list_id']);
         } else {
@@ -163,40 +163,52 @@ class MyAnimeList extends CommandAbstraction implements EventContract
         } else {
             $pg = new MyAnimeListPlugin('mangaInfo', $str);
             $pg = $pg->get();
+            var_dump($str);
             if (is_array($pg)) {
                 $msg = "";
                 $image = null;
+                $id = null;
                 foreach ($pg as $key => $val) {
                     if ($key === "image") {
                         $image = self::fx($val);
                     } else {
+                        $key === "id" and $id = $val;
                         self::fx($val);
                         $key = ucwords(str_replace("_", " ", $key));
                         $key = self::fx($key);
-                        $msg = "<b>".$key.":</b> ".(is_array($val) ? implode(", ", $val) : $val)."\n";
+                        $msg .= "<b>".$key.":</b> ".(is_array($val) ? implode(", ", $val) : $val)."\n";
                     }
                 }
                 if ($image !== null) {
                     B::sendPhoto(
                         [
                             "chat_id" => $this->e['chat_id'],
-                            "photo"   => $photo,
+                            "photo"   => $image,
                             "reply_to_message_id" => $this->e['msg_id']
                         ]
                     );
                 }
+                B::bg()::sendMessage(
+                    [
+                        "chat_id" => $this->e['chat_id'],
+                        "text"    => $msg,
+                        "parse_mode"=> "HTML",
+                        "reply_to_message_id" => $this->e['msg_id'],
+                        "reply_markup" => json_encode(["inline_keyboard" => [[["text"=> "Lihat selengkapnya", "url" => "https://myanimelist.net/manga/".$id]]]])
+                    ]
+                );
             } else {
-                $msg = "Mohon maaf, manga dengan ID ".$str." tidak ditemukan.";
+                B::bg()::sendMessage(
+                    [
+                        "chat_id" => $this->e['chat_id'],
+                        "text"    => "Mohon maaf, manga dengan ID ".$str." tidak ditemukan.",
+                        "parse_mode"=> "HTML",
+                        "reply_to_message_id" => $this->e['msg_id']
+                    ]
+                );
             }
-            B::bg()::sendMessage(
-                [
-                    "chat_id" => $this->e['chat_id'],
-                    "text"    => $msg,
-                    "parse_mode"=> "HTML",
-                    "reply_to_message_id" => $this->e['msg_id']
-                ]
-            );
         }
+        return true;
     }
 
     private static function fx(&$str)
@@ -208,7 +220,7 @@ class MyAnimeList extends CommandAbstraction implements EventContract
             unset($val);
             return $str;
         } else {
-            $str =  htmlspecialchars(
+            $str =  str_replace("\n\n", "\n", htmlspecialchars(
                 str_replace(
                     [
                         "<br />",
@@ -224,11 +236,11 @@ class MyAnimeList extends CommandAbstraction implements EventContract
                         $str, 
                         ENT_QUOTES, 
                         'UTF-8'
-                    ),
-                    ENT_QUOTES,
-                    'UTF-8'
-                )
-            );
+                    )
+                ),
+                ENT_QUOTES,
+                'UTF-8'
+            ));
             return $str;
         }
     }
