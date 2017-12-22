@@ -169,7 +169,7 @@ class MyAnimeList extends CommandAbstraction implements EventContract
                             return htmlspecialchars(
                                     str_replace(
                                         [
-                                            "<br />"
+                                            "<br />",
                                             "[i]",
                                             "[/i]"
                                         ]
@@ -189,7 +189,7 @@ class MyAnimeList extends CommandAbstraction implements EventContract
                     return htmlspecialchars(
                         str_replace(
                             [
-                                "<br />"
+                                "<br />",
                                 "[i]",
                                 "[/i]"
                             ]
