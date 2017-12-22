@@ -78,6 +78,19 @@ trait CommandRoute
         $this->set(
             function () use ($s) {
                 return
+                    $s[0] === "/idan"||
+                    $s[0] === "!idan"||
+                    $s[0] === "~idan"||
+                    (
+                        isset($this->e['reply_to']['text']) and $this->e['reply_to']['text'] === "Balas dengan ID anime!" and $this->e['anime_list_id'] = $this->e['text']
+                    );
+            },
+            "MyAnimeList@animeInfo"
+        );
+
+        $this->set(
+            function () use ($s) {
+                return
                     $s[0] === "/manga"||
                     $s[0] === "!manga"||
                     $s[0] === "~manga"||
@@ -86,6 +99,19 @@ trait CommandRoute
                     );
             },
             "MyAnimeList@mangaSearch"
+        );
+
+        $this->set(
+            function () use ($s) {
+                return
+                    $s[0] === "/idma"||
+                    $s[0] === "!idma"||
+                    $s[0] === "~idma"||
+                    (
+                        isset($this->e['reply_to']['text']) and $this->e['reply_to']['text'] === "Balas dengan ID manga!" and $this->e['anime_list_id'] = $this->e['text']
+                    );
+            },
+            "MyAnimeList@mangaInfo"
         );
 
         $this->set(
