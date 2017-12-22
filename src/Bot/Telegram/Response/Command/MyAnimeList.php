@@ -57,6 +57,7 @@ class MyAnimeList extends CommandAbstraction implements EventContract
                 ]
             );
         }
+        return true;
     }
 
     public function mangaSearch()
@@ -102,6 +103,7 @@ class MyAnimeList extends CommandAbstraction implements EventContract
                 ]
             );
         }
+        return true;
     }
 
     public function animeInfo()
@@ -163,54 +165,15 @@ class MyAnimeList extends CommandAbstraction implements EventContract
             $pg = $pg->get();
             if (is_array($pg)) {
                 $msg = "";
-                $fx  = function ($str) {
-                    if (is_array($str)) {
-                        array_walk($str, function (&$q) {
-                            return htmlspecialchars(
-                                    str_replace(
-                                        [
-                                            "<br />",
-                                            "[i]",
-                                            "[/i]"
-                                        ]
-                                        ,
-                                        [
-                                            "\n",
-                                            "<i>",
-                                            "</i>"
-                                        ], 
-                                        $str),
-                                        ENT_QUOTES,
-                                        'UTF-8'
-                                );
-                        });
-                        return $str;
-                    }
-                    return htmlspecialchars(
-                        str_replace(
-                            [
-                                "<br />",
-                                "[i]",
-                                "[/i]"
-                            ]
-                            ,
-                            [
-                                "\n",
-                                "<i>",
-                                "</i>"
-                            ], 
-                            $str),
-                            ENT_QUOTES,
-                            'UTF-8'
-                    );
-                };
                 $image = null;
                 foreach ($pg as $key => $val) {
                     if ($key === "image") {
-                        $image = $fx($val);
+                        $image = self::fx($val);
                     } else {
-                        $val = $fx($val);
-                        $msg = "<b>".$fx(ucwords(str_replace("_", " ", $key))).":</b> ".(is_array($val) ? implode(", ", $val) : $val)."\n";
+                        self::fx($val);
+                        $key = ucwords(str_replace("_", " ", $key));
+                        $key = self::fx($key);
+                        $msg = "<b>".$key.":</b> ".(is_array($val) ? implode(", ", $val) : $val)."\n";
                     }
                 }
                 if ($image !== null) {
@@ -233,6 +196,40 @@ class MyAnimeList extends CommandAbstraction implements EventContract
                     "reply_to_message_id" => $this->e['msg_id']
                 ]
             );
+        }
+    }
+
+    private static function fx(&$str)
+    {
+        if (is_array($str)) {
+            foreach ($str as &$val) {
+                self::fx($val);
+            }
+            unset($val);
+            return $str;
+        } else {
+            $str =  htmlspecialchars(
+                str_replace(
+                    [
+                        "<br />",
+                        "[i]",
+                        "[/i]"
+                    ],
+                    [
+                        "\n",
+                        "<i>",
+                        "</i>"
+                    ],
+                    html_entity_decode(
+                        $str, 
+                        ENT_QUOTES, 
+                        'UTF-8'
+                    ),
+                    ENT_QUOTES,
+                    'UTF-8'
+                )
+            );
+            return $str;
         }
     }
 }
