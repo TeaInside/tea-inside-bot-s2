@@ -16,8 +16,12 @@ class MyAnimeList extends CommandAbstraction implements EventContract
 {
     public function animeSearch()
     {
-        $str = explode(" ", $this->e['text'], 2);
-        $str = isset($str[1]) ? strtolower($pure = trim($str[1])) : null;
+        if (isset($this->e['anime_list_title'])) {
+            $str = $this->e['anime_list_title'];
+        } else {
+            $str = explode(" ", $this->e['text'], 2);
+            $str = isset($str[1]) ? strtolower($pure = trim($str[1])) : null;
+        }
         if (empty($str)) {
             return B::bg()::sendMessage(
                 [
@@ -43,6 +47,51 @@ class MyAnimeList extends CommandAbstraction implements EventContract
                 $msg .= "\nKetik /idan [spasi] <i>[id anime]</i>";
             } else {
                 $msg = "Anime <b>".$pure."</b> tidak ditemukan!";
+            }
+            B::bg()::sendMessage(
+                [
+                    "chat_id" => $this->e['chat_id'],
+                    "text"    => $msg,
+                    "parse_mode"=> "HTML",
+                    "reply_to_message_id" => $this->e['msg_id']
+                ]
+            );
+        }
+    }
+
+    public function mangaSearch()
+    {
+        if (isset($this->e['anime_list_title'])) {
+            $str = $this->e['anime_list_title'];
+        } else {
+            $str = explode(" ", $this->e['text'], 2);
+            $str = isset($str[1]) ? strtolower($pure = trim($str[1])) : null;
+        }
+        if (empty($str)) {
+            return B::bg()::sendMessage(
+                [
+                    "chat_id" => $this->e['chat_id'],
+                    "text"    => "Manga apa yang ingin dicari?",
+                    "reply_to_message_id" => $this->e['msg_id'],
+                    "reply_markup" => json_encode(["force_reply"=>true,"selective"=>true])
+                ]
+            );
+        } else {
+            $pg = new MyAnimeListPlugin('mangaSearch', $str);
+            $pg = $pg->get();
+            $pure = htmlspecialchars($pure, ENT_QUOTES, 'UTF-8');
+            if (is_array($pg)) {
+                $msg = "Hasil pencarian manga <b>\"".$pure."\"</b>:\n\n";
+                if (isset($pg['entry'][0])) {
+                    foreach ($pg['entry'] as $key => $val) {
+                        $msg .= "<b>".$val['id']." ".htmlspecialchars(html_entity_decode($val['title'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8')."</b>\n";
+                    }
+                } else {
+                    $msg .= "<b>".$pg['entry']['id']." ".htmlspecialchars(html_entity_decode($pg['entry']['title'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES, 'UTF-8')."</b>\n";
+                }
+                $msg .= "\nKetik /idan [spasi] <i>[id manga]</i>";
+            } else {
+                $msg = "Manga <b>".$pure."</b> tidak ditemukan!";
             }
             B::bg()::sendMessage(
                 [

@@ -67,9 +67,25 @@ trait CommandRoute
                 return
                     $s[0] === "/anime"||
                     $s[0] === "!anime"||
-                    $s[0] === "~anime";
+                    $s[0] === "~anime"||
+                    (
+                        isset($this->e['reply_to']['text']) and $this->e['reply_to']['text'] === "Anime apa yang ingin dicari?" and $this->e['anime_list_title'] = $this->e['text']
+                    );
             },
             "MyAnimeList@animeSearch"
+        );
+
+        $this->set(
+            function () use ($s) {
+                return
+                    $s[0] === "/manga"||
+                    $s[0] === "!manga"||
+                    $s[0] === "~manga"||
+                    (
+                        isset($this->e['reply_to']['text']) and $this->e['reply_to']['text'] === "Manga apa yang ingin dicari?" and $this->e['anime_list_title'] = $this->e['text']
+                    );
+            },
+            "MyAnimeList@mangaSearch"
         );
 
         $this->set(
