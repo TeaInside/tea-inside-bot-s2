@@ -17,12 +17,12 @@ class MyAnimeList extends CommandAbstraction implements EventContract
     public function animeSearch()
     {
         if (isset($this->e['anime_list_title'])) {
-            $str = $this->e['anime_list_title'];
+            $pure = $str = $this->e['anime_list_title'];
         } else {
             $str = explode(" ", $this->e['text'], 2);
             $str = isset($str[1]) ? strtolower($pure = trim($str[1])) : null;
         }
-        if (empty($str)) {
+        if ($str === "") {
             return B::bg()::sendMessage(
                 [
                     "chat_id" => $this->e['chat_id'],
@@ -62,12 +62,12 @@ class MyAnimeList extends CommandAbstraction implements EventContract
     public function mangaSearch()
     {
         if (isset($this->e['anime_list_title'])) {
-            $str = $this->e['anime_list_title'];
+            $pure = $str = $this->e['anime_list_title'];
         } else {
             $str = explode(" ", $this->e['text'], 2);
             $str = isset($str[1]) ? strtolower($pure = trim($str[1])) : null;
         }
-        if (empty($str)) {
+        if ($str === "") {
             return B::bg()::sendMessage(
                 [
                     "chat_id" => $this->e['chat_id'],
@@ -92,6 +92,42 @@ class MyAnimeList extends CommandAbstraction implements EventContract
                 $msg .= "\nKetik /idma [spasi] <i>[id manga]</i>";
             } else {
                 $msg = "Manga <b>".$pure."</b> tidak ditemukan!";
+            }
+            B::bg()::sendMessage(
+                [
+                    "chat_id" => $this->e['chat_id'],
+                    "text"    => $msg,
+                    "parse_mode"=> "HTML",
+                    "reply_to_message_id" => $this->e['msg_id']
+                ]
+            );
+        }
+    }
+
+    public function animeInfo()
+    {
+        if (isset($this->e['anime_list_id'])) {
+            $str = trim($this->e['anime_list_id']);
+        } else {
+            $str = explode(" ", $this->e['text'], 2);
+            $str = isset($str[1]) ? strtolower($pure = trim($str[1])) : null;
+        }
+        if ($str === "") {
+            return B::bg()::sendMessage(
+                [
+                    "chat_id" => $this->e['chat_id'],
+                    "text"    => "Balas dengan ID anime!",
+                    "reply_to_message_id" => $this->e['msg_id'],
+                    "reply_markup" => json_encode(["force_reply"=>true,"selective"=>true])
+                ]
+            );
+        } else {
+            $pg = new MyAnimeListPlugin('animeInfo', $str);
+            $pg = $pg->get();
+            if (is_array($pg)) {
+                $msg = json_encode($pg, 128);
+            } else {
+                $msg = "Mohon maaf, anime dengan ID ".$str." tidak ditemukan.";
             }
             B::bg()::sendMessage(
                 [
