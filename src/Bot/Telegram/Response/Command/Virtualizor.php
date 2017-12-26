@@ -64,7 +64,7 @@ class Virtualizor extends CommandAbstraction implements EventContract
 		);
 	}
 
-	public function c()
+	public function cpp()
 	{
 		$sq = new Cpp(substr($this->e['text'], 3));
 		$st = $sq->execute();
