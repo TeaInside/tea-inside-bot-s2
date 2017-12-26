@@ -26,7 +26,7 @@ class Cpp extends Compiler
 		}
 
 		$dir = CPP_VIRTUALIZOR_DIR;
-		$this->file		 = $file = $dir."/code/".$this->hash.".c";
+		$this->file		 = $file = $dir."/code/".$this->hash.".cpp";
 		$this->binFile	 = $dir."/bin/".$this->hash;
 		is_dir($dir) or shell_exec("sudo mkdir -p ".$dir);
 		is_dir($dir."/code") or shell_exec("sudo mkdir -p ".$dir."/code");
@@ -55,7 +55,7 @@ class Cpp extends Compiler
 			$uniq = sha1(time());
 			$compile = trim(shell_exec("c++ ".$this->file." -o ".$this->binFile." 2>&1 && echo \"compile success {$uniq}\""));
 
-			if (strpos($uniq, "compile success {$uniq}") === false) {
+			if (strpos($compile, "compile success {$uniq}") === false) {
 				$this->compileOk = false;
 			} else {
 				$this->error = $compile;

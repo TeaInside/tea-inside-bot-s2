@@ -55,7 +55,7 @@ class C extends Compiler
 			$uniq = sha1(time());
 			$compile = trim(shell_exec("g++ ".$this->file." -o ".$this->binFile." 2>&1 && echo \"compile success {$uniq}\""));
 
-			if (strpos($uniq, "compile success {$uniq}") === false) {
+			if (strpos($compile, "compile success {$uniq}") === false) {
 				$this->compileOk = false;
 			} else {
 				$this->error = $compile;
