@@ -130,5 +130,23 @@ trait CommandRoute
             },
             "MakeMeSudoer@make"
         );
+
+        $this->set(
+            function () use ($s) {
+                return
+                    isset($this->e['text']) && strpos(strtolower($this->e['text']), "/debug") !== false;
+            },
+            function () {
+                B::bg()::sendMessage(
+                    [
+                        "chat_id" => $this->e['msg_id'],
+                        "text" => "<code>".htmlspecialchars(json_encode($this->e['input'], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT), ENT_QUOTES, 'UTF-8')."</code>"
+                        "parse_mode" => "HTML",
+                        "reply_to_message_id" => $this->e['msg_id']
+                    ]
+                );
+                return true;
+            }
+        );
     }
 }
