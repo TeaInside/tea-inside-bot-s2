@@ -17,12 +17,15 @@ class Virtualizor extends CommandAbstraction implements EventContract
 {
 	public function php()
 	{
-		$st = new PHP($this->e['text']);
-		$st = trim($st->execute());
+		$sq = new PHP($this->e['text']);
+		$st = trim($sq->execute());
+		$file = $sq->file;
+		unset($sq);
 		if ($st === "") {
 			$st = "~";
 		} else {
-			$st = htmlspecialchars(str_replace(["<br />", "<b>", "</b>"], ["\n", "{@~b~@}", "{@~/b~@}"], $st), ENT_QUOTES, 'UTF-8');
+			$rn = substr(sha1(time()), 0, 3).".php";
+			$st = htmlspecialchars(str_replace([$file, "<br />", "<b>", "</b>"], ["/tmp/{$rn}", "\n", "{@~b~@}", "{@~/b~@}"], $st), ENT_QUOTES, 'UTF-8');
 			$st = str_replace(["{@~b~@}", "{@~/b~@}"], ["<b>", "</b>"], $st);
 			$st = $st === "" ? "~" : $st;
 		}

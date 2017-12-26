@@ -13,6 +13,8 @@ class PHP extends Interpreter
 	
 	private $url;
 
+	public $file;
+
 	public function parse()
 	{
 		if (! defined("PHP_VIRTUALIZOR_DIR")) {
@@ -24,7 +26,7 @@ class PHP extends Interpreter
 		}
 
 		$dir = PHP_VIRTUALIZOR_DIR;
-		$file = $dir."/".$this->hash.".php";
+		$this->file = $file = $dir."/".$this->hash.".php";
 		if (! is_dir($dir)) {
 			shell_exec("sudo mkdir -p ".$dir. " && sudo chmod -R 777 ".$dir);
 			if (! is_dir($dir)) {
