@@ -65,8 +65,8 @@ class Cpp extends Compiler
 
 	public function exec()
 	{
-		if ($this->error) {
-			return $error;
+		if (! $this->compileOk) {
+			return $this->error;
 		} else {
 			return shell_exec($this->binFile." 2>&1");
 		}
