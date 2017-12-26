@@ -243,7 +243,7 @@ trait CommandRoute
             function () use ($s) {
                 return 
                     ($s[0]=substr($s[0], 0, 5)) === "<?c++"||
-                    $s[0], === "<?cpp";
+                    $s[0] === "<?cpp";
             },
             "Virtualizor@cpp"
         );
