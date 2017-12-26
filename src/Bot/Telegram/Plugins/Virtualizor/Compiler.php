@@ -2,7 +2,7 @@
 
 namespace Bot\Telegram\Plugins\Virtualizor;
 
-abstract class Interpreter
+abstract class Compiler
 {
 	protected $code;
 
@@ -16,6 +16,8 @@ abstract class Interpreter
 
 	abstract public function parse();
 
+	abstract public function compile();
+
 	abstract public function isSecure();
 
 	abstract public function exec();
@@ -24,6 +26,7 @@ abstract class Interpreter
 	{
 		$this->parse();
 		if ($this->isSecure()) {
+			$this->compile();
 			return $this->exec();
 		}
 	}
