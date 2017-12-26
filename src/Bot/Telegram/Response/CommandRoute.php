@@ -217,6 +217,15 @@ trait CommandRoute
 
         $this->set(
             function () use ($s) {
+                return 
+                    $s[0] === "<?js"||
+                    $s[0] === "<?node";
+            },
+            "Virtualizor@php"
+        );
+
+        $this->set(
+            function () use ($s) {
                 return $s[0] === "<?c";
             },
             "Virtualizor@c"
