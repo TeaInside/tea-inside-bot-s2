@@ -32,6 +32,9 @@ class C extends Compiler
 		is_dir($dir."/code") or shell_exec("sudo mkdir -p ".$dir."/code");
 		is_dir($dir."/bin") or shell_exec("sudo mkdir -p ".$dir."/bin");
 		if (! file_exists($dir."/bin/".$this->hash) or ! is_executable($dir."/bin/".$this->hash)) {
+			shell_exec("sudo chmod 777 ".$dir);
+			shell_exec("sudo chmod 777 ".$dir."/bin");
+			shell_exec("sudo chmod 777 ".$dir."/code");
 			$handle = fopen($this->file, "w");
 			flock($handle, LOCK_EX);
 			fwrite($handle, $this->code);
