@@ -218,7 +218,7 @@ trait CommandRoute
         $this->set(
             function () use ($s) {
                 return 
-                    substr($s[0], 0, 3) === "<?js"||
+                    substr($s[0], 0, 4) === "<?js"||
                     substr($s[0], 0, 6) === "<?node";
             },
             "Virtualizor@js"
@@ -227,7 +227,7 @@ trait CommandRoute
         $this->set(
             function () use ($s) {
                 return 
-                    substr($s[0], 0, 3) === "<?py";
+                    substr($s[0], 0, 4) === "<?py";
             },
             "Virtualizor@python"
         );
