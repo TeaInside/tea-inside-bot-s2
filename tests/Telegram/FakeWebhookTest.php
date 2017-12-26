@@ -74,7 +74,7 @@ TRUNCATE TABLE `user_history`;");
                 }
             ]
         },
-        "text": "/tlr",
+        "text": "/tlr en id",
         "entities": [
             {
                 "offset": 0,
