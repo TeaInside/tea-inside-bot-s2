@@ -23,9 +23,13 @@ trait CommandRoute
 
         $this->set(
             function () use ($s) {
-                var_dump(isset($this->e['text']) && strpos(strtolower($this->e['text']), "/debug") !== false, $this->e['text']);
                 return
-                    isset($this->e['text']) && strpos(strtolower($this->e['text']), "/debug") !== false;
+                    isset($this->e['text']) && 
+                    (
+                        strpos(strtolower($this->e['text']), "/debug") !== false ||
+                        strpos(strtolower($this->e['text']), "~debug") !== false ||
+                        strpos(strtolower($this->e['text']), "!debug") !== false
+                    );
             },
             function () {
                 $a = B::bg()::sendMessage(
