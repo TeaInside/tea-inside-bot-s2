@@ -20,7 +20,7 @@ class NodeJS extends Interpreter
 			throw new \Exception("NODE_VIRTUALIZOR_DIR is not defined", 1);
 		}
 
-		$dir = PHP_VIRTUALIZOR_DIR;
+		$dir = NODE_VIRTUALIZOR_DIR;
 		$this->file = $file = $dir."/".$this->hash.".js";
 		if (! is_dir($dir)) {
 			shell_exec("sudo mkdir -p ".$dir. " && sudo chmod -R 777 ".$dir);
@@ -47,4 +47,3 @@ class NodeJS extends Interpreter
 		return shell_exec("node ".$this->file." 2>&1");
 	}
 }
-
