@@ -5,6 +5,7 @@ namespace Bot\Telegram\Response\Command;
 use Telegram as B;
 use Bot\Telegram\Lang;
 use Bot\Telegram\Contracts\EventContract;
+use Bot\Telegram\Models\Group as GroupModel;
 use Bot\Telegram\Events\EventRecognition as Event;
 use Bot\Telegram\Abstraction\Command as CommandAbstraction;
 
@@ -126,10 +127,6 @@ class AdminHammer extends CommandAbstraction implements EventContract
      */
     private function isEnoughPrivileges()
     {
-        if (in_array($this->e['user_id'], GLOBAL_ADMINS)) {
-            return true;
-        }
-        $r = B::getChatAdministrators(["chat_id" => $this->e['chat_id']]);
-        
+        return GroupModel::isAdmin($this->e['user_id'], $this->e['chat_id']);
     }
 }
