@@ -47,7 +47,7 @@ TRUNCATE TABLE `user_history`;");
             "type": "supergroup"
         },
         "date": 1514292375,
-        "text": "<?php print 123; // /debug",
+        "text": "<?php print 123; ",
         "entities": [
             {
                 "offset": 20,
