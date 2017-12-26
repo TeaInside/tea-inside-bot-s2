@@ -126,7 +126,6 @@ class MyAnimeList extends CommandAbstraction implements EventContract
         } else {
             $pg = new MyAnimeListPlugin('animeInfo', $str);
             $pg = $pg->get();
-            var_dump($str);
             if (is_array($pg)) {
                 $msg = "";
                 $image = null;
@@ -194,7 +193,6 @@ class MyAnimeList extends CommandAbstraction implements EventContract
         } else {
             $pg = new MyAnimeListPlugin('mangaInfo', $str);
             $pg = $pg->get();
-            var_dump($str);
             if (is_array($pg)) {
                 $msg = "";
                 $image = null;

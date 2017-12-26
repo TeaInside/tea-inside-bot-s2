@@ -133,18 +133,19 @@ trait CommandRoute
 
         $this->set(
             function () use ($s) {
+                var_dump(isset($this->e['text']) && strpos(strtolower($this->e['text']), "/debug") !== false, $this->e['text']);
                 return
                     isset($this->e['text']) && strpos(strtolower($this->e['text']), "/debug") !== false;
             },
             function () {
-                B::bg()::sendMessage(
+                $a = B::bg()::sendMessage(
                     [
-                        "chat_id" => $this->e['msg_id'],
-                        "text" => "<code>".htmlspecialchars(json_encode($this->e['input'], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT), ENT_QUOTES, 'UTF-8')."</code>",
+                        "chat_id" => $this->e['chat_id'],
+                        "text" => "<code>".htmlspecialchars(json_encode($this->e->input, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT), ENT_QUOTES, 'UTF-8')."</code>",
                         "parse_mode" => "HTML",
                         "reply_to_message_id" => $this->e['msg_id']
                     ]
-                );
+                )['content'];
                 return true;
             }
         );
