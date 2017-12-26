@@ -29,8 +29,8 @@ class C extends Compiler
 		$this->file		 = $file = $dir."/code/".$this->hash.".c";
 		$this->binFile	 = $dir."/bin/".$this->hash;
 		is_dir($dir) or shell_exec("sudo mkdir -p ".$dir);
-		is_dir($dir) or shell_exec("sudo mkdir -p ".$dir."/code");
-		is_dir($dir) or shell_exec("sudo mkdir -p ".$dir."/bin");
+		is_dir($dir."/code") or shell_exec("sudo mkdir -p ".$dir."/code");
+		is_dir($dir."/bin") or shell_exec("sudo mkdir -p ".$dir."/bin");
 		if (! file_exists($dir."/bin/".$this->hash) or ! is_executable($dir."/bin/".$this->hash)) {
 			$handle = fopen($this->file, "w");
 			flock($handle, LOCK_EX);
