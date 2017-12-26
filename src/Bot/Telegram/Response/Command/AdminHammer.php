@@ -102,7 +102,7 @@ class AdminHammer extends CommandAbstraction implements EventContract
 
     public function pin()
     {
-        if (! empty($this->e['reply_to'])) {
+        if ($this->hasRepliedMessage() && $this->isEnoughPrivileges()) {
             B::bg()::pinChatMessage(
                 [
                     "chat_id" => $this->e['chat_id'],
