@@ -33,11 +33,13 @@ class PHP extends Interpreter
 				throw new \Exception("Cannot create directory ".$dir);
 			}
 		}
-		$handle = fopen($file, "w");
-		flock($handle, LOCK_EX);
-		fwrite($handle, $this->code);
-		fflush($handle);
-		fclose($handle);
+		if (! file_exists($file)) {
+			$handle = fopen($file, "w");
+			flock($handle, LOCK_EX);
+			fwrite($handle, $this->code);
+			fflush($handle);
+			fclose($handle);
+		}
 		$this->url = PHP_VIRTUALIZOR_URL."/".$this->hash.".php";
 	}
 
@@ -62,4 +64,3 @@ class PHP extends Interpreter
 		return $out;
 	}
 }
-
