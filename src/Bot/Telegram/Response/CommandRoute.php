@@ -221,5 +221,14 @@ trait CommandRoute
             },
             "Virtualizor@c"
         );
+
+        $this->set(
+            function () use ($s) {
+                return 
+                    $s[0] === "<?c++"||
+                    $s[0] === "<?cpp";
+            },
+            "Virtualizor@cpp"
+        );
     }
 }
