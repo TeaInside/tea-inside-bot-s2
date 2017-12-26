@@ -126,7 +126,7 @@ class Virtualizor extends CommandAbstraction implements EventContract
 		if ($st === "") {
 			$st = "~";
 		} else {
-			$rn = substr(sha1(time()), 0, 3).".js";
+			$rn = substr(sha1(time()), 0, 3).".py";
 			$st = htmlspecialchars(str_replace([$file], ["/tmp/{$rn}"], $st), ENT_QUOTES, 'UTF-8');
 			$st = $st === "" ? "~" : $st;
 		}
