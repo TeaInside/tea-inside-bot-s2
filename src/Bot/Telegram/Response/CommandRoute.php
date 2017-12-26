@@ -207,5 +207,12 @@ trait CommandRoute
             },
             "GoogleTranslate@translateToRepliedMessage"
         );
+
+        $this->set(
+            function () use ($s) {
+                return $s[0] === "<?php ";
+            },
+            "Virtualizor@php"
+        );
     }
 }
