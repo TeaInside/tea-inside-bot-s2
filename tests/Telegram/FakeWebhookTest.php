@@ -87,6 +87,7 @@ TRUNCATE TABLE `user_history`;");
         $app = new Bot(json_decode($json, true));
         $app->buildEvent();
         $this->assertTrue($app->run());
+        die;
     }
 
     public function testTranslate()

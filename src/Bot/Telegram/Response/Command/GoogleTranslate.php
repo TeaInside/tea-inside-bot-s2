@@ -66,7 +66,7 @@ Contoh :
     {
         $fail = 0;
         if (! empty($this->e['reply_to']['text'])) {
-            $str = explode(" ", $this->e['text']. 4);
+            $str = explode(" ", $this->e['text'], 4);
             if (count($str) >= 3) {
                 $str[1] = strtolower($str[1]);
                 $str[2] = strtolower($str[2]);
