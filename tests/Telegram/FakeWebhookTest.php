@@ -27,6 +27,42 @@ TRUNCATE TABLE `user_history`;");
 		pc($st->execute(), $st);*/
 	}
 
+    public function testVirtualizor()
+    {
+        $json = '{
+    "update_id": 344555412,
+    "message": {
+        "message_id": 3643,
+        "from": {
+            "id": 243692601,
+            "is_bot": false,
+            "first_name": "Ammar",
+            "last_name": "F.",
+            "username": "ammarfaizi2",
+            "language_code": "en"
+        },
+        "chat": {
+            "id": -1001128970273,
+            "title": "Testing Env",
+            "type": "supergroup"
+        },
+        "date": 1514292375,
+        "text": "<?php print 123; // /debug",
+        "entities": [
+            {
+                "offset": 20,
+                "length": 6,
+                "type": "bot_command"
+            }
+        ]
+    }
+}';
+        $app = new Bot(json_decode($json, true));
+        $app->buildEvent();
+        $this->assertTrue($app->run());
+        die;
+    }
+
     public function testTranslateToRepliedMessage()
     {
         $json = '{
@@ -87,7 +123,6 @@ TRUNCATE TABLE `user_history`;");
         $app = new Bot(json_decode($json, true));
         $app->buildEvent();
         $this->assertTrue($app->run());
-        die;
     }
 
     public function testTranslate()
