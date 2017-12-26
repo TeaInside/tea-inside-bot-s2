@@ -121,7 +121,12 @@ class AdminHammer extends CommandAbstraction implements EventContract
             $a = B::promoteChatMember(
                 [
                     "chat_id" => $this->e['chat_id'],
-                    "user_id" => $this->e['reply_to']['from']['id']
+                    "user_id" => $this->e['reply_to']['from']['id'],
+                    "can_change_info" => true,
+                    "can_delete_messages" => true,
+                    "can_invite_users" => true,
+                    "can_restrict_members" => true,
+                    "can_pin_messages" => true
                 ]
             );
             if ($a['info']['http_code'] === 200) {
