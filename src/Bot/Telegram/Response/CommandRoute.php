@@ -103,7 +103,7 @@ trait CommandRoute
                     $s[0] === "~pin";
             },
             "AdminHammer@pin"
-        )
+        );
 
         $this->set(
             function () use ($s) {
