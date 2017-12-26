@@ -42,14 +42,14 @@ class Virtualizor extends CommandAbstraction implements EventContract
 
 	public function c()
 	{
-		$sq = new C(substr($this->e['text'], 0, 3));
+		$sq = new C(substr($this->e['text'], 3));
 		$st = $sq->execute();
 		$file = $sq->file;
 		unset($sq);
 		if ($st === "") {
 			$st = "~";
 		} else {
-			$rn = substr(sha1(time()), 3).".c";
+			$rn = substr(sha1(time()), 0, 3).".c";
 			$st = htmlspecialchars(str_replace([$file], ["/tmp/{$rn}"], $st), ENT_QUOTES, 'UTF-8');
 			$st = $st === "" ? "~" : $st;
 		}
