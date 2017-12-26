@@ -68,7 +68,7 @@ class Cpp extends Compiler
 		if (! $this->compileOk) {
 			return $this->error;
 		} else {
-			return shell_exec($this->binFile." 2>&1");
+			return file_exists($this->binFile) ? shell_exec($this->binFile." 2>&1") : "Error";
 		}
 	}
 }
