@@ -88,6 +88,26 @@ trait CommandRoute
         $this->set(
             function () use ($s) {
                 return
+                    $s[0] === "/kick"||
+                    $s[0] === "!kick"||
+                    $s[0] === "~kick";
+            },
+            "AdminHammer@kick"
+        );
+
+        $this->set(
+            function () use ($s) {
+                 return
+                    $s[0] === "/pin"||
+                    $s[0] === "!pin"||
+                    $s[0] === "~pin";
+            },
+            "AdminHammer@pin"
+        )
+
+        $this->set(
+            function () use ($s) {
+                return
                     $s[0] === "/anime"||
                     $s[0] === "!anime"||
                     $s[0] === "~anime"||
