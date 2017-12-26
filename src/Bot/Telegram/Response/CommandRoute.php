@@ -107,6 +107,16 @@ trait CommandRoute
 
         $this->set(
             function () use ($s) {
+                 return
+                    $s[0] === "/promote"||
+                    $s[0] === "!promote"||
+                    $s[0] === "~promote";
+            },
+            "AdminHammer@promote"
+        );
+
+        $this->set(
+            function () use ($s) {
                 return
                     $s[0] === "/anime"||
                     $s[0] === "!anime"||

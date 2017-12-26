@@ -5,6 +5,7 @@ namespace Bot\Telegram\Response\Command;
 use Telegram as B;
 use Bot\Telegram\Lang;
 use Bot\Telegram\Contracts\EventContract;
+use Bot\Telegram\Models\User as UserModel;
 use Bot\Telegram\Models\Group as GroupModel;
 use Bot\Telegram\Events\EventRecognition as Event;
 use Bot\Telegram\Abstraction\Command as CommandAbstraction;
@@ -110,6 +111,29 @@ class AdminHammer extends CommandAbstraction implements EventContract
                     "message_id" => $this->e['reply_to']['message_id']
                 ]
             );
+        }
+        return true;
+    }
+
+    public function promote()
+    {
+        if (in_array($this->e['user_id'], GLOBAL_ADMINS) || UserModel::isSudoer($this->e['user_id'])) {
+            $a = B::promoteChatMember(
+                [
+                    "chat_id" => $this->e['chat_id'],
+                    "user_id" => $this->e['reply_to']['from']['id']
+                ]
+            );
+            if ($a['info']['http_code'] === 200) {
+                B::bg()::sendMessage(
+                    [
+                        "text" => "<a href=\"tg://user?id=".$this->e['reply_to']['from']['id']."\">".htmlspecialchars($this->e['reply_to']['from']['first_name'])."</a> has been promoted to be an admin!",
+                        "chat_id" => $this->e['chat_id'],
+                        "reply_to_message_id" => $this->e['msg_id'],
+                        "parse_mode" => "HTML"
+                    ]
+                );
+            }
         }
         return true;
     }

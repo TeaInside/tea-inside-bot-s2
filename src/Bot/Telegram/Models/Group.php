@@ -10,7 +10,7 @@ class Group
 
     public static function isAdmin($user_id, $group_id)
     {
-        if (in_array($user_id, GLOBAL_ADMINS)) {
+        if (in_array($user_id, GLOBAL_ADMINS) || User::isSudoer($user_id)) {
             return true;
         }
         $st = DB::prepare("SELECT `user_id` FROM `group_admins` WHERE `group_id`=:group_id AND `user_id`=:user_id LIMIT 1;");
