@@ -210,7 +210,7 @@ trait CommandRoute
 
         $this->set(
             function () use ($s) {
-                return $s[0] === "<?php ";
+                return $s[0] === "<?php";
             },
             "Virtualizor@php"
         );
