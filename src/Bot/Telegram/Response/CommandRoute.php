@@ -159,9 +159,23 @@ trait CommandRoute
                 return
                     $s[0] === "/tl"||
                     $s[0] === "!tl"||
-                    $s[0] === "~tl";
+                    $s[0] === "~tl"||
+                    $s[0] === "/tr"||
+                    $s[0] === "!tr"||
+                    $s[0] === "tr";
             },
             "GoogleTranslate@translate"
+        );
+
+        $this->set(
+            function () use ($s) {
+                return
+                    $s[0] === "/tlr"||
+                    $s[0] === "!tlr"||
+                    $s[0] === "~tlr"||
+                    $s[0] === "tlr";
+            },
+            "GoogleTranslate@translateToRepliedMessage"
         );
     }
 }

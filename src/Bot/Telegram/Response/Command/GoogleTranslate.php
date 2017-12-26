@@ -60,4 +60,47 @@ Contoh :
         }
         return true;
     }
+
+
+    public function translateToRepliedMessage()
+    {
+        $fail = 0;
+        if (! empty($this->e['reply_to']['text'])) {
+            $str = explode(" ", $this->e['text']. 4);
+            if (count($str) >= 3) {
+                $str[1] = strtolower($str[1]);
+                $str[2] = strtolower($str[2]);
+                if (! isset(GT::LANG_LIST[$str[1]])) {
+                    $msg = "Language ".$str[1]." not found!";
+                } elseif (! isset(GT::LANG_LIST[$str[1]])) {
+                    $msg = "Language ".$str[2]." not found!";
+                } else {
+                    $st = new GoogleTranslatePlugin($this->e['reply_to']['text'], $str[1], $str[2]);
+                    $msg = $st->get();    
+                }
+                B::bg()::sendMessage(
+                    [
+                        "text" => $msg,
+                        "chat_id" => $this->e['chat_id'],
+                        "reply_to_message_id" => $this->e['reply_to']['message_id']
+                    ]
+                );
+            } else {
+            }
+
+            if ($fail) {
+                B::bg()::sendMessage(
+                        [
+                            "text" => $msg,
+                            "chat_id" => $this->e['chat_id'],
+                            "reply_to_message_id" => $this->e['msg_id'],
+                            "parse_mode" => "HTML"
+                        ]
+                    );
+            }
+        }
+
+
+        return true;
+    }
 }

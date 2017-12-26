@@ -27,6 +27,68 @@ TRUNCATE TABLE `user_history`;");
 		pc($st->execute(), $st);*/
 	}
 
+    public function testTranslateToRepliedMessage()
+    {
+        $json = '{
+    "update_id": 344555101,
+    "message": {
+        "message_id": 35651,
+        "from": {
+            "id": 243692601,
+            "is_bot": false,
+            "first_name": "Ammar",
+            "last_name": "F.",
+            "username": "ammarfaizi2",
+            "language_code": "en"
+        },
+        "chat": {
+            "id": 243692601,
+            "first_name": "Ammar",
+            "last_name": "F.",
+            "username": "ammarfaizi2",
+            "type": "private"
+        },
+        "date": 1514283792,
+        "reply_to_message": {
+            "message_id": 35650,
+            "from": {
+                "id": 448907482,
+                "is_bot": true,
+                "first_name": "Ice Tea",
+                "username": "MyIceTea_Bot"
+            },
+            "chat": {
+                "id": 243692601,
+                "first_name": "Ammar",
+                "last_name": "F.",
+                "username": "ammarfaizi2",
+                "type": "private"
+            },
+            "date": 1514283419,
+            "text": "cat: a.tmp: No such file or directory",
+            "entities": [
+                {
+                    "offset": 0,
+                    "length": 37,
+                    "type": "pre"
+                }
+            ]
+        },
+        "text": "/tlr",
+        "entities": [
+            {
+                "offset": 0,
+                "length": 6,
+                "type": "bot_command"
+            }
+        ]
+    }
+}';
+        $app = new Bot(json_decode($json, true));
+        $app->buildEvent();
+        $this->assertTrue($app->run());
+    }
+
     public function testTranslate()
     {
         $json = '{
