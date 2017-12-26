@@ -17,6 +17,7 @@ class GoogleTranslate extends CommandAbstraction implements EventContract
 
     public function translate()
     {
+        $fail = 0;
         $str = explode(" ", $this->e['text'], 4);
         if (count($str) === 4) {
             $str[1] = strtolower($str[1]);
@@ -37,7 +38,25 @@ class GoogleTranslate extends CommandAbstraction implements EventContract
                 ]
             );
         } else {
+            $msg = "Penulisan format translate salah!
 
+Berikut ini adalah penulisan yang benar :
+<code>/tl [from] [to] [string]</code>
+
+Contoh :
+<code>/tl id en Apa kabar?</code>";
+            $fail = 1;
+        }
+
+        if ($fail) {
+            B::bg()::sendMessage(
+                    [
+                        "text" => $msg,
+                        "chat_id" => $this->e['chat_id'],
+                        "reply_to_message_id" => $this->e['msg_id'],
+                        "parse_mode" => "HTML"
+                    ]
+                );
         }
         return true;
     }
