@@ -27,6 +27,67 @@ TRUNCATE TABLE `user_history`;");
 		pc($st->execute(), $st);*/
 	}
 
+        public function testSelfBan()
+    {
+        $json = '{
+    "update_id": 344554954,
+    "message": {
+        "message_id": 3527,
+        "from": {
+            "id": 243692601,
+            "is_bot": false,
+            "first_name": "Ammar",
+            "last_name": "F.",
+            "username": "ammarfaizi2",
+            "language_code": "en"
+        },
+        "chat": {
+            "id": -1001128970273,
+            "title": "Testing Env",
+            "type": "supergroup"
+        },
+        "date": 1514281242,
+        "reply_to_message": {
+            "message_id": 3525,
+            "from": {
+                "id": 243692601,
+                "is_bot": false,
+                "first_name": "Ammar",
+                "last_name": "F.",
+                "username": "ammarfaizi2",
+                "language_code": "en"
+            },
+            "chat": {
+                "id": -1001128970273,
+                "title": "Testing Env",
+                "type": "supergroup"
+            },
+            "date": 1514281232,
+            "text": "/debug !ban",
+            "entities": [
+                {
+                    "offset": 0,
+                    "length": 6,
+                    "type": "bot_command"
+                }
+            ]
+        },
+        "text": "/ban",
+        "entities": [
+            {
+                "offset": 0,
+                "length": 6,
+                "type": "bot_command"
+            }
+        ]
+    }
+}'; 
+        $app = new Bot(json_decode($json, true));
+        $app->buildEvent();
+        $this->assertTrue($app->run());
+
+    }
+
 	public function testGroup()
 	{
 		$json  = '{
@@ -242,4 +303,6 @@ TRUNCATE TABLE `user_history`;");
         $this->assertTrue($app->run());
 
     }
+
+
 }

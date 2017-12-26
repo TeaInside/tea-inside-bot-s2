@@ -21,6 +21,7 @@ class AdminHammer extends CommandAbstraction implements EventContract
      */
     public function ban()
     {
+
         if ($this->hasRepliedMessage() && $this->isEnoughPrivileges()) {
             $kick = B::kickChatMember(
                 [
@@ -29,23 +30,28 @@ class AdminHammer extends CommandAbstraction implements EventContract
                 ]
             );
             $bannedUser = "<a href=\"tg://user?id=".$this->e['reply_to']['from']['id']."\">" . htmlspecialchars($this->e['reply_to']['from']['first_name'], ENT_QUOTES, 'UTF-8') . "</a>";
-            $kick['info']['http_code'] === 200 and B::bg()::sendMessage(
-                [
-                    "chat_id"    => $this->e['chat_id'],
-                    "text"       => Lang::bind("{first_namelink}") . " banned ". $bannedUser."!",
-                    "parse_mode" => "HTML"
-                ]
-            );
+            if ($kick['info']['http_code'] === 200) {
+                $msg = Lang::bind("{first_namelink}") . " banned ". $bannedUser."!";
+                B::bg()::sendMessage(
+                    [
+                        "chat_id"    => $this->e['chat_id'],
+                        "text"       => $msg,
+                        "parse_mode" => "HTML"
+                    ]
+                );
+            } else {
+                B::bg()::sendMessage(
+                    [
+                        "chat_id"    => $this->e['chat_id'],
+                        "text"       => "<code>".htmlspecialchars(json_decode($kick['content'], true)['description'], ENT_QUOTES, 'UTF-8')."</code>",
+                        "parse_mode" => "HTML",
+                        "reply_to_message_id" => $this->e['msg_id']
+                    ]
+                );
+            }
+            
         }
-
-        return B::bg()::sendMessage(
-            [
-                "chat_id"               => $this->e['chat_id'],
-                "text"                  => Lang::get("help"),
-                "reply_to_message_id"   => $this->e['msg_id'],
-                "parse_mode"            => "HTML"
-            ]
-        );
+        return true;
     }
 
     /**
@@ -53,7 +59,7 @@ class AdminHammer extends CommandAbstraction implements EventContract
      */
     private function hasRepliedMessage()
     {
-        return isset($this->e['reply_to']);
+        return ! empty($this->e['reply_to']);
     }
 
     /**
