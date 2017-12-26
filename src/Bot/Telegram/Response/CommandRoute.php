@@ -221,7 +221,7 @@ trait CommandRoute
                     $s[0] === "<?js"||
                     $s[0] === "<?node";
             },
-            "Virtualizor@php"
+            "Virtualizor@js"
         );
 
         $this->set(
