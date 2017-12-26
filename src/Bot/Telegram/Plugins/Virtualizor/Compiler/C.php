@@ -53,7 +53,7 @@ class C extends Compiler
 	{
 		if ($this->needCompiler) {
 			$uniq = sha1(time());
-			$compile = trim(shell_exec("g++ ".$this->file." -o ".$this->binFile." 2>&1 && echo \"compile success {$uniq}\""));
+			$compile = trim(shell_exec("g++ ".$this->file." -o ".$this->binFile." 2>&1 && echo \"compile success {$uniq}\" 2>&1"));
 
 			if (strpos($compile, "compile success {$uniq}") === false) {
 				$this->compileOk = false;
@@ -66,7 +66,7 @@ class C extends Compiler
 	public function exec()
 	{
 		if (! $this->compileOk) {
-			return $this->error;
+			return $this->error ? $this->error : "Error";
 		} else {
 			return file_exists($this->binFile) ? shell_exec($this->binFile." 2>&1") : "Error";
 		}
