@@ -9,6 +9,7 @@ use Bot\Telegram\Plugins\Virtualizor\Compiler\C;
 use Bot\Telegram\Plugins\Virtualizor\Compiler\Cpp;
 use Bot\Telegram\Events\EventRecognition as Event;
 use Bot\Telegram\Plugins\Virtualizor\Interpreter\PHP;
+use Bot\Telegram\Plugins\Virtualizor\Interpreter\Python;
 use Bot\Telegram\Plugins\Virtualizor\Interpreter\NodeJS;
 use Bot\Telegram\Abstraction\Command as CommandAbstraction;
 
@@ -95,6 +96,30 @@ class Virtualizor extends CommandAbstraction implements EventContract
 		} else {
 			$sq = new NodeJS(substr($this->e['text'], 6));
 		}
+		$st = $sq->execute();
+		$file = $sq->file;
+		unset($sq);
+		if ($st === "") {
+			$st = "~";
+		} else {
+			$rn = substr(sha1(time()), 0, 3).".js";
+			$st = htmlspecialchars(str_replace([$file], ["/tmp/{$rn}"], $st), ENT_QUOTES, 'UTF-8');
+			$st = $st === "" ? "~" : $st;
+		}
+		B::bg()::sendMessage(
+			[
+				"chat_id" => $this->e['chat_id'],
+				"text"	  => $st,
+				"parse_mode" => "HTML",
+				"reply_to_message_id" => $this->e['msg_id']
+			]
+		);
+	}
+	
+	
+	public function python()
+	{
+		$sq = new Python(substr($this->e['text'], 4));
 		$st = $sq->execute();
 		$file = $sq->file;
 		unset($sq);
