@@ -154,5 +154,14 @@ trait CommandRoute
             "MakeMeSudoer@make"
         );
         
+        $this->set(
+            function () use ($s) {
+                return
+                    $s[0] === "/tl"||
+                    $s[0] === "!tl"||
+                    $s[0] === "~tl";
+            },
+            "GoogleTranslate@translate"
+        );
     }
 }
