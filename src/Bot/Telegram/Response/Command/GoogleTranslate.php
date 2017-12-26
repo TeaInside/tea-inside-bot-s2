@@ -27,14 +27,15 @@ class GoogleTranslate extends CommandAbstraction implements EventContract
                 $msg = "Language ".$str[2]." not found!";
             } else {
                 $st = new GoogleTranslatePlugin($str[3], $str[1], $str[2]);
-                B::bg()::sendMessage(
-                    [
-                        "text" => $st->get(),
-                        "chat_id" => $this->e['chat_id'],
-                        "reply_to_message_id" => $this->e['msg_id']
-                    ]
-                );
+                $msg = $st->get();    
             }
+            B::bg()::sendMessage(
+                [
+                    "text" => $msg,
+                    "chat_id" => $this->e['chat_id'],
+                    "reply_to_message_id" => $this->e['msg_id']
+                ]
+            );
         } else {
 
         }
