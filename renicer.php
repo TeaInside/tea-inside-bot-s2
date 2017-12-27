@@ -10,7 +10,7 @@ foreach ($ex as $val) {
 		} while ($n);
 		$val = explode(" ", $val, 3);
 		if (isset($val[1])) {
-			shell_exec("sudo renice -p -20 ".$val[1]." &");
+			shell_exec("sudo renice -n -20 -p ".$val[1]." &");
 		}
 	}
 }
