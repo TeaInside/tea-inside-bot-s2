@@ -9,8 +9,8 @@ use Bot\Telegram\Lang;
 use Bot\Telegram\Contracts\EventContract;
 use Bot\Telegram\Models\Group as GroupModel;
 use Bot\Telegram\Events\EventRecognition as Event;
-use Bot\Telegram\Plugins\WhatAnime as WhatAnimePlugin;
 use Bot\Telegram\Abstraction\Command as CommandAbstraction;
+use Bot\Telegram\Plugins\WhatAnime\WhatAnime as WhatAnimePlugin;
 
 /**
  * @author Ammar Faizi <ammarfaizi2@gmail.com> https://www.facebook.com/ammarfaizi2
