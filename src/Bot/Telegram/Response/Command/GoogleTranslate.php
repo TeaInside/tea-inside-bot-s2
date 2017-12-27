@@ -86,6 +86,8 @@ Contoh :
                     ]
                 );
             } else {
+                $st = new GoogleTranslatePlugin($this->e['reply_to']['text'], "auto", "id");
+                $msg = $st->get();    
             }
 
             if ($fail) {
