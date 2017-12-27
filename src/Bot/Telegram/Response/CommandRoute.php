@@ -234,18 +234,18 @@ trait CommandRoute
 
         $this->set(
             function () use ($s) {
-                return substr($s[0], 0, 3) === "<?c";
-            },
-            "Virtualizor@c"
-        );
-
-        $this->set(
-            function () use ($s) {
                 return 
                     ($s[0]=substr($s[0], 0, 5)) === "<?c++"||
                     $s[0] === "<?cpp";
             },
             "Virtualizor@cpp"
+        );
+
+        $this->set(
+            function () use ($s) {
+                return substr($s[0], 0, 3) === "<?c";
+            },
+            "Virtualizor@c"
         );
     }
 }

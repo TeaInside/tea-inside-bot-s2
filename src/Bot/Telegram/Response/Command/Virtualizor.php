@@ -41,6 +41,7 @@ class Virtualizor extends CommandAbstraction implements EventContract
 				"reply_to_message_id" => $this->e['msg_id']
 			]
 		);
+		return true;
 	}
 
 	public function c()
@@ -64,6 +65,7 @@ class Virtualizor extends CommandAbstraction implements EventContract
 				"reply_to_message_id" => $this->e['msg_id']
 			]
 		);
+		return true;
 	}
 
 	public function cpp()
@@ -87,6 +89,7 @@ class Virtualizor extends CommandAbstraction implements EventContract
 				"reply_to_message_id" => $this->e['msg_id']
 			]
 		);
+		return true;
 	}
 
 	public function js()
@@ -114,6 +117,7 @@ class Virtualizor extends CommandAbstraction implements EventContract
 				"reply_to_message_id" => $this->e['msg_id']
 			]
 		);
+		return true;
 	}
 	
 	
@@ -138,5 +142,6 @@ class Virtualizor extends CommandAbstraction implements EventContract
 				"reply_to_message_id" => $this->e['msg_id']
 			]
 		);
+		return true;
 	}
 }
