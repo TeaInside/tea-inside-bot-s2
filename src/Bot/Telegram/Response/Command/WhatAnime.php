@@ -52,24 +52,37 @@ class WhatAnime extends CommandAbstraction implements EventContract
 						"text"	=> "Searching..."
 					]
 				)['content']."\n";
+				B::bg()::sendChatAction(
+	                [
+	                    "chat_id" => $this->e['chat_id'],
+	                    "action"  => "typing"
+	                ]
+	            );
 				$st = new WhatAnimePlugin($q = $st->exec());
 				file_put_contents(STORAGE."/test.jpg", $q);
 				$st = $st->get();
 				var_dump(4);
 				if ($st['data'] === false) {
-					
+					B::editMessageText(
+						[
+							"chat_id" => $this->e['chat_id'],
+							"message_id" => $f['result']['message_id'],
+							"text"	=> "Not found!"
+						]
+					);
 				} else {
-					B::bg()::sendChatAction(
-		                [
-		                    "chat_id" => $this->e['chat_id'],
-		                    "action"  => "typing"
-		                ]
-		            );
+					$e = ['session','anime','title','title_english','title_romaji','episode','file','diff','token','tokenthumb','i','t'];
+					$text = "";
+					foreach ($st['data'] as $k => $v) {
+					 	in_array($k, $e) and $text .= "<b>".htmlspecialchars(ucwords(str_replace("_", " ", $k))).":</b> ".htmlspecialchars($v)."\n";
+					}
+
 		            B::editMessageText(
 						[
 							"chat_id" => $this->e['chat_id'],
 							"message_id" => $f['result']['message_id'],
-							"text"	=> json_encode($st)
+							"text"	=> $text,
+							"parse_mode" => "HTML"
 						]
 					);
 					for ($i=0; $i < 5; $i++) { 
@@ -80,10 +93,37 @@ class WhatAnime extends CommandAbstraction implements EventContract
 							]
 						);
 					}
-					B::sendVideo(
+
+					$ff = function ($seconds)
+					{
+					  if ($seconds == 0) return "now";
+					  $duration = [
+					    "tahun" => floor($seconds / (60 * 60 * 24 * 365)),
+					    "hari" => $seconds / (60 * 60 * 24) % 365,
+					    "jam" => $seconds / (60 * 60) % 24,
+					    "menit" => $seconds / 60 % 60,
+					    "detik" => $seconds % 60,
+					  ];$timeUnits = [];
+					  foreach ($duration as $key => $value) {
+					    if ($value > 0) {
+					      $timeUnits[] = $value.' '.$key;
+					    }
+					  }
+					  $output = array_reduce($timeUnits, function($carry, $item) {
+					    return $carry == '' ? $item : $carry.' '.$item;
+					  }, '');
+					  return $output;
+					};
+
+					$duration = "<i>".$ff($a['data']['start']). "</i> sampai <i>". $ff($a['data']['end'])."</i>";
+
+					B::bg()::sendVideo(
 						[
 							"chat_id" => $this->e['chat_id'],
-							"video" => $st['video_url']
+							"video" => $st['video_url'],
+							"reply_to_message_id" => $this->e['msg_id'],
+							"caption" => $duration,
+							"parse_mode" => "HTML"
 						]
 					);
 				}
