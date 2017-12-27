@@ -36,15 +36,11 @@ class WhatAnime extends CommandAbstraction implements EventContract
 					"reply_to_message_id" => $this->e['msg_id'],
 				]
 			)['content'], true);
-			var_dump(1);
-			var_dump($photo);
 			$st = json_decode(B::getFile(
 				[
-					"file_id" => $photo
+					"file_id" => $photo['file_id']
 				]
 			)['content'], true);
-			var_dump(2);
-			var_dump($st);
 			if (isset($st['result']['file_id'])) {
 				$st = new Curl("https://api.telegram.org/file/bot/".TOKEN."/".$st['result']['file_id']);
 				var_dump(3);
