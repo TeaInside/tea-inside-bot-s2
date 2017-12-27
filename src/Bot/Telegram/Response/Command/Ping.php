@@ -30,7 +30,7 @@ class Ping extends CommandAbstraction implements EventContract
             ]
         )['content'], true);
         if (isset($st['result']['message_id'])) {
-            B::bg()::editMessageText(
+            B::editMessageText(
                 [
                     "chat_id" => $this->e['chat_id'],
                     "message_id" => $st['result']['message_id'],
