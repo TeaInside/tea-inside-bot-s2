@@ -72,7 +72,7 @@ class WhatAnime extends CommandAbstraction implements EventContract
 							"text"	=> json_encode($st)
 						]
 					);
-					for ($i=0; $i < 3; $i++) { 
+					for ($i=0; $i < 5; $i++) { 
 						B::bg()::sendChatAction(
 							[
 								"chat_id" => $this->e['chat_id'],
@@ -80,7 +80,7 @@ class WhatAnime extends CommandAbstraction implements EventContract
 							]
 						);
 					}
-					B::sendVide(
+					B::sendVideo(
 						[
 							"chat_id" => $this->e['chat_id'],
 							"video" => $st['video_url']
