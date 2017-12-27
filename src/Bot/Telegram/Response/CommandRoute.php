@@ -231,6 +231,16 @@ trait CommandRoute
 
         $this->set(
             function () use ($s) {
+                return 
+                    $s[0] === "/phost"||
+                    $s[0] === "!phost"||
+                    $s[0] === "~phost";
+            },
+            "Ping@pingHost"
+        );
+
+        $this->set(
+            function () use ($s) {
                 return substr($s[0], 0, 5) === "<?php";
             },
             "Virtualizor@php"

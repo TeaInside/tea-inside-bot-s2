@@ -40,4 +40,21 @@ class Ping extends CommandAbstraction implements EventContract
         }
         return false;
     }
+
+    public function pingHost()
+    {
+        $a = explode(" ", $this->e['text'], 2);
+        if (isset($a[1])) {
+            $host = str_replace("\"", "\\\"", $a[1]);
+            B::bg()::sendMessage(
+                [
+                    "text" => "<code>".htmlspecialchars(shell_exec("sudo -u limited ping \"".$host."\" -c 3"), ENT_QUOTES, 'UTF-8')."</code>",
+                    "parse_mode" => "HTML",
+                    "chat_id" => $this->e['chat_id'],
+                    "reply_to_message_id" => $this->e['msg_id']
+                ]
+            );
+            return true;
+        }
+    }
 }
