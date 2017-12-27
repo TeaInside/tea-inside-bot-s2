@@ -48,8 +48,14 @@ class SaveEvent
             case 'text':
                 $fr .= "Text";
                 break;
-            
+            case 'photo':
+                $fr .= "Photo";
+                break;
+            case 'sticker':
+                $fr .= "Sticker";
+                break;
             default:
+                return false;
                 break;
         }
 

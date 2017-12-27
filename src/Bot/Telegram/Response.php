@@ -40,7 +40,7 @@ class Response implements EventContract, ResponseContract
      */
     public function action()
     {
-        if (isset($this->e['text'])) {
+        if (in_array($this->e['msg_type'], ["text", "photo"])) {
             $resp = new Command($this->e);
             if (! $resp->action()) {
             }
