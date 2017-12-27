@@ -87,7 +87,14 @@ Contoh :
                 );
             } else {
                 $st = new GoogleTranslatePlugin($this->e['reply_to']['text'], "auto", "id");
-                $msg = $st->get();    
+                $msg = $st->get();
+                B::bg()::sendMessage(
+                    [
+                        "text" => $msg,
+                        "chat_id" => $this->e['chat_id'],
+                        "reply_to_message_id" => $this->e['reply_to']['message_id']
+                    ]
+                );
             }
 
             if ($fail) {
