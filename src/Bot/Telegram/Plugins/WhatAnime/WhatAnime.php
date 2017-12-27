@@ -19,7 +19,6 @@ class WhatAnime implements PluginContract
 	public function __construct($file)
 	{
 		$st = new WhatAnimeFoundation($file);
-		$st = new WhatAnime\WhatAnime($st);
 		$this->result['data'] = $st->getFirst();
 		$this->result['video_url'] = $st->getVideo();
 	}
