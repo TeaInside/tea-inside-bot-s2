@@ -24,7 +24,7 @@ class Ping extends CommandAbstraction implements EventContract
         $st = json_decode(B::sendMessage(
             [
                 "text" => "Pong!",
-                "chat_id" => $this->e['chat_id']
+                "chat_id" => $this->e['chat_id'],
                 "reply_to_message_id" => $this->e['msg_id']
             ]
         )['content'], true);
