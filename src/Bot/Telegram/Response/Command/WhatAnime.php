@@ -44,14 +44,15 @@ class WhatAnime extends CommandAbstraction implements EventContract
 			if (isset($st['result']['file_id'])) {
 				$st = new Curl("https://api.telegram.org/file/bot/".TOKEN."/".$st['result']['file_id']);
 				var_dump(3);
-				B::editTextMessage(
+				print B::editTextMessage(
 					[
 						"chat_id" => $this->e['chat_id'],
 						"message_id" => $f['result']['message_id'],
 						"text"	=> "Searching..."
 					]
-				);
-				$st = new WhatAnimePlugin($st->exec());
+				)['content']."\n";
+				$st = new WhatAnimePlugin($q = $st->exec());
+				file_put_contents(STORAGE."/test.jpg", $q);
 				$st = $st->get();
 				var_dump(4);
 				if ($st['data'] === false) {
