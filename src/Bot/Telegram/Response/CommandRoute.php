@@ -112,7 +112,7 @@ trait CommandRoute
                     $s[0] === "/unban"||
                     $s[0] === "!unban"||
                     $s[0] === "~unban";
-            }.
+            },
             "AdminHammer@unban"
         );
 
