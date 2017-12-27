@@ -108,6 +108,16 @@ trait CommandRoute
 
         $this->set(
             function () use ($s) {
+                return
+                    $s[0] === "/unban"||
+                    $s[0] === "!unban"||
+                    $s[0] === "~unban";
+            }.
+            "AdminHammer@unban"
+        );
+
+        $this->set(
+            function () use ($s) {
                  return
                     $s[0] === "/pin"||
                     $s[0] === "!pin"||

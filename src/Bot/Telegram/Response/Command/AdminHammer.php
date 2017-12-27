@@ -143,6 +143,40 @@ class AdminHammer extends CommandAbstraction implements EventContract
         return true;
     }
 
+    public function unban()
+    {
+        if ($this->hasRepliedMessage() && $this->isEnoughPrivileges()) {
+            $kick = B::unbanChatMember(
+                [
+                    "chat_id" => $this->e['chat_id'],
+                    "user_id" => $this->e['reply_to']['from']['id']
+                ]
+            );
+            $bannedUser = "<a href=\"tg://user?id=".$this->e['reply_to']['from']['id']."\">" . htmlspecialchars($this->e['reply_to']['from']['first_name'], ENT_QUOTES, 'UTF-8') . "</a>";
+            if ($kick['info']['http_code'] === 200) {
+                $msg = $bannedUser." unbanned by ".Lang::bind("{first_namelink}")."!";
+                B::bg()::sendMessage(
+                    [
+                        "chat_id"    => $this->e['chat_id'],
+                        "text"       => $msg,
+                        "parse_mode" => "HTML"
+                    ]
+                );
+            } else {
+                B::bg()::sendMessage(
+                    [
+                        "chat_id"    => $this->e['chat_id'],
+                        "text"       => "<code>".htmlspecialchars(json_decode($kick['content'], true)['description'], ENT_QUOTES, 'UTF-8')."</code>",
+                        "parse_mode" => "HTML",
+                        "reply_to_message_id" => $this->e['msg_id']
+                    ]
+                );
+            }
+            
+        }
+        return true;
+    }
+
     /**
      * Check the message has replied message or not.
      */
