@@ -22,9 +22,9 @@ class GoogleTranslate extends CommandAbstraction implements EventContract
         if (count($str) === 4) {
             $str[1] = strtolower($str[1]);
             $str[2] = strtolower($str[2]);
-            if (! isset(GT::LANG_LIST[$str[1]])) {
+            if (! isset(GT::LANG_LIST[$str[1]]) && $str[1] !== "auto") {
                 $msg = "Language ".$str[1]." not found!";
-            } elseif (! isset(GT::LANG_LIST[$str[1]])) {
+            } elseif (! isset(GT::LANG_LIST[$str[1]]) && $str[1] !== "auto") {
                 $msg = "Language ".$str[2]." not found!";
             } else {
                 $st = new GoogleTranslatePlugin($str[3], $str[1], $str[2]);
@@ -70,9 +70,9 @@ Contoh :
             if (count($str) >= 3) {
                 $str[1] = strtolower($str[1]);
                 $str[2] = strtolower($str[2]);
-                if (! isset(GT::LANG_LIST[$str[1]])) {
+                if (! isset(GT::LANG_LIST[$str[1]]) && $str[1] !== "auto") {
                     $msg = "Language ".$str[1]." not found!";
-                } elseif (! isset(GT::LANG_LIST[$str[1]])) {
+                } elseif (! isset(GT::LANG_LIST[$str[1]]) && $str[1] !== "auto") {
                     $msg = "Language ".$str[2]." not found!";
                 } else {
                     $st = new GoogleTranslatePlugin($this->e['reply_to']['text'], $str[1], $str[2]);
