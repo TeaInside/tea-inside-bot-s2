@@ -25,6 +25,7 @@ class WhatAnime extends CommandAbstraction implements EventContract
 		} else {
 			if (! empty($this->e['reply_to'])) {
 				$photo = isset($this->e['reply_to']['photo']) ? $this->e['reply_to']['photo'][count($this->e['reply_to']['photo']) - 1] : null;
+				var_dump($this->e['reply_to']);
 			}
 		}
 		if (isset($photo)) {
@@ -36,6 +37,7 @@ class WhatAnime extends CommandAbstraction implements EventContract
 				]
 			)['content'], true);
 			var_dump(1);
+			var_dump($photo);
 			$st = json_decode(B::getFile(
 				[
 					"file_id" => $photo
