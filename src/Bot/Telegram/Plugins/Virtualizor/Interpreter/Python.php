@@ -21,7 +21,7 @@ class Python extends Interpreter
 		}
 
 		$dir = PYTHON_VIRTUALIZOR_DIR;
-		$this->file = $file = $dir."/".$this->hash.".js";
+		$this->file = $file = $dir."/".$this->hash.".py";
 		if (! is_dir($dir)) {
 			shell_exec("sudo mkdir -p ".$dir. " && sudo chmod -R 777 ".$dir);
 			if (! is_dir($dir)) {
