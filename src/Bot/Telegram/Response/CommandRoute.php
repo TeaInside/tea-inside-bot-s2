@@ -23,6 +23,17 @@ trait CommandRoute
 
         $this->set(
             function () use ($s) {
+                return 
+                    $s[0] === "/ping"||
+                    $s[0] === "!ping"||
+                    $s[0] === "~ping"||
+                    ($s[0] === "ping" && count($s) === 1);
+            },
+            "Ping@ping"
+        );
+
+        $this->set(
+            function () use ($s) {
                 return
                     isset($this->e['text']) && 
                     (
