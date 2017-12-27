@@ -22,7 +22,7 @@ class Photo extends SaveEvent
         ), $st);
         $last = DB::pdoInstance()->lastInsertId();
         $st = DB::prepare("INSERT INTO `group_messages_data` (`message_identifier`, `text`, `file_id`) VALUES (:message_identifier, :text_, :file_id);");
-        $bestPhoto = end($this->e['photo']);
+        $bestPhoto = $this->e['photo'][count($this->e['photo']) - 1];
         pc($st->execute(
             [
                 ":message_identifier" => $last,

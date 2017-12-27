@@ -53,6 +53,7 @@ class EventRecognition implements ArrayAccess
                 $this['new_chat_members'] = $input['message']['new_chat_members'];
             } elseif (isset($input['message']['photo'])) {
                 $this['text'] = $this['caption'] = i($input['message']['caption']);
+                $this['photo'] = $input['message']['photo'];
                 $this['msg_type'] = "photo";
             } elseif (isset($input['message']['sticker'])) {
                 $this['sticker']  = $input['message']['sticker'];
