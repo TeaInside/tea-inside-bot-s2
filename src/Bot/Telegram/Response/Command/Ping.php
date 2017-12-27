@@ -21,6 +21,7 @@ class Ping extends CommandAbstraction implements EventContract
      */
     public function ping()
     {
+        $start = microtime(true);
         $st = json_decode(B::sendMessage(
             [
                 "text" => "Pong!",
