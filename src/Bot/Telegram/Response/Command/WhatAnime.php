@@ -72,6 +72,20 @@ class WhatAnime extends CommandAbstraction implements EventContract
 							"text"	=> json_encode($st)
 						]
 					);
+					for ($i=0; $i < 3; $i++) { 
+						B::bg()::sendChatAction(
+							[
+								"chat_id" => $this->e['chat_id'],
+								"action"  => "upload_video"
+							]
+						);
+					}
+					B::sendVide(
+						[
+							"chat_id" => $this->e['chat_id'],
+							"video" => $st['video_url']
+						]
+					);
 				}
 			}
 		} else {
