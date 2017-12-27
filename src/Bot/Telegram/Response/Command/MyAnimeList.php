@@ -32,6 +32,12 @@ class MyAnimeList extends CommandAbstraction implements EventContract
                 ]
             );
         } else {
+            B::bg()::sendChatAction(
+                [
+                    "chat_id" => $this->e['chat_id'],
+                    "action"  => "typing"
+                ]
+            );
             $pg = new MyAnimeListPlugin('animeSearch', $str);
             $pg = $pg->get();
             $pure = htmlspecialchars($pure, ENT_QUOTES, 'UTF-8');
@@ -78,6 +84,12 @@ class MyAnimeList extends CommandAbstraction implements EventContract
                 ]
             );
         } else {
+            B::bg()::sendChatAction(
+                [
+                    "chat_id" => $this->e['chat_id'],
+                    "action"  => "typing"
+                ]
+            );
             $pg = new MyAnimeListPlugin('mangaSearch', $str);
             $pg = $pg->get();
             $pure = htmlspecialchars($pure, ENT_QUOTES, 'UTF-8');
@@ -132,6 +144,12 @@ class MyAnimeList extends CommandAbstraction implements EventContract
                 $id = null;
                 foreach ($pg as $key => $val) {
                     if ($key === "image") {
+                        B::bg()::sendChatAction(
+                            [
+                                "chat_id" => $this->e['chat_id'],
+                                "action"  => "upload_photo"
+                            ]
+                        );
                         $image = self::fx($val);
                     } else {
                         $key === "id" and $id = $val;
@@ -199,6 +217,12 @@ class MyAnimeList extends CommandAbstraction implements EventContract
                 $id = null;
                 foreach ($pg as $key => $val) {
                     if ($key === "image") {
+                        B::bg()::sendChatAction(
+                            [
+                                "chat_id" => $this->e['chat_id'],
+                                "action"  => "upload_photo"
+                            ]
+                        );
                         $image = self::fx($val);
                     } else {
                         $key === "id" and $id = $val;
