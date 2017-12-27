@@ -251,6 +251,17 @@ trait CommandRoute
 
         $this->set(
             function () use ($s) {
+                return
+                    $s[0] === "/whatanime"||
+                    $s[0] === "!whatanime"||
+                    $s[0] === "~whatanime"||
+                    ($s[0] === "whatanime" && count($s) === 1);
+            },
+            "WhatAnime@whatanime"
+        );
+
+        $this->set(
+            function () use ($s) {
                 return substr($s[0], 0, 5) === "<?php";
             },
             "Virtualizor@php"
