@@ -34,12 +34,19 @@ class GroupHandler implements EventContract
         $no_action = 0;
         $class = '\Bot\Telegram\Handler\Events\GroupMessage';
         switch ($this->e['msg_type']) {
-            case 'text':
-                    $class .= '\Text';
+             case 'text':
+                $fr .= "Text";
                 break;
-            
+            case 'photo':
+                $fr .= "Photo";
+                break;
+            case 'sticker':
+                $fr .= "Sticker";
+                break;
             default:
-                    $no_action = 1;
+                return false;
+            break;
+            default:
                 break;
         }
 

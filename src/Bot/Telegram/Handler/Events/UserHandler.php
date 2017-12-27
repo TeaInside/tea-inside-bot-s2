@@ -30,10 +30,16 @@ class UserHandler implements EventContract
         $class = '\Bot\Telegram\Handler\Events\PrivateMessage';
         switch ($this->e['msg_type']) {
             case 'text':
-                    $class .= '\Text';
+                $fr .= "Text";
                 break;
-            
+            case 'photo':
+                $fr .= "Photo";
+                break;
+            case 'sticker':
+                $fr .= "Sticker";
+                break;
             default:
+                return false;
                 break;
         }
 
