@@ -42,9 +42,9 @@ class WhatAnime extends CommandAbstraction implements EventContract
 				]
 			)['content'], true);
 			if (isset($st['result']['file_id'])) {
-				$st = new Curl("https://api.telegram.org/file/bot/".TOKEN."/".$st['result']['file_id']);
+				$st = new Curl("https://api.telegram.org/file/bot/".TOKEN."/".$st['result']['path']);
 				var_dump(3);
-				print B::editTextMessage(
+				print B::editMessageText(
 					[
 						"chat_id" => $this->e['chat_id'],
 						"message_id" => $f['result']['message_id'],
