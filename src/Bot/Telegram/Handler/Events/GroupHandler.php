@@ -46,8 +46,6 @@ class GroupHandler implements EventContract
             default:
                 return false;
             break;
-            default:
-                break;
         }
 
         if (! $no_action) {
