@@ -72,7 +72,7 @@ class WhatAnime extends CommandAbstraction implements EventContract
 					);
 				} else {
 					$e = ['session','anime','title','title_english','title_romaji','episode','file','diff','token','tokenthumb','i','t'];
-					$text = "";
+					$text = "Hasil pencarian\n\n";
 					foreach ($st['data'] as $k => $v) {
 					 	in_array($k, $e) and $text .= "<b>".htmlspecialchars(ucwords(str_replace("_", " ", $k))).":</b> ".htmlspecialchars($v)."\n";
 					}
@@ -85,45 +85,41 @@ class WhatAnime extends CommandAbstraction implements EventContract
 							"parse_mode" => "HTML"
 						]
 					);
-					for ($i=0; $i < 5; $i++) { 
-						B::bg()::sendChatAction(
-							[
-								"chat_id" => $this->e['chat_id'],
-								"action"  => "upload_video"
-							]
-						);
-					}
+					B::bg()::sendChatAction(
+						[
+							"chat_id" => $this->e['chat_id'],
+							"action"  => "upload_video"
+						]
+					);
 
 					$ff = function ($seconds)
 					{
-					  if ($seconds == 0) return "now";
-					  $duration = [
-					    "tahun" => floor($seconds / (60 * 60 * 24 * 365)),
-					    "hari" => $seconds / (60 * 60 * 24) % 365,
-					    "jam" => $seconds / (60 * 60) % 24,
-					    "menit" => $seconds / 60 % 60,
-					    "detik" => $seconds % 60,
-					  ];$timeUnits = [];
-					  foreach ($duration as $key => $value) {
-					    if ($value > 0) {
-					      $timeUnits[] = $value.' '.$key;
-					    }
-					  }
-					  $output = array_reduce($timeUnits, function($carry, $item) {
-					    return $carry == '' ? $item : $carry.' '.$item;
-					  }, '');
-					  return $output;
+						if ($seconds == 0) return "now";
+							$duration = [
+								"tahun" => floor($seconds / (60 * 60 * 24 * 365)),
+								"hari" => $seconds / (60 * 60 * 24) % 365,
+								"jam" => $seconds / (60 * 60) % 24,
+								"menit" => $seconds / 60 % 60,
+								"detik" => $seconds % 60,
+							];
+							$timeUnits = [];
+							foreach ($duration as $key => $value) {
+								if ($value > 0) {
+									$timeUnits[] = $value.' '.$key;
+								}
+							}
+							$output = array_reduce($timeUnits, function($carry, $item) {
+								return $carry == '' ? $item : $carry.' '.$item;
+							},'');
+							return $output;
 					};
-
-					$duration = "<i>".$ff($a['data']['start']). "</i> sampai <i>". $ff($a['data']['end'])."</i>";
 
 					B::bg()::sendVideo(
 						[
 							"chat_id" => $this->e['chat_id'],
 							"video" => $st['video_url'],
 							"reply_to_message_id" => $this->e['msg_id'],
-							"caption" => $duration,
-							"parse_mode" => "HTML"
+							"caption" => "Berikut ini adalah cuplikan anime dari hasil pencarian\nDurasi :".$ff($st['data']['start']). " sampai ". $ff($st['data']['end']),
 						]
 					);
 				}
