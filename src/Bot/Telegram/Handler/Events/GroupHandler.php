@@ -32,16 +32,16 @@ class GroupHandler implements EventContract
         $this->recognizer();
         $this->handle();
         $no_action = 0;
-        $class = '\Bot\Telegram\Handler\Events\GroupMessage';
+        $class = '\Bot\Telegram\Handler\Events\GroupMessage\\';
         switch ($this->e['msg_type']) {
              case 'text':
-                $fr .= "Text";
+                $class .= "Text";
                 break;
             case 'photo':
-                $fr .= "Photo";
+                $class .= "Photo";
                 break;
             case 'sticker':
-                $fr .= "Sticker";
+                $class .= "Sticker";
                 break;
             default:
                 return false;

@@ -27,16 +27,16 @@ class UserHandler implements EventContract
     public function run()
     {
         $this->handle();
-        $class = '\Bot\Telegram\Handler\Events\PrivateMessage';
+        $class = '\Bot\Telegram\Handler\Events\PrivateMessage\\';
         switch ($this->e['msg_type']) {
             case 'text':
-                $fr .= "Text";
+                $class .= "Text";
                 break;
             case 'photo':
-                $fr .= "Photo";
+                $class .= "Photo";
                 break;
             case 'sticker':
-                $fr .= "Sticker";
+                $class .= "Sticker";
                 break;
             default:
                 return false;
