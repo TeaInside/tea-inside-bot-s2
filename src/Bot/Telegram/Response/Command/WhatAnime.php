@@ -65,7 +65,7 @@ class WhatAnime extends CommandAbstraction implements EventContract
 		                    "action"  => "typing"
 		                ]
 		            );
-		            B::editTextMessage(
+		            B::editMessageText(
 						[
 							"chat_id" => $this->e['chat_id'],
 							"message_id" => $f['result']['message_id'],
