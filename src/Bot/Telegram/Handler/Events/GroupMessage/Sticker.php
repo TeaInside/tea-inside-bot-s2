@@ -5,7 +5,7 @@ namespace Bot\Telegram\Handler\Events\GroupMessage;
 use DB;
 use Bot\Telegram\Handler\Events\SaveEvent;
 
-class Photo extends SaveEvent
+class Sticker extends SaveEvent
 {
     public function run()
     {

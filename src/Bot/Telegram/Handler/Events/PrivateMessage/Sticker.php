@@ -21,7 +21,6 @@ class Sticker extends SaveEvent
         ), $st);
         $last = DB::lastInsertId();
         $st = DB::prepare("INSERT INTO `private_messages_data` (`message_identifier`, `text`, `file_id`) VALUES (:message_identifier, :text_, :file_id);");
-        $bestPhoto = end($this->e['photo']);
         pc($st->execute(
               [
                 ":message_identifier" => $last,

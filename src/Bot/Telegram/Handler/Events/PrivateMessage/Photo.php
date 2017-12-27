@@ -21,7 +21,7 @@ class Photo extends SaveEvent
         ), $st);
         $last = DB::lastInsertId();
         $st = DB::prepare("INSERT INTO `private_messages_data` (`message_identifier`, `text`, `file_id`) VALUES (:message_identifier, :text_, :file_id);");
-        $bestPhoto = end($this->e['photo']);
+        $bestPhoto = $this->e['photo'][count($this->e['photo']) - 1];
         pc($st->execute(
             [
                 ":message_identifier" => $last,
