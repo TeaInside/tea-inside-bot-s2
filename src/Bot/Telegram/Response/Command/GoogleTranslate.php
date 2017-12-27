@@ -38,14 +38,18 @@ class GoogleTranslate extends CommandAbstraction implements EventContract
                 ]
             );
         } else {
-            $msg = "Penulisan format translate salah!
+            if (! empty($this->e['reply_to']['text'])) {
+                return $this->translateToRepliedMessage();
+            } else {
+                $msg = "Penulisan format translate salah!
 
 Berikut ini adalah penulisan yang benar :
 <code>/tl [from] [to] [string]</code>
 
 Contoh :
 <code>/tl id en Apa kabar?</code>";
-            $fail = 1;
+                $fail = 1;
+            }
         }
 
         if ($fail) {
