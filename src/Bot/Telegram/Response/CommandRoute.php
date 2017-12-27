@@ -255,7 +255,10 @@ trait CommandRoute
                     $s[0] === "/whatanime"||
                     $s[0] === "!whatanime"||
                     $s[0] === "~whatanime"||
-                    ($s[0] === "whatanime" && count($s) === 1);
+                    ($s[0] === "whatanime" && count($s) === 1)||
+                    (
+                        isset($this->e['reply_to']['text']) and $this->e['reply_to']['text'] === "Balas pesan ini dengan screenshot anime!" and $this->e['whatanime'] = 1
+                    );
             },
             "WhatAnime@whatanime"
         );

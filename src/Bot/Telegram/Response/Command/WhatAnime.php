@@ -20,12 +20,13 @@ class WhatAnime extends CommandAbstraction implements EventContract
 {
 	public function whatanime()
 	{
-		if ($this->e['msg_type'] === "photo") {
+		if ($this->e['msg_type'] === "photo" || isset($this->e['whatanime'])) {
 			$photo = $this->e['photo'][count($this->e['photo']) - 1];
+			$img_id = $this->e['msg_id'];
 		} else {
 			if (! empty($this->e['reply_to'])) {
 				$photo = isset($this->e['reply_to']['photo']) ? $this->e['reply_to']['photo'][count($this->e['reply_to']['photo']) - 1] : null;
-				var_dump($this->e['reply_to']);
+				$img_id = $this->e['reply_to']['message_id'];
 			}
 		}
 		if (isset($photo)) {
@@ -33,7 +34,7 @@ class WhatAnime extends CommandAbstraction implements EventContract
 				[
 					"chat_id" => $this->e['chat_id'],
 					"text"	  => "Downloading your image...",
-					"reply_to_message_id" => $this->e['msg_id'],
+					"reply_to_message_id" => $img_id
 				]
 			)['content'], true);
 			$st = json_decode(B::getFile(
@@ -118,8 +119,8 @@ class WhatAnime extends CommandAbstraction implements EventContract
 						[
 							"chat_id" => $this->e['chat_id'],
 							"video" => $st['video_url'],
-							"reply_to_message_id" => $this->e['msg_id'],
-							"caption" => "Berikut ini adalah cuplikan anime dari hasil pencarian\nDurasi :".$ff($st['data']['start']). " sampai ". $ff($st['data']['end']),
+							"reply_to_message_id" => $img_id,
+							"caption" => "Berikut ini adalah cuplikan anime dari hasil pencarian.\nDurasi :".$ff($st['data']['start']). " sampai ". $ff($st['data']['end']),
 						]
 					);
 				}
