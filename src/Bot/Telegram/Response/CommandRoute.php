@@ -241,6 +241,16 @@ trait CommandRoute
 
         $this->set(
             function () use ($s) {
+                return
+                    $s[0] === "/addtag"||
+                    $s[0] === "!addtag"||
+                    $s[0] === "~addtag";
+            },
+            "Tags@addTag"
+        );
+
+        $this->set(
+            function () use ($s) {
                 return substr($s[0], 0, 5) === "<?php";
             },
             "Virtualizor@php"
