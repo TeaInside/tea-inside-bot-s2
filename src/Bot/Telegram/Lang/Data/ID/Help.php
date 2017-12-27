@@ -25,6 +25,7 @@ class Help
 
 <b>Public:</b>
 /help  <code>Menampilkan menu ini.</code>
+/whatanime <code>Pencarian anime dengan screenshoot.</code>
 /anime <i>[judul_anime]</i>  <code>Mencari anime (MyAnimeList).</code>
 /manga <i>[judul_manga]</i>  <code>Mencari manga (MyAnimeList).</code>
 /idan <i>[id_anime]</i>  <code>Info anime (MyAnimeList).</code>
@@ -39,3 +40,4 @@ class Help
 
 Laporkan bug dan error ke @TeaInside";
 }
+
