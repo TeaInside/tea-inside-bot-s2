@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\Telegram;
 
 require __DIR__ . "/../../config/telegram/main.php";
 

@@ -26,5 +26,6 @@ class Bot
 
 	public function run()
 	{
+		return true;
 	}
 }
