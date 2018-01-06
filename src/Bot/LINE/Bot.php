@@ -43,6 +43,7 @@ class Bot
 			if (isset($e['source']['groupId'])) {
 				$r['chatType'] = 'group';
 				$r['chatId'] = $e['source']['groupId'];
+				$r['userId'] = $e['source']['userId'];
 			} else {
 				$r['chatType'] = 'private';
 				$r['userId'] = $r['chatId'] = $e['source']['userId'];

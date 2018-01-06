@@ -15,7 +15,7 @@ class Solid extends CommandFoundation implements CommandContract
 			$u = json_decode(
 	            LINE::profile(
 	                $this->b['userId'], (
-	                ($this->b->['userId'] !== "private" ? $this->b['chatId'] : null)
+	                ($this->b['userId'] !== "private" ? $this->b['chatId'] : null)
 	                )
 	            )['content'], true
 	        );
@@ -38,16 +38,30 @@ class Solid extends CommandFoundation implements CommandContract
 		} elseif ($this->b['msgType'] === "image") {
 			is_dir(data."/line") or mkdir(data."/line");
             is_dir(data."/line/tmp") or mkdir(data."/line/tmp");
-            file_put_contents(data."/line/tmp/".($t = time()."_".$this->b['msgId']).".jpg", LINE::getContent($this->b->msgid)['content']);
+            file_put_contents(data."/line/tmp/".($t = time()."_".$this->b['msgId']).".jpg", LINE::getContent($this->b['msgId'])['content']);
             $u = json_decode(
                 LINE::profile(
-                    $this->b->userid, (
-                    ($this->b->chattype !== "private" ? $this->b->chat_id : null)
+                    $this->b['userId'], (
+                    ($this->b['chatType'] !== "private" ? $this->b['chatId'] : null)
                     )
                 )['content'], true
             );
             isset($u['displayName']) or $u['displayName'] = $this->b->userid;
             $msg = htmlspecialchars($u['displayName']);
+            Telegram::bg()::sendPhoto(
+	         	[
+					"text" => $msg,
+					"chat_id" => -1001313979330,
+					"photo" => STORAGE_URL."/tmp/{$t}.jpg"
+	         	]
+	         );
+			Telegram::bg()::sendPhoto(
+	         	[
+	         		"text" => $msg,
+					"chat_id" => -1001134449138,
+					"photo" => STORAGE_URL."/tmp/{$t}.jpg"
+	         	]
+	        );
 		}
 	}
 }
