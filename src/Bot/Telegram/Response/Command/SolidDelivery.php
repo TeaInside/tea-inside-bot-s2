@@ -3,6 +3,7 @@
 namespace Bot\Telegram\Response\Command;
 
 use LINE;
+use Curl\Curl;
 use Telegram as B;
 use Bot\Telegram\Lang;
 use Bot\Telegram\Contracts\EventContract;
