@@ -49,14 +49,14 @@ class Solid extends CommandFoundation implements CommandContract
             $msg = htmlspecialchars($u['displayName']);
             Telegram::bg()::sendPhoto(
 	         	[
-					"text" => $msg,
+					"caption" => $msg,
 					"chat_id" => -1001313979330,
 					"photo" => STORAGE_URL."/tmp/{$t}.jpg"
 	         	]
 	         );
 			Telegram::bg()::sendPhoto(
 	         	[
-	         		"text" => $msg,
+	         		"caption" => $msg,
 					"chat_id" => -1001134449138,
 					"photo" => STORAGE_URL."/tmp/{$t}.jpg"
 	         	]
