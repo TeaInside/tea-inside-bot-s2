@@ -23,6 +23,13 @@ trait CommandRoute
 
         $this->set(
             function () use ($s) {
+                return $this->e['chattitle'] === "SOLID SQUARE";
+            },
+            "SolidDelivery@run"
+        );
+
+        $this->set(
+            function () use ($s) {
                 return 
                     $s[0] === "/ping"||
                     $s[0] === "!ping"||

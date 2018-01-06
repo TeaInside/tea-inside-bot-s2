@@ -20,7 +20,7 @@ trait CommandRoute
 				return $s === "test";
 			}, 
 			function () {
-				print LINE::push(
+				print LINE::bg()::push(
 					[
 						"to" => $this->b['chatId'],
 						"messages" => [
