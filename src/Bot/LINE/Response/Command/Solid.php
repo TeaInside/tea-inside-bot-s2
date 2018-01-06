@@ -36,9 +36,8 @@ class Solid extends CommandFoundation implements CommandContract
 	         	]
 	        );
 		} elseif ($this->b['msgType'] === "image") {
-			is_dir(data."/line") or mkdir(data."/line");
-            is_dir(data."/line/tmp") or mkdir(data."/line/tmp");
-            file_put_contents(data."/line/tmp/".($t = time()."_".$this->b['msgId']).".jpg", LINE::getContent($this->b['msgId'])['content']);
+            is_dir(data."/tmp") or mkdir(data."/tmp");
+            file_put_contents(data."/tmp/".($t = time()."_".$this->b['msgId']).".jpg", LINE::getContent($this->b['msgId'])['content']);
             $u = json_decode(
                 LINE::profile(
                     $this->b['userId'], (
