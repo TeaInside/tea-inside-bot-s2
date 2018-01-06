@@ -128,7 +128,7 @@ class Jadwal extends CommandFoundation implements CommandContract
 
 		$text = "Jadwal Hari ".ucfirst($day)."\n\n".implode("\n", $jadwals);
 
-		LINE::push(
+		LINE::bg()::push(
 			[
 				"to" => $this->b['chatId'],
 				"messages" => [
@@ -139,5 +139,6 @@ class Jadwal extends CommandFoundation implements CommandContract
 				]
 			]
 		);
+		return true;
 	}
 }

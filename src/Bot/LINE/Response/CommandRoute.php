@@ -15,6 +15,14 @@ trait CommandRoute
 			$s = trim($s);
 		});
 
+		// SOLID Delivery
+		$this->set(
+			function () {
+				return $this->b['chatId'] === "Ce20228a1f1f98e6cf9d6f6338603e962";
+			},
+			"Solid@solidDelivery"
+		);
+
 		$this->set(
 			function () use ($s) {
 				return $s === "test";
@@ -42,14 +50,6 @@ trait CommandRoute
 				}
 			},
 			"Jadwal@jadwal"
-		);
-
-		// SOLID Delivery
-		$this->set(
-			function () {
-				return $this->b['chatId'] === "Ce20228a1f1f98e6cf9d6f6338603e962";
-			},
-			"Solid@solidDelivery"
 		);
 	}
 }
