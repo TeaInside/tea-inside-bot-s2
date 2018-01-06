@@ -12,7 +12,7 @@ class LINE
 
     public static function buildLongTextMessage($msg)
     {
-        $msg = str_split($r, 1999);
+        $msg = str_split($msg, 1999);
         $rr  = [];
         foreach ($msg as $val) {
             $rr[] = [

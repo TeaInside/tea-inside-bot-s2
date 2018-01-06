@@ -1,7 +1,7 @@
 <?php
-/*
-namespace Tests\Telegram;
 
+namespace Tests\Telegram;
+/*
 require __DIR__ . "/../../config/telegram/main.php";
 
 use DB;
@@ -26,6 +26,42 @@ class FakeWebhookTest extends TestCase
 // TRUNCATE TABLE `user_history`;");
 // 		pc($st->execute(), $st);
 	}
+
+    public function testLineForwarder()
+    {
+        $json = '{
+    "update_id": 344583205,
+    "message": {
+        "message_id": 2038,
+        "from": {
+            "id": 243692601,
+            "is_bot": false,
+            "first_name": "Ammar",
+            "last_name": "F.",
+            "username": "ammarfaizi2",
+            "language_code": "en-US"
+        },
+        "chat": {
+            "id": -1001134449138,
+            "title": "SOLID SQUARE",
+            "type": "supergroup"
+        },
+        "date": 1515216505,
+        "text": "/debug",
+        "entities": [
+            {
+                "offset": 0,
+                "length": 6,
+                "type": "bot_command"
+            }
+        ]
+    }
+}';
+
+        $app = new Bot(json_decode($json, true));
+        $app->buildEvent();
+        $this->assertTrue($app->run());
+    }
 
     public function testVirtualizor()
     {
