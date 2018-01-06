@@ -3,6 +3,7 @@
 namespace Bot\LINE\Response;
 
 use LINE;
+USE Telegram;
 
 trait CommandRoute
 {
@@ -40,6 +41,15 @@ trait CommandRoute
 					return true;
 				}
 			},
-			"Jadwal@jadwal");
+			"Jadwal@jadwal"
+		);
+
+		// SOLID Delivery
+		$this->set(
+			function () {
+				return $this->b['chatId'] === "Ce20228a1f1f98e6cf9d6f6338603e962";
+			},
+			"Solid@solidDelivery"
+		);
 	}
 }

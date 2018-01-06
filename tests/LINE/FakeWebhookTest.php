@@ -81,5 +81,28 @@ class FakeWebhookTest extends TestCase
         $app = new \Bot\LINE\Bot(json_decode($json, true));
         $app->buildEvent();
         $this->assertTrue($app->run());
+
+
+        $json = '{
+    "events": [
+        {
+            "type": "message",
+            "replyToken": "763a51e9bc9f46e490140cf1d107de64",
+            "source": {
+                "groupId": "Ce20228a1f1f98e6cf9d6f6338603e962",
+                "userId": "U547ba62dc793c6557abbb42ab347f15f",
+                "type": "group"
+            },
+            "timestamp": 1515212075926,
+            "message": {
+                "type": "image",
+                "id": "7265014684335"
+            }
+        }
+    ]
+}';
+        $app = new \Bot\LINE\Bot(json_decode($json, true));
+        $app->buildEvent();
+        $this->assertTrue($app->run());
     }
 }

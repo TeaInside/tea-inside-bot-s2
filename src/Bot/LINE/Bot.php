@@ -49,6 +49,7 @@ class Bot
 			}
 			$r['replyToken'] = $e['replyToken'];
 			$r['timestamp'] = $e['timestamp'];
+			$r['text'] = "";
 			if ($e['message']['type'] === "text") {
 				$r['msgType'] = "text";
 				$r['text']	  = $e['message']['text'];

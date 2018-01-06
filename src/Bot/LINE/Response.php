@@ -25,10 +25,8 @@ class Response
 	public function run()
 	{
 		foreach ($this->b->e as $val) {
-			if ($val['msgType'] === "text") {
-				$cmd = new Command($val);
-				$cmd->run();
-			}
+			$cmd = new Command($val);
+			$cmd->run();
 		}
 	}
 }
