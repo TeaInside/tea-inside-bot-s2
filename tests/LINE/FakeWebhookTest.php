@@ -23,7 +23,7 @@ class FakeWebhookTest extends TestCase
             "message": {
                 "type": "text",
                 "id": "7263900060953",
-                "text": "jadwal selasa"
+                "text": "test"
             }
         }
     ]

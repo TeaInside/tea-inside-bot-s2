@@ -18,17 +18,12 @@ class SolidDelivery extends CommandAbstraction implements EventContract
     public function run()
     {
         if ($this->e['msg_type'] === "text") {
-            $__text = [];
-            foreach (str_split($this->b->name."\n\n".$this->b->text, 1999) as $val) {
-                $__text[] = [
-                    "type" => "text",
-                    "text" => $val
-                ];
-            }
-            $data = [
-                "to" => "Ce20228a1f1f98e6cf9d6f6338603e962",
-                "messages" => $__text
-            ];
+            LINE::bg()::push(
+                [
+                    "to" => "Ce20228a1f1f98e6cf9d6f6338603e962",
+                    "messages" => LINE::buildLongTextMessage("{$this->e['name']}\n\n{$this->e['text']}")
+                ]
+            );
         }
     }
 
