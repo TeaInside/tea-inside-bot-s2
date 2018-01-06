@@ -23,6 +23,7 @@ class SolidDelivery extends CommandAbstraction implements EventContract
                 "messages" => LINE::buildLongTextMessage("{$this->e['name']}\n\n{$this->e['text']}")
             ];
         } elseif ($this->e['msg_type'] === "photo") {
+            $url = $this->savePhoto();
             $data[] = [
                 "type" => "image",
                 "originalContentUrl" => $url,
