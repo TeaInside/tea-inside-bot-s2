@@ -49,6 +49,7 @@ class SolidDelivery extends CommandAbstraction implements EventContract
             "file_id" => $p['file_id']
         ])['content'], true);
         $st = new Curl("https://api.telegram.org/file/bot".TOKEN."/".$a['result']['file_path']);
+        is_dir(data."/tmp") or mkdir(data."/tmp");
         if (file_put_contents(data."/tmp/".($t = sha1($p['file_id'])).".jpg", $st->exec())) {
             return STORAGE_URL."/tmp/{$t}.jpg";
         } else {
