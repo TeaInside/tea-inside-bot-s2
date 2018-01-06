@@ -2,6 +2,10 @@
 
 namespace Tests\LINE;
 
+require __DIR__ . "/../../config/line/main.php";
+
+use PHPUnit\Framework\TestCase;
+
 class FakeWebhookTest extends TestCase
 {
     public function testPrivateChat()
@@ -19,7 +23,57 @@ class FakeWebhookTest extends TestCase
             "message": {
                 "type": "text",
                 "id": "7263900060953",
-                "text": "Test"
+                "text": "jadwal selasa"
+            }
+        }
+    ]
+}';
+        $app = new \Bot\LINE\Bot(json_decode($json, true));
+        $app->buildEvent();
+        $this->assertTrue($app->run());
+    }
+
+    public function testGroupChat()
+    {
+        $json = '{
+    "events": [
+        {
+            "type": "message",
+            "replyToken": "c288dc8b349e4effae573ed94d0fc751",
+            "source": {
+                "groupId": "Ce20228a1f1f98e6cf9d6f6338603e962",
+                "userId": "U547ba62dc793c6557abbb42ab347f15f",
+                "type": "group"
+            },
+            "timestamp": 1515205758062,
+            "message": {
+                "type": "text",
+                "id": "7264596347061",
+                "text": "Gayenk"
+            }
+        }
+    ]
+}';
+        $app = new \Bot\LINE\Bot(json_decode($json, true));
+        $app->buildEvent();
+        $this->assertTrue($app->run());
+    }
+
+    public function testImage()
+    {
+        $json = '{
+    "events": [
+        {
+            "type": "message",
+            "replyToken": "b052c18d89fb4d489d57a014bc9b2f84",
+            "source": {
+                "userId": "U547ba62dc793c6557abbb42ab347f15f",
+                "type": "user"
+            },
+            "timestamp": 1515206106069,
+            "message": {
+                "type": "image",
+                "id": "7264617930218"
             }
         }
     ]

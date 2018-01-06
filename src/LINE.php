@@ -9,6 +9,20 @@ use Stacks\LINE\BackgroundProcess;
  */
 class LINE
 {
+
+    public static function buildLongTextMessage($msg)
+    {
+        $msg = str_split($r, 1999);
+        $rr  = [];
+        foreach ($msg as $val) {
+            $rr[] = [
+                "type" => "text",
+                "text" => $val
+            ];
+        }
+        return $rr;
+    }
+
 	public static function bg()
 	{
 		return new BackgroundProcess;

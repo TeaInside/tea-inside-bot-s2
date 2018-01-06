@@ -1,5 +1,5 @@
 <?php
-
+/*
 namespace Tests\Telegram;
 
 require __DIR__ . "/../../config/telegram/main.php";
@@ -13,18 +13,18 @@ class FakeWebhookTest extends TestCase
 
 	public function setUp()
 	{
-/*		$st = DB::prepare("SET foreign_key_checks = 0;
-TRUNCATE TABLE `groups`;
-TRUNCATE TABLE `group_admins`;
-TRUNCATE TABLE `group_history`;
-TRUNCATE TABLE `group_messages`;
-TRUNCATE TABLE `group_messages_data`;
-TRUNCATE TABLE `group_settings`;
-TRUNCATE TABLE `private_messages`;
-TRUNCATE TABLE `private_messages_data`;
-TRUNCATE TABLE `users`;
-TRUNCATE TABLE `user_history`;");
-		pc($st->execute(), $st);*/
+// 		$st = DB::prepare("SET foreign_key_checks = 0;
+// TRUNCATE TABLE `groups`;
+// TRUNCATE TABLE `group_admins`;
+// TRUNCATE TABLE `group_history`;
+// TRUNCATE TABLE `group_messages`;
+// TRUNCATE TABLE `group_messages_data`;
+// TRUNCATE TABLE `group_settings`;
+// TRUNCATE TABLE `private_messages`;
+// TRUNCATE TABLE `private_messages_data`;
+// TRUNCATE TABLE `users`;
+// TRUNCATE TABLE `user_history`;");
+// 		pc($st->execute(), $st);
 	}
 
     public function testVirtualizor()
@@ -439,3 +439,4 @@ TRUNCATE TABLE `user_history`;");
 
 
 }
+*/
