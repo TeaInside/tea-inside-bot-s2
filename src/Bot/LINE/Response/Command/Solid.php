@@ -64,4 +64,3 @@ class Solid extends CommandFoundation implements CommandContract
 		}
 	}
 }
-
