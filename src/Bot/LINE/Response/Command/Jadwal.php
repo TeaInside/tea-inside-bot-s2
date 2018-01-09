@@ -13,15 +13,15 @@ class Jadwal extends CommandFoundation implements CommandContract
 		$jadwals = [
 			"senin" => [
 				"Upacara",
-				"Bahasa Jawa",
-				"Bahasa Jawa",
+				"Bahasa Indonesia",
+				"Bahasa Indonesia",
 				"Agama",
 				"Istirahat",
+				"Bahasa Jawa",
+				"Bahasa Jawa",
 				"B.Inggris",
-				"B.Inggris",
-				"Fisika",
 				"Istirahat",
-				"Fisika",
+				"B.Inggris",
 				"Seni Musik",
 				"Seni Musik"
 			],
@@ -40,10 +40,10 @@ class Jadwal extends CommandFoundation implements CommandContract
 				"Kewirausahaan"
 			],
 			"rabu" => [
-				"Matematika Wajib",
-				"Matematika Wajib",
 				"Fisika",
 				"Fisika",
+				"Matematika Wajib",
+				"Matematika Wajib",
 				"Istirahat",
 				"Biologi",
 				"Biologi",
@@ -56,8 +56,8 @@ class Jadwal extends CommandFoundation implements CommandContract
 			"kamis" => [
 				"Agama",
 				"Agama",
-				"B.Indonesia",
-				"B.Indonesia",
+				"Fisika",
+				"Fisika",
 				"Istirahat",
 				"PKN",
 				"PKN",
