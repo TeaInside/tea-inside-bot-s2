@@ -128,7 +128,7 @@ class Jadwal extends CommandFoundation implements CommandContract
 		} else {
 			$day = $this->b['jadwalCmd'];
 			if (isset($jadwals[$day])) {
-				$jadwals = $jadwals;
+				$jadwals = implode("\n", $jadwals);
 			} else {
 				return false;
 			}
