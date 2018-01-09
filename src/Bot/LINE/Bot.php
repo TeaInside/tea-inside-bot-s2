@@ -58,6 +58,9 @@ class Bot
 			} elseif ($e['message']['type'] === "image") {
 				$r['msgType'] = "image";
 				$r['msgId']   = $e['message']['id'];
+			} elseif ($e['message']['type'] === "sticker") {
+				$r['msgType'] = "sticker";
+				$r['msgId']   = $e['message']['id'];
 			}
 		}
 		return $r;

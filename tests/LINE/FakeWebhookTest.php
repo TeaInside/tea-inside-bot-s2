@@ -8,6 +8,34 @@ use PHPUnit\Framework\TestCase;
 
 class FakeWebhookTest extends TestCase
 {
+    public function testSticker()
+    {
+        $json = '{
+    "events": [
+        {
+            "type": "message",
+            "replyToken": "a4d7042cdfcb4e2a86a6f3a671e4f23e",
+            "source": {
+                "groupId": "Ce20228a1f1f98e6cf9d6f6338603e962",
+                "userId": "U547ba62dc793c6557abbb42ab347f15f",
+                "type": "group"
+            },
+            "timestamp": 1515477510703,
+            "message": {
+                "type": "sticker",
+                "id": "7281400575767",
+                "stickerId": "10",
+                "packageId": "1"
+            }
+        }
+    ]
+}';
+        $app = new \Bot\LINE\Bot(json_decode($json, true));
+        $app->buildEvent();
+        $this->assertTrue($app->run());
+        die;
+    }
+
     public function testPrivateChat()
     {
         $json = '{
