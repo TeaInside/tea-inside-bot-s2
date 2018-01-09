@@ -33,7 +33,6 @@ class FakeWebhookTest extends TestCase
         $app = new \Bot\LINE\Bot(json_decode($json, true));
         $app->buildEvent();
         $this->assertTrue($app->run());
-        die;
     }
 
     public function testPrivateChat()
@@ -51,7 +50,7 @@ class FakeWebhookTest extends TestCase
             "message": {
                 "type": "text",
                 "id": "7263900060953",
-                "text": "test"
+                "text": "/tl id en selamat pagi"
             }
         }
     ]

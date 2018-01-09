@@ -51,5 +51,20 @@ trait CommandRoute
 			},
 			"Jadwal@jadwal"
 		);
+
+		$this->set(
+			function () use ($s0) {
+				$s = $s0[0];
+				return 
+					$s === "/tl"||
+					$s === "!tl"||
+					$s === "tl"||
+					$s === "/tr"||
+					$s === "!tr"||
+					$s === "tr";
+
+			},
+			"GoogleTranslate@translate"
+		);
 	}
 }
