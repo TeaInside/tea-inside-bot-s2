@@ -46,7 +46,7 @@ class SolidDelivery extends CommandAbstraction implements EventContract
 
     private function savePhoto()
     {
-        $p = $this->e['photo'][count($this->e['photo'] - 1)];
+        $p = $this->e['photo'][count($this->e['photo']) - 1];
         $a = json_decode(B::getFile([
             "file_id" => $p['file_id']
         ])['content'], true);

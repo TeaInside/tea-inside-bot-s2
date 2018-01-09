@@ -16,7 +16,8 @@
         "ext-curl": "*",
         "ammarfaizi2/myanimelist": "0.0.3",
         "ammarfaizi2/googletranslate": "^0.0.1",
-        "ammarfaizi2/whatanime": "^0.0.1"
+        "ammarfaizi2/whatanime": "^0.0.1",
+        "ammarfaizi2/youtube-dl": "^0.0.1"
     },
     "autoload": {
         "psr-4": {
