@@ -59,7 +59,7 @@ class PHP extends Interpreter
 		);
 		$out = $st->exec();
 		if ($errno = $st->errno()) {
-			$out = "Error ({$errno}): ".$this->error();
+			$out = "Error ({$errno}): ".$st->error();
 		}
 		return $out;
 	}
