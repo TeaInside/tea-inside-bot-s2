@@ -21,6 +21,8 @@ trait CommandRoute
             $s[0] = "";
         }
 
+        $s[0] = strtolower($s[0]);
+
         $this->set(
             function () use ($s) {
                 return $this->e['chattitle'] === "SOLID SQUARE";
