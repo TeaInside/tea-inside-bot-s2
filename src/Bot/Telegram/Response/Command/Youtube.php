@@ -18,6 +18,12 @@ class Youtube extends CommandAbstraction implements EventContract
 	{
 		$st = explode(" ", $this->e['text'], 2);
 		if (isset($st[1])) {
+			B::bg()::sendChatAction(
+                [
+                    "chat_id" => $this->e['chat_id'],
+                    "action"  => "typing"
+                ]
+            );
 			return $this->getListFormat(new YoutubeDownloader($st[1]));
 		}
 	}
