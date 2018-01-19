@@ -272,6 +272,25 @@ trait CommandRoute
 
         $this->set(
             function () use ($s) {
+                return
+                    $s[0] === "/yd"         ||
+                    $s[0] === "/ydl"        ||
+                    $s[0] === "/ytdl"       ||
+                    $s[0] === "/youtube-dl" ||
+                    $s[0] === "!yd"         ||
+                    $s[0] === "!ydl"        ||
+                    $s[0] === "!ytdl"       ||
+                    $s[0] === "!youtube-dl" ||
+                    $s[0] === "~yd"         ||
+                    $s[0] === "~ydl"        ||
+                    $s[0] === "~ytdl"       ||
+                    $s[0] === "~youtube-dl";
+            },
+            "Youtube@listFormat"
+        );
+
+        $this->set(
+            function () use ($s) {
                 return substr($s[0], 0, 5) === "<?php";
             },
             "Virtualizor@php"

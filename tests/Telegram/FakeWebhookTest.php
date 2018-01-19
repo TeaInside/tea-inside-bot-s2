@@ -1,7 +1,7 @@
 <?php
 
 namespace Tests\Telegram;
-/*
+
 require __DIR__ . "/../../config/telegram/main.php";
 
 use DB;
@@ -26,6 +26,68 @@ class FakeWebhookTest extends TestCase
 // TRUNCATE TABLE `user_history`;");
 // 		pc($st->execute(), $st);
 	}
+
+    public function testYoutubeDownload()
+    {
+        $json = '{
+    "update_id": 344621753,
+    "message": {
+        "message_id": 39410,
+        "from": {
+            "id": 243692601,
+            "is_bot": false,
+            "first_name": "Ammar",
+            "last_name": "F.",
+            "username": "ammarfaizi2",
+            "language_code": "en-US"
+        },
+        "chat": {
+            "id": 243692601,
+            "first_name": "Ammar",
+            "last_name": "F.",
+            "username": "ammarfaizi2",
+            "type": "private"
+        },
+        "date": 1516384157,
+        "reply_to_message": {
+            "message_id": 39409,
+            "from": {
+                "id": 243692601,
+                "is_bot": false,
+                "first_name": "Ammar",
+                "last_name": "F.",
+                "username": "ammarfaizi2",
+                "language_code": "en-US"
+            },
+            "chat": {
+                "id": 243692601,
+                "first_name": "Ammar",
+                "last_name": "F.",
+                "username": "ammarfaizi2",
+                "type": "private"
+            },
+            "date": 1516384104,
+            "text": "/yd https://youtu.be/t3r9y1BZY90",
+            "entities": [
+                {
+                    "offset": 0,
+                    "length": 3,
+                    "type": "bot_command"
+                },
+                {
+                    "offset": 4,
+                    "length": 28,
+                    "type": "url"
+                }
+            ]
+        },
+        "text": "/yd https://youtu.be/t3r9y1BZY90"
+    }
+}';
+        $app = new Bot(json_decode($json, true));
+        $app->buildEvent();
+        $this->assertTrue($app->run());die;
+    }
 
     public function testLineForwarder()
     {
@@ -475,4 +537,3 @@ class FakeWebhookTest extends TestCase
 
 
 }
-*/
