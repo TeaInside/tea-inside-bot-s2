@@ -1,5 +1,6 @@
 -- Adminer 4.3.1 MySQL dump
-
+create database pg2ice;
+use pg2ice;
 SET NAMES utf8;
 SET time_zone = '+00:00';
 SET foreign_key_checks = 0;

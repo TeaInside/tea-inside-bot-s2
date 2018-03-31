@@ -34,7 +34,7 @@ class Ping extends CommandAbstraction implements EventContract
                 [
                     "chat_id" => $this->e['chat_id'],
                     "message_id" => $st['result']['message_id'],
-                    "text" => "Pong!\n".((time() - $this->e['date']) + round(microtime(true) - $start, 3))." s"
+                    "text" => "Pong!\n".(abs((time() - 11 - $this->e['date'])) + round(microtime(true) - $start, 3))." s"
                 ]
             );
         }
